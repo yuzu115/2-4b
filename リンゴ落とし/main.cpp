@@ -17,9 +17,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
-	
+
+		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+
+		ScreenFlip();
 
 	}
 
 
 }
+
