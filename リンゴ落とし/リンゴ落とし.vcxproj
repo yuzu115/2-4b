@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="infomation.h" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="End.h" />
     <ClInclude Include="Help.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="Resalt.h" />
     <ClInclude Include="Title.h" />
