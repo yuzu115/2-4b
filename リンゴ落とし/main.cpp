@@ -1,5 +1,6 @@
 #include"DxLib.h"
 #include"infomation.h"
+#include"DrawApple.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -26,6 +27,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
+		DrawApple();
+
 		ScreenFlip();
 
 	}
@@ -34,4 +37,3 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	return 0;				               // ソフトの終了 
 }
-

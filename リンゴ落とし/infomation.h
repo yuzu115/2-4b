@@ -41,3 +41,4 @@ int g_KeyFlg;                  //入力キー情報
 int GameMode;     //モード
 
 int g_Score;      //スコア
+

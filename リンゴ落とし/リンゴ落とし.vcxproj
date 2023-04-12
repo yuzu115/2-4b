@@ -19,10 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DropApple.cpp" />
+    <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawApple.h" />
     <ClInclude Include="infomation.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
