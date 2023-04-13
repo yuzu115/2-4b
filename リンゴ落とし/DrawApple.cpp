@@ -39,14 +39,20 @@ void DrawApple(void){
 		if (gApple[i].flg == TRUE) {
 			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);
 			gApple[i].y += gApple[i].speed;
+
+			if (gApple[i].y > 500) {
+				gApple[i].flg = FALSE;
+			}
+
 			DrawFormatString(0, 0, 0x000000, "speed:%d", gApple[i].speed);
 			DrawFormatString(0, 20, 0x000000, "y:%d", gApple[i].y);
 			DrawFormatString(0, 40, 0x000000, "x:%d", gApple[i].x);
 			DrawFormatString(0, 60, 0x000000, "r:%d", gApple[i].r);
 		}
+		
 	}
-
 	CreateApple();
+
 }
 
 int CreateApple()
@@ -56,8 +62,8 @@ int CreateApple()
 			gApple[i] = gApple00;
 			gApple[i].type = GetRand(3);
 			gApple[i].img = gAppleImg[gApple[i].type];
-			gApple[i].x = GetRand(7) * 90 + 30;
-			gApple[i].speed = gApple[i].type * 2;
+			gApple[i].x = GetRand(7) * 60 + 30;
+			gApple[i].speed = gApple[i].type + gApple[i].speed * 2;
 
 			return TRUE;
 		}
