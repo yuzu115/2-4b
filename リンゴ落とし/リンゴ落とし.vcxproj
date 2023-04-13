@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Pause.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawApple.h" />
@@ -150,7 +150,7 @@
   <ItemGroup>
     <ClInclude Include="End.h" />
     <ClInclude Include="Help.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="Resalt.h" />
     <ClInclude Include="Title.h" />
