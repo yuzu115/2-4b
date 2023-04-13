@@ -1,24 +1,67 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 
-int AppleY = 0;
+/******************************************
+* 定数の宣言
+******************************************/
+const int APPLE_MAX = 10;	//リンゴの最大生成数
 
-void DrawApple(void)
+/******************************************
+* 構造体の宣言
+******************************************/
+struct APPLE {
+	int flg;		//フラグ
+	int type;		//種類
+	int img;		//画像表示用
+	int x, y, r;	//座標、半径
+	int speed;		//落下速度
+	int score;		//スコア加算
+};
+
+struct APPLE gApple[APPLE_MAX];
+struct APPLE gApple00 = { TRUE,0,0,0,0,30,3,0 };
+
+int gAppleImg[4];
+
+int AppleInit(void)
 {
-	DrawCircle(640, AppleY, 45, 0xffffff, TRUE);
+	if((gAppleImg[0] = 0xff0000) == -1)return -1;	//赤リンゴ
+	if((gAppleImg[1] = 0x00ff00) == -1)return -1;	//青リンゴ
+	if((gAppleImg[2] = 0xffff00) == -1)return -1;	//金リンゴ
+	if((gAppleImg[3] = 0xff00ff) == -1)return -1;	//毒リンゴ
+}
 
-	if (AppleY < 500){
-		for (int i = 0; i < 3; i++)
-		{
-			AppleY += 3;
-			DrawFormatString(0, 20,0x000000, "%d", AppleY);
+void DrawApple(void){
+
+	AppleInit();
+
+	for (int i = 0; i < APPLE_MAX; i++){
+		if (gApple[i].flg == TRUE) {
+			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);
+			gApple[i].y += gApple[i].speed;
+			DrawFormatString(0, 0, 0x000000, "speed:%d", gApple[i].speed);
+			DrawFormatString(0, 20, 0x000000, "y:%d", gApple[i].y);
+			DrawFormatString(0, 40, 0x000000, "x:%d", gApple[i].x);
+			DrawFormatString(0, 60, 0x000000, "r:%d", gApple[i].r);
+		}
+	}
+
+	CreateApple();
+}
+
+int CreateApple()
+{
+	for (int i = 0; i < APPLE_MAX; i++) {
+		if (gApple[i].flg == FALSE) {
+			gApple[i] = gApple00;
+			gApple[i].type = GetRand(3);
+			gApple[i].img = gAppleImg[gApple[i].type];
+			gApple[i].x = GetRand(7) * 90 + 30;
+			gApple[i].speed = gApple[i].type * 2;
+
+			return TRUE;
 		}
 
+		return FALSE;
 	}
-	
-	if (AppleY > 500){
-		AppleY = 0;
-	}
-
-
 }

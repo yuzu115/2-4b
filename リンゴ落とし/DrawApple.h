@@ -1,5 +1,5 @@
 #pragma once
 
-int AppleY;
-
+int AppleInit();
 void DrawApple();
+int CreateApple();

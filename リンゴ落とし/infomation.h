@@ -42,3 +42,4 @@ int GameMode;     //モード
 
 int g_Score;      //スコア
 
+
