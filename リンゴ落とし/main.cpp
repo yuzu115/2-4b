@@ -30,7 +30,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		DrawApple();
 
-		if (GameMode == PAUSE) {
+		if (GameMode == PAUSE)
+		{
 			pause(g_OldKey, GameMode);
 		}
 

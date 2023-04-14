@@ -26,13 +26,5 @@ void pause(int oldkey,int gamemode)
 *********************/
 void pausefinish(int oldkey, int gamemode)
 {
-	if (oldkey & PAD_INPUT_8)
-	{
-		gFinishKeyFlg = TRUE;
-	}
-	if (gFinishKeyFlg == TRUE)
-	{
-		SetFontSize(100);
-		DrawString(350, 300, "--É|Å[ÉYâÊñ --", 0xffffff);
-	}
+	
 }
