@@ -6,9 +6,9 @@ int gStartKeyFlg = FALSE;
 /********************
 *ƒ|[ƒY‰æ–Ê‘JˆÚ     *
 ********************/
-void pause(void)
+void pause(int oldkey,int gamemode)
 {
-	if (keyflg & PAD_INPUT_8) 
+	if (oldkey & PAD_INPUT_8) 
 	{
 		gStartKeyFlg = TRUE;
 	}
