@@ -23,6 +23,7 @@ enum mode {
 	TITLE,
 	INIT,
 	MAIN,
+	MAIN2,  // プレイヤー仮表示
 	RANKING,
 	HELP,
 	INPUTNAME,
