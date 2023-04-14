@@ -26,9 +26,21 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		ClearDrawScreen();                 //âÊñ Çèâä˙âª
 
-		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
-		DrawApple();
+		//DrawApple();
+
+		if (g_OldKey & PAD_INPUT_8)
+		{
+			switch (GameMode)
+			{
+			case PAUSE:
+				pause(g_OldKey,GameMode);
+				pausefinish(g_OldKey, GameMode);
+				break;
+
+			}
+		}
 
 		if (GameMode == PAUSE)
 		{

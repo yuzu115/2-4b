@@ -16,7 +16,7 @@ void pause(int oldkey,int gamemode)
 	if (gStartKeyFlg == TRUE)
 	{
 		SetFontSize(100);
-		DrawString(350, 300, "--ポーズ画面--", 0xffffff);
+		DrawString(300, 300, "--ポーズ画面--", 0xffffff);
 	}
 
 }
@@ -26,8 +26,5 @@ void pause(int oldkey,int gamemode)
 *********************/
 void pausefinish(int oldkey, int gamemode)
 {
-	if (oldkey & PAD_INPUT_8)
-	{
-		
-	}
+	
 }
