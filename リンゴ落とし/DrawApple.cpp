@@ -19,7 +19,7 @@ struct APPLE {
 };
 
 struct APPLE gApple[APPLE_MAX];
-struct APPLE gApple00 = { TRUE,0,0,0,-40,45,3,0 };
+struct APPLE gApple00 = { TRUE,0,0,0,-40,45,1,0 };
 
 int gAppleImg[4];
 
@@ -29,10 +29,7 @@ int AppleInit(void)
 	if((gAppleImg[1] = 0x00ff00) == -1)return -1;	//ê¬ÉäÉìÉS
 	if((gAppleImg[2] = 0xffff00) == -1)return -1;	//ã‡ÉäÉìÉS
 	if((gAppleImg[3] = 0xff00ff) == -1)return -1;	//ì≈ÉäÉìÉS
-	for (int i = 0; i < APPLE_MAX; i++)
-	{
-		gApple[i].flg = FALSE;
-	}
+
 }
 
 void DrawApple(void){
@@ -44,7 +41,7 @@ void DrawApple(void){
 			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);
 			gApple[i].y += gApple[i].speed;
 
-			if (gApple[i].y > 500) {
+			if (gApple[i].y > 1000) {
 				gApple[i].flg = FALSE;
 			}
 			DrawFormatString(0, 0, 0x000000, "x:%d", gApple[i].x);
@@ -68,11 +65,10 @@ int CreateApple()
 			gApple[i].type = GetRand(3);
 			gApple[i].img = gAppleImg[gApple[i].type];
 			gApple[i].x = GetRand(7) * 100 + 50;
-			gApple[i].speed = gApple[i].type + gApple[i].speed * 3;
-
+			gApple[i].speed = gApple[i].type + gApple[i].speed;
+			gApple[i].flg = TRUE;
 			return TRUE;
 		}
-
-		return FALSE;
 	}
+	return FALSE;
 }
