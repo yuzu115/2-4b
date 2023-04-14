@@ -12,7 +12,7 @@ void pause(int oldkey,int gamemode)
 	{
 		gStartKeyFlg = TRUE;
 	}
-	if (gStartKeyFlg = TRUE) 
+	if (gStartKeyFlg = TRUE)
 	{
 		SetFontSize(100);
 		DrawString(350, 300, "--É|Å[ÉYâÊñ --", 0xffffff);
