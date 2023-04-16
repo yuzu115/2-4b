@@ -1,5 +1,10 @@
+#include "DxLib.h"
 #include "Title.h"
 
+int titleImg;
+
+static int menuNo = 0;
+int posY;
 
 int DrawTitle(void) {
 
