@@ -3,11 +3,13 @@
 
 int gStartKeyFlg = FALSE;
 int gFinishKeyFlg = FALSE;
+int gPauseCnt;
+int gPauseFlg;
 
 /********************
 *ポーズ画面遷移     *
 ********************/
-void pause(int oldkey,int gamemode)
+static void pause(int oldkey,int gamemode)
 {
 	if (oldkey & PAD_INPUT_8) 
 	{
@@ -18,22 +20,18 @@ void pause(int oldkey,int gamemode)
 		SetFontSize(100);
 		DrawString(300, 300, "--ポーズ画面--", 0xffffff);
 	}
-
+	
 }
 
 /*********************
 *ゲームメイン画面遷移*
 *********************/
-void pausefinish(int oldkey, int gamemode)
+static void pausefinish(int oldkey,int gamemode)
 {
-	if (oldkey & PAD_INPUT_8)
+	
+	if (oldkey & PAD_INPUT_8 &&gPauseCnt>0&&gPauseFlg==0)
 	{
-		gFinishKeyFlg = TRUE;
+		gPauseCnt--;
+		gPauseFlg = 1;
 	}
-	if (gFinishKeyFlg == TRUE)
-	{
-		SetFontSize(100);
-		DrawString(300, 300, "ポーズ画面終了", 0xffffff);
-	}
-
 }

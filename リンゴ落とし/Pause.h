@@ -5,7 +5,7 @@
 /************************
 *関数のプロトタイプ宣言 *
 ************************/
-void pause(int oldkey,int gamemode);//ポーズ画面遷移:@
-void pausefinish(int oldkey, int gamemode);//ポーズ画面からゲームメインへ
+static void pause(int oldkey,int gamemode);//ポーズ画面遷移:@
+static void pausefinish(int oldkey, int gamemode);//ポーズ画面からゲームメインへ
 
 #endif // !PAUSE_H_
