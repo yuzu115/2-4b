@@ -5,18 +5,34 @@
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+
+	// FPSの計測と表示を行うローカル変数の宣言
+	LONGLONG nowTime = GetNowHiPerformanceCount();
+	LONGLONG oldTime = nowTime;
+	LONGLONG fpsCheckTime;
+	double deltaTime = 0;
+	int fpsCounter = 0;
+	int fps = 0;
+
 	SetMainWindowText("リンゴ落とし");
 	ChangeWindowMode(TRUE);
 
 	// ウィンドウサイズを設定
-	SetGraphMode(SCREENSIZE_X,SCREENSIZE_Y,32);
+	SetGraphMode(SCREENSIZE_X, SCREENSIZE_Y, 32);
 
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	// 
 	GameMode = MAIN2;
 
 	PlayerInit();
+
+	// ループ前にFPS計測を初期化
+	fpsCheckTime = GetNowHiPerformanceCount();
+	fps = 0;
+	fpsCounter = 0;
+
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -31,9 +47,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		if (GameMode == MAIN2)
 		{
-			PlayerControl(g_OldKey,GameMode);
-			HitBoxPlayer();
+			PlayerControl(g_OldKey, GameMode);
+			//HitBoxPlayer(PLAYER * p);
 		}
+
+
+		// FPSの表示
+		SetFontSize(16);
+		DrawFormatString(390, 5, 0xffffff, "FPS:%3d DELTA:%8.6fsec", fps, deltaTime);
 
 		ScreenFlip();
 

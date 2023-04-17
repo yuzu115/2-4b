@@ -6,6 +6,7 @@
  ******************************************/
 void PlayerInit(void);     // プレイヤー初期化
 void PlayerControl(int oldkey, int gamemode);  // プレイヤー制御
+void HitBoxPlayer(void);   // プレイヤーの当たり判定
 
 //int HitBoxPlayer(PLAYER* p);
 

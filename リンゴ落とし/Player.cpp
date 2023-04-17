@@ -6,11 +6,13 @@
 /******************************************
  * 定数の宣言
  ******************************************/
+// 画面サイズ
+const int SCREEN_WIDTH  = 1280;   // 幅
+const int SCREEN_HEIGHT = 720;    // 高さ
+
  // プレイヤーの初期値の定数
-const int PLAYER_POS_X  = 640;  // X座標 
-const int PLAYER_POS_Y  = 600;  // Y座標 
-const int PLAYER_WIDTH  = 1000; // 幅
-const int PLAYER_HEIGHT = 0;    // 高さ
+const int PLAYER_POS_X  = 600;  // X座標 
+const int PLAYER_POS_Y  = 570;  // Y座標 
 const int PLAYER_SPEED  = 2;    // 移動速度
 
 /******************************************
@@ -21,7 +23,7 @@ struct PLAYER
 {
 	int flg;       // 使用フラグ
 	int x, y;      // 座標
-	int w, h;      // 高さ
+	int w, h;      // 幅、高さ
 	int speed;     // 移動速度
 
 };
@@ -38,8 +40,8 @@ void PlayerInit(void)
 	gPlayer.flg = TRUE;         
 	gPlayer.x = PLAYER_POS_X;   
 	gPlayer.y = PLAYER_POS_Y;   
-	gPlayer.w = PLAYER_WIDTH;   
-	gPlayer.h = PLAYER_HEIGHT;
+	gPlayer.w = 50;
+	gPlayer.h = 150;
 	gPlayer.speed = PLAYER_SPEED;
 }
 
@@ -48,67 +50,88 @@ void PlayerInit(void)
  *************************************/
 void PlayerControl(int oldkey,int gamemode)
 {
-	// プレイヤー仮表示
-	DrawCircle(gPlayer.x, PLAYER_POS_Y, 50, 0xffffff, TRUE);
-
-	// 左右移動
-	if (gPlayer.flg == TRUE)
+	
+	// プレイヤーの左右移動
+	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
 	{
+
 		// 左移動
-		// ダッシュ：Aボタンを押したまま左スティック操作する
+		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
 		{
-			DrawCircle(gPlayer.x, PLAYER_POS_Y, 50, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed * 2;
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + 50, SCREEN_HEIGHT, 0xff0000, TRUE);
+
+			gPlayer.x -= gPlayer.speed + 1;
 		}
-		// 歩く：左スティック操作のみ
+		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + 50, SCREEN_HEIGHT, 0x00ffff, TRUE);
 			gPlayer.x -= gPlayer.speed;
 		}
 		
 
 		// 右移動
-		// ダッシュ：Aボタンを押したまま左スティック操作する
+		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
 		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
 		{
-			DrawCircle(gPlayer.x, PLAYER_POS_Y, 50, 0xff0000, TRUE);
-			gPlayer.x += gPlayer.speed * 2;
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + 50, SCREEN_HEIGHT, 0xff0000, TRUE);
+			gPlayer.x += gPlayer.speed + 1;
 		}
-		// 歩く：左スティック操作のみ
+		// 歩く：左スティックを右に傾ける
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + 50, SCREEN_HEIGHT, 0x00ffff, TRUE);
 			gPlayer.x += gPlayer.speed;
 		}
 		
 	}
+	// プレイヤーの静止
+	else
+	{
+		// プレイヤー仮表示(白)
+		DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + 50, SCREEN_HEIGHT, 0xffffff, TRUE);
+	}
 
 	// 画面をはみ出さないようにする
 	// 右
-	if (gPlayer.x > PLAYER_WIDTH)
+	if (gPlayer.x > 1000)
 	{
-		gPlayer.x = PLAYER_WIDTH;
+		gPlayer.x = 1000;
 	}
 	// 左
-	if (gPlayer.x < 50)
+	if (gPlayer.x < 0)
 	{
-		gPlayer.x = 50;
+		gPlayer.x = 0;
 	}
 
 }
+
 /*************************************
  * プレイヤーの当たり判定
  *************************************/
-void HitBoxPlayer(PLAYER* p)
+void HitBoxPlayer(void)
 {
-	// x,yは中心座標とする
-	// px1,py1 左上 px2,py1 右下
-	int px1 = (p->x - (p->w / 2)) + 5;
-	int py1 = (p->y - (p->h / 2)) + 5;
-	int px2 = (px1 + p->w) - 10;
-	int py2 = (py1 + p->h) - 5;
+	int x1, x2, y1, y2;
 
-	// 矩形当たり判定範囲表示(確認用)
-	DrawBox(px1, py1, px2, py2, 0xff0000, TRUE);
+	x1 = gPlayer.x;
+	y1 = gPlayer.y;
+	x2 = gPlayer.x + gPlayer.w;
+	y2 = gPlayer.y + gPlayer.h;
+
+	DrawBox(x1, y1, x2, y2, 0x00ff00, TRUE);
+
+
+	int x3, x4, y3, y4;
+
+	x1 = gPlayer.x;
+	y1 = gPlayer.y;
+	x2 = gPlayer.x + gPlayer.w;
+	y2 = gPlayer.y + gPlayer.h;
+
 
 }
