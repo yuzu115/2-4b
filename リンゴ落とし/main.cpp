@@ -24,30 +24,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッドのボタン
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 		
-		GameMode = 0;			// タイトルへ
+	//	GameMode = 0;			// タイトルへ
+		GameMode = 4;			// ヘルプへ
 
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle();		//ゲームタイトル描画処理
 				break;
-			//case INIT:
-			//	GameInit();
-			//	break;
-			//case MAIN:
-			//	DrawMain();
-			//	break;
-			//case RANKING:
-			//	DrawRanking();
-			//	break;
-			//case INPUTNAME:
-			//	InputName();
-			//	break;
-			//case GAMEOVER:
-			//	DrawOver();
-			//	break;
-			//case END:
-			//	DrawEnd();
-			//	break;
+			case HELP:
+				DrawHelp();		//ヘルプ画面描画処理
+				break;
 		}
 
 		ScreenFlip();	//裏画面の内容を表画面に反映

@@ -3,7 +3,7 @@
 /****************************************
 *　変数の宣言
 *****************************************/
-int titleImg;			// タイトル画像
+int TitleImg;			// タイトル画像
 
 static int menuNo = 0;		// 0：START　1：RANKING　2：HELP　3：End
 int posY;					// カーソルのY座標
@@ -11,10 +11,10 @@ int posY;					// カーソルのY座標
 int DrawTitle(void) {
 
 	// タイトル画像の読込
-	if ((titleImg = LoadGraph("images/title.PNG")) == -1) return -1;
+	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
 
 	// 画像の表示
-	DrawGraph(0, 0, titleImg, FALSE);
+	DrawGraph(0, 0, TitleImg, FALSE);
 
 	// メニューカーソル（三角形）の表示
 	posY = menuNo * 100;
