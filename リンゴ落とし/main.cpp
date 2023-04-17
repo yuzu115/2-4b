@@ -14,16 +14,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetGraphMode(SCREENSIZE_X,SCREENSIZE_Y,32);
 
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
+
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
 		//入力キー取得
 		g_OldKey = g_NowKey;
-		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッドのボタン
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 		
-		GameMode = 0;
+		GameMode = 0;			// タイトルへ
 
 		switch (GameMode) {
 			case TITLE:

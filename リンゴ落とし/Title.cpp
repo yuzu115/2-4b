@@ -1,20 +1,25 @@
-#include "DxLib.h"
 #include "Title.h"
 
-int titleImg;
+/****************************************
+*　変数の宣言
+*****************************************/
+int titleImg;			// タイトル画像
 
-static int menuNo = 0;
-int posY;
+static int menuNo = 0;		// 0：START　1：RANKING　2：HELP　3：End
+int posY;					// カーソルのY座標
 
 int DrawTitle(void) {
 
 	// タイトル画像の読込
-	if ((titleImg = LoadGraph("images/Title.png")) == -1) return -1;
+	if ((titleImg = LoadGraph("images/title.PNG")) == -1) return -1;
 
-	// タイトル画像、メニューカーソル（三角形）の表示
+	// 画像の表示
 	DrawGraph(0, 0, titleImg, FALSE);
-	posY = menuNo * 45;
-	DrawTriangle(140, 210 + posY, 170, 230 + posY, 140, 250 + posY, 0xff0000, TRUE);
 
-	//DrawFormatString(400, 220, 0xffffff, "タイトル");
+	// メニューカーソル（三角形）の表示
+	posY = menuNo * 100;
+	DrawTriangle(810, 310 + posY, 840, 330 + posY, 810, 350 + posY, 0xff0000, TRUE);
+
+	return 0;
+
 }
