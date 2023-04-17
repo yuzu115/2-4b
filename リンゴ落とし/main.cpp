@@ -30,6 +30,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			case TITLE:
 				DrawTitle();		//ゲームタイトル描画処理
 				break;
+			//case INIT:
+			//	GameInit();
+			//	break;
+			//case MAIN:
+			//	DrawMain();
+			//	break;
+			//case RANKING:
+			//	DrawRanking();
+			//	break;
+			//case INPUTNAME:
+			//	InputName();
+			//	break;
+			//case GAMEOVER:
+			//	DrawOver();
+			//	break;
+			//case END:
+			//	DrawEnd();
+			//	break;
 		}
 
 		ScreenFlip();	//裏画面の内容を表画面に反映
