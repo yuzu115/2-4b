@@ -11,9 +11,7 @@ int g_OldKey;                  //前回の入力キー
 int g_NowKey;                  //今回の入力キー
 int g_KeyFlg;                  //入力キー情報
 
-int GameMode;     //モード
-
-int g_Score;      //スコア
+int GameMode = 0;
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -35,15 +33,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッドのボタン
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 		
-		GameMode = 0;			// タイトルへ
-	//	GameMode = 4;			// ヘルプへ
-
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle(g_KeyFlg);		//ゲームタイトル描画処理
+				DrawTitle(g_KeyFlg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case HELP:
-				DrawHelp();		//ヘルプ画面描画処理
+				DrawHelp(g_KeyFlg,GameMode);		//ヘルプ画面描画処理
+				break;
+			case END:
+				DrawEnd();							//エンド画面描画処理
 				break;
 		}
 

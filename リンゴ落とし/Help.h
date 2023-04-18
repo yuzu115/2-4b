@@ -5,4 +5,4 @@
 
 //‰æ‘œ•Ï”‚à‚±‚±‚É‘‚¢‚Ä‚­‚¾‚³‚¢
 
-int DrawHelp(void);
+int DrawHelp(int g_KeyFlg,int& GameMode);
