@@ -16,7 +16,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»ˆ—
 	SetDrawScreen(DX_SCREEN_BACK);         //•`‰ææ‰æ–Ê‚ğ— ‚É‚·‚é
 
-	GameMode = MAIN;
+	GameMode = PAUSE;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -27,11 +27,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		ClearDrawScreen();                 //‰æ–Ê‚ğ‰Šú‰»
 
-		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
-		DrawApple();
+		//DrawApple();
 
-		/*if (g_OldKey & PAD_INPUT_8)
+		if (g_OldKey & PAD_INPUT_8)
 		{
 			switch (GameMode)
 			{
@@ -44,7 +44,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawApple();
 
 			}
-		}*/
+		}
 
 		ScreenFlip();
 

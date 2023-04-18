@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClCompile Include="DrawApple2.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawApple.h" />
     <ClInclude Include="infomation.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
