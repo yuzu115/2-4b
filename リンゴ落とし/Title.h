@@ -4,4 +4,4 @@
 
 //‰æ‘œ•Ï”‚à‚±‚±‚É‘‚¢‚Ä‚­‚¾‚³‚¢
 
-int DrawTitle(void);
+int DrawTitle(int g_KeyFlg);
