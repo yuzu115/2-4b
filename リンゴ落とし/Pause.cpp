@@ -9,7 +9,7 @@ int gPauseFlg;
 /********************
 *ƒ|[ƒY‰æ–Ê‘JˆÚ     *
 ********************/
-static void pause(int oldkey,int gamemode)
+void pause(int oldkey,int gamemode)
 {
 	if (oldkey & PAD_INPUT_8) 
 	{
@@ -26,12 +26,9 @@ static void pause(int oldkey,int gamemode)
 /*********************
 *ƒQ[ƒ€ƒƒCƒ“‰æ–Ê‘JˆÚ*
 *********************/
-static void pausefinish(int oldkey,int gamemode)
+void pausefinish(int keyflg, int gamemode)
 {
-	
-	if (oldkey & PAD_INPUT_8 &&gPauseCnt>0&&gPauseFlg==0)
-	{
-		gPauseCnt--;
-		gPauseFlg = 1;
+	if (keyflg & PAD_INPUT_8) {
+		//gGameMode = MAIN;
 	}
 }
