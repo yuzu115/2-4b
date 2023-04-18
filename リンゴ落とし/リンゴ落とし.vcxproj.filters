@@ -44,8 +44,5 @@
     <ClCompile Include="DrawApple.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Init.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
