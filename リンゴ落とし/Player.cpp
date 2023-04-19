@@ -45,12 +45,19 @@ void PlayerInit(void)
 	gPlayer.speed = PLAYER_SPEED;
 }
 
+// 当たり判定確認用仮リンゴ表示
+int testX = 640;
+int testY = 360;
+int testR = 10;
+
 /*************************************
  * プレイヤーの移動
  *************************************/
 void PlayerControl(int oldkey,int gamemode)
 {
-	
+	// リンゴ仮表示(水色)
+	DrawCircle(testX, testY, testR, 0xff0000, TRUE);
+
 	// プレイヤーの左右移動
 	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
 	{
@@ -109,6 +116,34 @@ void PlayerControl(int oldkey,int gamemode)
 		gPlayer.x = 0;
 	}
 
+	// 当たり判定確認用仮リンゴ表示
+	if (oldkey & PAD_INPUT_DOWN)
+	{
+		// リンゴ仮表示(水色)
+		DrawCircle(testX, testY, testR, 0xff0000, TRUE);
+		testY += 2;
+	}
+	// 当たり判定確認用仮リンゴ表示
+	if (oldkey & PAD_INPUT_UP)
+	{
+		// リンゴ仮表示(水色)
+		DrawCircle(testX, testY, testR, 0xff0000, TRUE);
+		testY -= 2;
+	}
+
+	// 画面をはみ出さないようにする
+	// 右
+	if (testY > 710)
+	{
+		testY = 710;
+	}
+	// 左
+	if (testY < 10)
+	{
+		testY = 10;
+	}
+
+
 }
 
 /*************************************
@@ -119,19 +154,25 @@ void HitBoxPlayer(void)
 	int x1, x2, y1, y2;
 
 	x1 = gPlayer.x;
-	y1 = gPlayer.y;
 	x2 = gPlayer.x + gPlayer.w;
+	y1 = gPlayer.y;
 	y2 = gPlayer.y + gPlayer.h;
 
-	DrawBox(x1, y1, x2, y2, 0x00ff00, TRUE);
+	//DrawBox(x1, y1, x2, y2, 0x00ff00, TRUE);
 
+	int cx, cy, cr;
 
-	int x3, x4, y3, y4;
+	cx = testX;
+	cy = testY;
+	cr = testR;
 
-	x1 = gPlayer.x;
-	y1 = gPlayer.y;
-	x2 = gPlayer.x + gPlayer.w;
-	y2 = gPlayer.y + gPlayer.h;
+	DrawCircle(cx, cy, cr, 0xffff00, TRUE);
+
+	if ((cx > x1 - cr) && (cx < y1 + cr) && (cy > x2 - cr) && (cy < y2 + cr))
+	{
+		DrawCircle(testX, testY, testR, 0xff0000, TRUE);
+		DrawBox(x1, y1, x2, y2, 0x00ff00, TRUE);
+	}
 
 
 }
