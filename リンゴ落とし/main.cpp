@@ -4,15 +4,6 @@
 #include "HELP.h"
 #include "END.h"
 
-/********************************************************************
-*　変数の宣言
-********************************************************************/
-int g_OldKey;                  //前回の入力キー
-int g_NowKey;                  //今回の入力キー
-int g_KeyFlg;                  //入力キー情報
-
-int GameMode = 0;
-
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {

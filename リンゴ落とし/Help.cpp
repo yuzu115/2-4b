@@ -27,7 +27,7 @@ int DrawHelp(int g_KeyFlg,int& GameMode) {
 	DrawGraph(0, 0, HelpBackImg, FALSE);
 
 	SetFontSize(100);
-	DrawFormatString(500, 10, 0xffffff, "HELP");
+	DrawFormatString(500, 10, 0x000000, "操作説明");
 
 	SetFontSize(50);
 	DrawFormatString(200, 600, 0xffffff, "A：タイトルへ");

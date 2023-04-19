@@ -6,7 +6,7 @@
 int EndBackImg;			// 背景画像
 
 /****************************************
-* エンド画面描画
+* エンド画面描画（エンドロール）
 *****************************************/
 int DrawEnd(void) {
 
@@ -17,6 +17,11 @@ int DrawEnd(void) {
 	DrawGraph(0, 0, EndBackImg, FALSE);
 
 	SetFontSize(100);
-	DrawFormatString(500, 10, 0xffffff, "END");
+	DrawFormatString(30, 20, 0x000000, "Thank you for playing!!!");
+	
+	SetFontSize(40);
+	DrawString(100, 310 , "素材利用", 0x000000);
+	DrawString(100, 370 , "　BGM　　　 　ＸＸＸＸ", 0x000000);
+	DrawString(100, 410 , "　SE　　　　　ＸＸＸＸＸＸＸＸ", 0x000000);
 
 }
