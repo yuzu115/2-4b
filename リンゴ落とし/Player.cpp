@@ -106,9 +106,9 @@ void PlayerControl(int oldkey,int gamemode)
 
 	// âÊñ ÇÇÕÇ›èoÇ≥Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 	// âE
-	if (gPlayer.x > 1000)
+	if (gPlayer.x > 950)
 	{
-		gPlayer.x = 1000;
+		gPlayer.x = 950;
 	}
 	// ç∂
 	if (gPlayer.x < 0)
