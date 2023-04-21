@@ -5,4 +5,4 @@
 
 //‰æ‘œ•Ï”‚à‚±‚±‚É‘‚¢‚Ä‚­‚¾‚³‚¢
 
-int DrawEnd();
+int DrawEnd(int& GameMode);

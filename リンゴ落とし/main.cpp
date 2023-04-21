@@ -32,7 +32,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				DrawHelp(g_KeyFlg,GameMode);		//ヘルプ画面描画処理
 				break;
 			case END:
-				DrawEnd();							//エンド画面描画処理
+				DrawEnd(GameMode);							//エンド画面描画処理
 				break;
 		}
 
