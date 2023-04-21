@@ -30,8 +30,8 @@ int DrawHelp(int g_KeyFlg,int& GameMode) {
 	DrawFormatString(450, 100, 0x000000, "操作説明");
 
 	SetFontSize(70);
-	DrawFormatString(150, 310, 0x000000, "左スティックで左右移動");
-	DrawFormatString(150, 410, 0x000000, "STARTボタン　ポーズ/ポーズ解除");
+	DrawFormatString(100, 310, 0x000000, "左スティック  左右移動");
+	DrawFormatString(100, 410, 0x000000, "STARTボタン　 ポーズ/ポーズ解除");
 
 	SetFontSize(30);
 	DrawFormatString(400, 650, 0x000000, "A：タイトル");
