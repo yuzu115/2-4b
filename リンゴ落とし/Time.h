@@ -2,6 +2,7 @@
 #ifndef TIME_H_
 #define TIME_H_
 
-void Timer(void);//タイムの設定
+void GameInit(void); //タイムの初期化
+void Main(void);     //タイムメイン
 
 #endif // !TIME_H_
