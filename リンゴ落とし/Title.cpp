@@ -53,7 +53,7 @@ int DrawTitle(int g_KeyFlg,int& GameMode) {
 	posY = menuNo * 100;
 
 	// カーソル（赤リンゴ）を縮小描画
-	DrawExtendGraph(810, 325 + posY, 860, 375 + posY, AppleCursorImg, TRUE);
+	DrawExtendGraph(790, 305 + posY, 880, 395 + posY, AppleCursorImg, TRUE);
 	
 	//// メニューカーソル（三角形）の表示
 	//posY = menuNo * 100;
