@@ -17,11 +17,11 @@ void pause(int oldkey,int gamemode)
 		SetFontSize(100);
 		DrawString(300, 300, "--ポーズ画面--", 0xffffff);
 	}
-	/*if (gStartKeyFlg == TRUE)
+	if (gStartKeyFlg == TRUE)
 	{
 		SetFontSize(100);
 		DrawString(300, 300, "--ポーズ画面--", 0xffffff);
-	}*/
+	}
 	
 }
 

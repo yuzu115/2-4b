@@ -1,5 +1,6 @@
 #pragma once
 #ifndef PAUSE_H_
+
 #define PAUSE_H_
 
 /************************
