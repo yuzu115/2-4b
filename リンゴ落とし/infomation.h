@@ -1,4 +1,5 @@
 #pragma once
+#include"DxLib.h"
 
 //変数・関数・構造体などの 宣言 はヘッダーです
 // 定義 は .cpp です
@@ -41,5 +42,3 @@ int g_KeyFlg;                  //入力キー情報
 int GameMode;     //モード
 
 int g_Score;      //スコア
-
-
