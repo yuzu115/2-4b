@@ -168,6 +168,11 @@ void HitBoxPlayer(void)
 
 	DrawCircle(cx, cy, cr, 0xffff00, TRUE);
 
+	int c2;
+
+	c2 = (x1 - x )
+
+
 	if ((cx > x1 - cr) && (cx < y1 + cr) && (cy > x2 - cr) && (cy < y2 + cr))
 	{
 		DrawCircle(testX, testY, testR, 0xff0000, TRUE);
