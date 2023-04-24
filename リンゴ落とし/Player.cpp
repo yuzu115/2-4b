@@ -148,7 +148,7 @@ void PlayerControl(int oldkey,int gamemode)
 
 /*************************************
  * ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è
- *************************************/
+ *************************************
 void HitBoxPlayer(void)
 {
 	int x1, x2, y1, y2;
@@ -180,4 +180,4 @@ void HitBoxPlayer(void)
 	}
 
 
-}
+}*/
