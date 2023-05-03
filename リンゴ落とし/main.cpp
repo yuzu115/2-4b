@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include"infomation.h"
 #include "TITLE.h"
+#include "RANKING.h"
 #include "HELP.h"
 #include "END.h"
 
@@ -27,6 +28,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle(g_KeyFlg,GameMode);		//ゲームタイトル描画処理
+				break;
+			case RANKING:
+				DrawRanking(g_KeyFlg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case HELP:
 				DrawHelp(g_KeyFlg,GameMode);		//ヘルプ画面描画処理

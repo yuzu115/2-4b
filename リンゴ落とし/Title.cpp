@@ -33,9 +33,9 @@ int DrawTitle(int g_KeyFlg,int& GameMode) {
 		//case 0:
 		//	GameMode = 1;			// INIT
 		//	break;
-		//case 1:
-		//	GameMode = 3;			// RANKING
-		//	break;
+		case 1:
+			GameMode = 3;			// RANKING
+			break;
 		case 2:
 			GameMode = 4;			// HELP
 			break;
