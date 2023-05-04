@@ -26,8 +26,8 @@ struct AppleDate gApple[APPLE_MAX];
 //各リンゴのデータ
 struct AppleDate gApple_Rd = {TRUE,0,0,0,-40,45,1,100,0xff0000};	//赤
 struct AppleDate gApple_Br = {TRUE,1,0,0,-40,45,2,200,0x00ff00}; //青
-struct AppleDate gApple_Gl = {TRUE,2,0,0,-40,45,3.5,500,0xffff00}; //金
-struct AppleDate gApple_Po = {TRUE,3,0,0,-40,45,0.5,-750,0xff00ff}; //毒
+struct AppleDate gApple_Gl = {TRUE,2,0,0,-40,45,3.5f,500,0xffff00}; //金
+struct AppleDate gApple_Po = {TRUE,3,0,0,-40,45,0.5f,-750,0xff00ff}; //毒
 
 //ステータス格納変数
 struct AppleDate gAppleState[APPLE_TYPE];
@@ -77,6 +77,7 @@ void DrawApple(void){
 
 	//生成関数の読み込み
 	CreateApple();
+	HitApple();
 
 }
 
@@ -131,6 +132,26 @@ int RandApple()
 		else if (gRandApple <= 100 && gRandApple>=94)
 		{
 			return 3;
+		}
+	}
+}
+
+/**
+* リンゴの当たり判定
+*/
+void HitApple()
+{
+		for (int i = 0; i < APPLE_MAX; i++) {
+
+		// リンゴの表示
+		if (gApple[i].flg == TRUE) {
+			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0x000000, TRUE);
+			gApple[i].y += gApple[i].speed;
+
+			//gAppleのy座標が1000以下になったとき消去
+			if (gApple[i].y > 1000) {
+				gApple[i].flg = FALSE;
+			}
 		}
 	}
 }
