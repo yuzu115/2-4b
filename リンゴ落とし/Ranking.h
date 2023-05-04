@@ -15,7 +15,6 @@ struct RankingData {
 	long score;
 };
 
-
 int LoadImages(void);			// 画像読込
 void DrawRanking(int g_KeyFlg, int& GameMode);		// ランキング画面描画処理
 int ReadRanking(void);			// ランキングデータの読込
