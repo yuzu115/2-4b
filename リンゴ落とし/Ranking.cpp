@@ -3,7 +3,7 @@
 /****************************************
 *　定数の宣言
 *****************************************/
-const int RANK_MAX = 5;			// ランキングは5位まで
+const int RANK_MAX = 5;			// ランキングは上位5位まで
 
 /****************************************
 *　変数の宣言
@@ -53,31 +53,32 @@ void DrawRanking(int g_KeyFlg, int& GameMode)
 
 }
 
-/*************************************
- * ランキングデータ読み込み
- *************************************/
-int ReadRanking(void)
-{
-	FILE* fp;
-#pragma warning(disable:4996)
-
-	//ファイルオープン
-	if ((fp = fopen("dat/rankingdata.txt", "r")) == NULL) {
-		//エラー処理
-		printf("Ranking Data Error\n");
-		return -1;
-	}
-
-	//ランキングデータ配分列データを読み込む
-	for (int i = 0; i < RANK_MAX; i++) {
-		int dammy = fscanf(fp, "%2d %10s %10d", &Ranking[i].no, Ranking[i].name, &Ranking[i].score);
-	}
-
-	//ファイルクローズ
-	fclose(fp);
-
-	return 0;
-}
+///*****************************************
+//*　ランキング入力(名前入力)処理
+//******************************************/
+//void InputName(int g_KeyFlg, int& GameMode)
+//{
+//	// ランキング画像表示
+//	DrawGraph(0, 0, RankingImg, FALSE);
+//
+//	// フォントサイズ
+//	SetFontSize(16);
+//
+//	// 名前の入力指示文字列の描画
+//	DrawString(80, 150, "ランキングに登録します", 0xFFFFFF);
+//	DrawString(80, 170, "名前を英字で入力してください", 0xFFFFFF);
+//
+//	// 名前の入力
+//	DrawString(80, 200, ">", 0xFFFFFF);
+//	DrawBox(90, 195, 200, 220, 0x000055, TRUE);
+//	if (KeyInputSingleCharString(90, 200, 10, Ranking[RANK_MAX - 1].name, FALSE) == 1) {
+//		Ranking[RANK_MAX - 1].score = g_Score;			// ランキングデータの10番目にスコアを登録
+//		SortRanking();									// ランキング並べ替え
+//		SaveRanking();									// ランキングデータの保存
+//		GameMode = 3;							// ゲームモードの変更
+//	}
+//
+//}
 
 /***********************************************
  * ランキング並べ替え
@@ -112,4 +113,56 @@ void SortRanking(void)
 		}
 	}
 
+}
+
+/***********************************************
+ * ランキングデータの保存
+ ***********************************************/
+int  SaveRanking(void)
+{
+	FILE* fp;
+#pragma warning(disable:4996)
+
+	// ファイルオープン
+	if ((fp = fopen("dat/rankingdata.txt", "w")) == NULL) {
+		/* エラー処理 */
+		printf("Ranking Data Error\n");
+		return -1;
+	}
+
+	// ランキングデータ分配列データを書き込む
+	for (int i = 0; i < RANK_MAX; i++) {
+		fprintf(fp, "%2d %10s %10d\n", Ranking[i].no, Ranking[i].name, Ranking[i].score);
+	}
+
+	//ファイルクローズ
+	fclose(fp);
+
+	return 0;
+}
+
+/*************************************
+ * ランキングデータ読み込み
+ *************************************/
+int ReadRanking(void)
+{
+	FILE* fp;
+#pragma warning(disable:4996)
+
+	//ファイルオープン
+	if ((fp = fopen("dat/rankingdata.txt", "r")) == NULL) {
+		//エラー処理
+		printf("Ranking Data Error\n");
+		return -1;
+	}
+
+	//ランキングデータ配分列データを読み込む
+	for (int i = 0; i < RANK_MAX; i++) {
+		int dammy = fscanf(fp, "%2d %10s %10d", &Ranking[i].no, Ranking[i].name, &Ranking[i].score);
+	}
+
+	//ファイルクローズ
+	fclose(fp);
+
+	return 0;
 }

@@ -11,7 +11,7 @@
 //ランキングデータ構造体
 struct RankingData {
 	int no;
-	char name[11];
+	char name[11];			// 10Byte
 	long score;
 };
 
@@ -20,6 +20,7 @@ int LoadImages(void);			// 画像読込
 void DrawRanking(int g_KeyFlg, int& GameMode);		// ランキング画面描画処理
 int ReadRanking(void);			// ランキングデータの読込
 
-//void InputRanking(void);			// ランキング入力処理
-//void SortRanking(void);			// ランキング並べ替え
-//int SaveRanking(void);			// ランキングデータの保存
+//void InputRanking(int g_KeyFlg, int& GameMode);			// ランキング入力処理
+
+void SortRanking(void);			// ランキング並べ替え
+int SaveRanking(void);			// ランキングデータの保存
