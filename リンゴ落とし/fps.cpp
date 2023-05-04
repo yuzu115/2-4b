@@ -41,6 +41,7 @@ void Keisoku_fps() {
 
 	count += deltaTime;
 
+
 	//1•bŠÔ‚ÌFPS‚ðŒv‘ª‚·‚éA1•b‚²‚Æ‚É‰Šú‰»‚·‚é
 	fpsCounter++;
 	if (nowTime - fpsCheckTime > 1000000) {
