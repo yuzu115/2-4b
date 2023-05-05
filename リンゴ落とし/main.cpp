@@ -10,10 +10,11 @@ int off;//20f回ったか
 /*
 *四角形左上の座標
 *x1に+40で右上の座標
-* y1に+40で左下の座標
+* Y1に+40で左下の座標
 */
 int x1 = 0;
 int Y1 = 0;
+//何故かy1だと変数宣言ができなかったのでY１で宣言してます
 
 int x2,y2 = 0;//四角形左下の座標
 
@@ -125,6 +126,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		DrawCircle(sx, sy, h, 0xffffff, TRUE);
 
+		//半径より、cの値が小さくなったら色が変わる
+		//半径１００に入って来たら色が変わる
 		if (c <= h) {
 
 			DrawCircle(sx, sy, h, 0x008080, TRUE);
@@ -143,10 +146,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			DrawCircle(sx, sy, h, 0xdc143c, TRUE);
 		}
 
-		//sx,syの地点から半径１００の円の面積もとめたい
-		//気持ちは円の面積に入ってきたらアウトって感じでいいかなと思ったけどむずいな
 
-		DrawFormatString(390, 500, 0xffffff, "menseki=%d",c3);
+		DrawFormatString(390, 500, 0xffffff, "オレンジ色 c3=%d",c3);
 	
 
 
