@@ -1,3 +1,4 @@
+#include "DxLib.h"
 #include "Ranking.h"
 
 /****************************************

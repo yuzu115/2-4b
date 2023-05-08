@@ -1,29 +1,30 @@
+#include "DxLib.h"
 #include "Result.h"
-#include "Ranking.h"
+//#include "Ranking.h"
 
 /****************************************
 *　変数の宣言
 *****************************************/
 int ResultImg;			// リザルト画像
 
-/****************************************
-* 画像読込
-*****************************************/
-int LoadImages(void)
-{
-	// リザルト画像の読込
-	if ((ResultImg = LoadGraph("images/Back.png")) == -1) return -1;
-
-	return 0;
-
-}
+///****************************************
+//* 画像読込
+//*****************************************/
+//int LoadImages(void)
+//{
+//	// リザルト画像の読込
+//	if ((ResultImg = LoadGraph("images/Back.png")) == -1) return -1;
+//
+//	return 0;
+//
+//}
 
 /****************************************
 * リザルト画面描画処理
 *****************************************/
 void DrawResult(int& GameMode)
 {
-	LoadImages();
+	// LoadImages();
 
 	////タイムの加算処理(180f以上経過後)＆画面遷移
 	//if (++g_WaitTime > 900)

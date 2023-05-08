@@ -1,5 +1,4 @@
 #pragma once
-#include "DxLib.h"
 
 //ランキング画面のみで使う変数・関数の宣言をここに書きます
 
