@@ -6,14 +6,14 @@
 *****************************************/
 int EndImg;				// エンド画像
 
-//int	g_WaitTime = 0;			// 待ち時間
+//int g_WaitTime = 0;			// 待ち時間
 //int g_PosY;					// スクロール時のＹ座標
 
 /****************************************
 * エンド画面描画（エンドロール）
 *****************************************/
-int DrawEnd(int& GameMode) {
-
+int DrawEnd(int& GameMode)
+{
 	// エンド画像の読込
 	if ((EndImg = LoadGraph("images/Back.png")) == -1) return -1;
 
@@ -36,5 +36,6 @@ int DrawEnd(int& GameMode) {
 	//{
 	//	GameMode = 8;
 	//}
+
 	return 0;
 }

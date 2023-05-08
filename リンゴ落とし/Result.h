@@ -7,7 +7,6 @@
 
 //画像変数もここに書いてください
 
-// int LoadImages(void);			// 画像読込
-void DrawResult(int& GameMode);		// リザルト画面描画処理
+int DrawResult(int& GameMode);		// リザルト画面描画処理
 
 #endif // !RESULT_H__

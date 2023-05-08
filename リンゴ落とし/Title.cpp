@@ -7,14 +7,14 @@
 int TitleImg;			// タイトル画像
 int AppleCursorImg;		// カーソル（赤リンゴ）画像
 
-int menuNo = 0;		// 0：START　1：RANKING　2：HELP　3：END
-int posY;					// カーソルのY座標
+int menuNo = 0;			// 0：START　1：RANKING　2：HELP　3：END
+int posY;				// カーソルのY座標
 
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(int g_KeyFlg,int& GameMode) {
-
+int DrawTitle(int g_KeyFlg,int& GameMode)
+{
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
 	// カーソル（赤リンゴ）画像
@@ -63,5 +63,4 @@ int DrawTitle(int g_KeyFlg,int& GameMode) {
 	//DrawFormatString(0, 0, 0xffffff, "menuNo %d", menuNo);
 
 	return 0;
-
 }

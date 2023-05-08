@@ -9,8 +9,8 @@ int HelpBackImg;		// ”wŒi‰æ‘œ
 /****************************************
 * ƒwƒ‹ƒv‰æ–Ê•`‰æ
 *****************************************/
-int DrawHelp(int g_KeyFlg,int& GameMode) {
-
+int DrawHelp(int g_KeyFlg,int& GameMode)
+{
 	// ”wŒi‰æ‘œ‚Ì“Ç
 	if ((HelpBackImg = LoadGraph("images/Back.png")) == -1) return -1;
 

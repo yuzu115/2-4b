@@ -14,23 +14,14 @@ int RankingImg;			// ランキング画像
 //ランキングデータの変数宣言
 struct RankingData Ranking[RANK_MAX];
 
-/*****************************************
-*　画像読込
-******************************************/
-int LoadImages(void)
-{
-	// ランキング画像の読込
-	if ((RankingImg = LoadGraph("images/Back.png")) == -1) return -1;
-	
-	return 0;
-}
-
 /****************************************
 * ランキング画面描画処理
 *****************************************/
-void DrawRanking(int g_KeyFlg, int& GameMode)
+int DrawRanking(int g_KeyFlg, int& GameMode)
 {
-	LoadImages();
+	// ランキング画像の読込
+	if ((RankingImg = LoadGraph("images/Back.png")) == -1) return -1;
+
 	ReadRanking();		//ランキングデータの読込
 
 	// スペースキーでメニューに戻る
@@ -52,6 +43,7 @@ void DrawRanking(int g_KeyFlg, int& GameMode)
 	SetFontSize(30);
 	DrawFormatString(600, 650, 0x000000, "A：タイトル");
 
+	return 0;
 }
 
 ///*****************************************

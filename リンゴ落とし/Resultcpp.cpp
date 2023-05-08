@@ -7,24 +7,14 @@
 *****************************************/
 int ResultImg;			// リザルト画像
 
-///****************************************
-//* 画像読込
-//*****************************************/
-//int LoadImages(void)
-//{
-//	// リザルト画像の読込
-//	if ((ResultImg = LoadGraph("images/Back.png")) == -1) return -1;
-//
-//	return 0;
-//
-//}
 
 /****************************************
 * リザルト画面描画処理
 *****************************************/
-void DrawResult(int& GameMode)
+int DrawResult(int& GameMode)
 {
-	// LoadImages();
+	// リザルト画像の読込
+	if ((ResultImg = LoadGraph("images/Back.png")) == -1) return -1;
 
 	////タイムの加算処理(180f以上経過後)＆画面遷移
 	//if (++g_WaitTime > 900)
@@ -44,4 +34,5 @@ void DrawResult(int& GameMode)
 	DrawFormatString(300, 420, 0x000000, "毒リンゴ：%3d0\n");
 	DrawFormatString(300, 460, 0x000000, "スコア：%3d0\n");
 
+	return 0;
 }
