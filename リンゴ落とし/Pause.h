@@ -6,6 +6,6 @@
 /************************
 *関数のプロトタイプ宣言 *
 ************************/
-void pause(int oldkey,int gamemode);//ポーズ画面遷移:
+void pause(int oldkey,int& gamemode);//ポーズ画面遷移
 
 #endif // !PAUSE_H_

@@ -4,6 +4,8 @@
 #include"DrawApple.h"
 #include"FPS.h"
 #include"Player.h"
+#include"Pause.h"
+#include"Time.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -26,6 +28,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// プレイヤー初期化
 	PlayerInit();
+	GameMode = PAUSE;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -36,18 +39,23 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		ClearDrawScreen();                 //画面を初期化
 
-		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+		if (GameMode==PAUSE) 
+		{
+			pause(g_OldKey, GameMode);
+		}
 
-		DrawApple();
-		
-		//今出てるFPSの表示
-		display_fps();
+		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
-		//fpsの計測
-		Keisoku_fps();
+		//DrawApple();
 
-		// プレイヤー操作
-		PlayerControl(g_OldKey, GameMode);
+		////今出てるFPSの表示
+		//display_fps();
+
+		////fpsの計測
+		//Keisoku_fps();
+
+		//// プレイヤー操作
+		//PlayerControl(g_OldKey, GameMode);
 
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
