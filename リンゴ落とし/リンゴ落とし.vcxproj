@@ -23,6 +23,7 @@
     <ClCompile Include="fps.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -39,23 +39,25 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		ClearDrawScreen();                 //画面を初期化
 
-		if (GameMode==PAUSE) 
+		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+
+		DrawApple();
+
+		//今出てるFPSの表示
+		display_fps();
+
+		//fpsの計測
+		Keisoku_fps();
+
+		// プレイヤー操作
+		PlayerControl(g_OldKey, GameMode);
+
+		switch (GameMode)
 		{
+		case PAUSE:
 			pause(g_OldKey, GameMode);
+			break;
 		}
-
-		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-
-		//DrawApple();
-
-		////今出てるFPSの表示
-		//display_fps();
-
-		////fpsの計測
-		//Keisoku_fps();
-
-		//// プレイヤー操作
-		//PlayerControl(g_OldKey, GameMode);
 
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
