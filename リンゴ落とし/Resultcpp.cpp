@@ -38,7 +38,7 @@ void DrawResult(int& GameMode)
 	//}
 
 	SetFontSize(30);
-	DrawFormatString(300, 300, 0x000000, "赤リンゴ：%3d0\n");
+	DrawFormatString(300, 300, 0x000000, "赤リンゴ：%3d0\n");		// テストで0の表示
 	DrawFormatString(300, 340, 0x000000, "青リンゴ：%3d0\n");
 	DrawFormatString(300, 380, 0x000000, "金リンゴ：%3d0\n");
 	DrawFormatString(300, 420, 0x000000, "毒リンゴ：%3d0\n");
