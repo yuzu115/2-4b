@@ -12,7 +12,7 @@
 int RankingImg;			// ランキング画像
 
 //ランキングデータの変数宣言
-struct RankingData Ranking[RANK_MAX];
+RankingData Ranking[RANK_MAX];
 
 /****************************************
 * ランキング画面描画処理

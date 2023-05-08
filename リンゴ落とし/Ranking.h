@@ -17,12 +17,12 @@
 *　構造体
 ******************************************/
 //ランキングデータ構造体
-struct RankingData
+typedef struct
 {
 	int no;
 	char name[NAME_MAX];		// 10Byte
 	long score;
-};
+} RankingData;
 
 //ランキングデータの変数宣言
 //struct RankingData Ranking[RANK_MAX];
