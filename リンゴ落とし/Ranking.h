@@ -8,14 +8,23 @@
 //画像変数もここに書いてください
 
 /*****************************************
+*　マクロ定義
+******************************************/
+#define RANK_MAX (5)
+#define NAME_MAX (11)
+
+/*****************************************
 *　構造体
 ******************************************/
 //ランキングデータ構造体
 struct RankingData {
 	int no;
-	char name[11];			// 10Byte
+	char name[NAME_MAX];			// 10Byte
 	long score;
 };
+
+//ランキングデータの変数宣言
+struct RankingData Ranking[RANK_MAX];
 
 int DrawRanking(int g_KeyFlg, int& GameMode);		// ランキング画面描画処理
 int ReadRanking(void);			// ランキングデータの読込
