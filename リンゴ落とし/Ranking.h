@@ -19,13 +19,13 @@
 //ランキングデータ構造体
 typedef struct
 {
-	int no;
-	char name[NAME_MAX];		// 10Byte
-	long score;
+	int no;						// 順位
+	char name[NAME_MAX];		// 名前　10Byte
+	long score;					// スコア
 } RankingData;
 
 //ランキングデータの変数宣言
-//struct RankingData Ranking[RANK_MAX];
+//extern stract RankingData Ranking[RANK_MAX];
 
 int DrawRanking(int g_KeyFlg, int& GameMode);		// ランキング画面描画処理
 int ReadRanking(void);								// ランキングデータの読込
