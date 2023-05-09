@@ -5,5 +5,3 @@
 //画像変数もここに書いてください
 
 int DrawTitle(int g_KeyFlg,int& GameMode);
-
-int LoadTitleSounds();//タイトルサウンド

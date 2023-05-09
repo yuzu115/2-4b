@@ -9,38 +9,26 @@ int AppleCursorImg;		// カーソル（赤リンゴ）画像
 int menuNo = 0;		// 0：START　1：RANKING　2：HELP　3：END
 int posY;					// カーソルのY座標
 
-int CursorSound;	//カーソルサウンド
-int MoveSound;		//画面遷移時になるサウンド
-
 /****************************************
 * タイトル画面描画
 *****************************************/
 int DrawTitle(int g_KeyFlg,int& GameMode) {
-
-	LoadTitleSounds();
 
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
 	// カーソル（赤リンゴ）画像
 	if ((AppleCursorImg = LoadGraph("images/RedApple.png")) == -1) return -1;
 
-
-	ChangeNextPlayVolumeSoundMem(180, CursorSound);  //次に流す音量を調整  ～２５５  255が通常
-	
-													 // メニューカーソル移動処理
+	// メニューカーソル移動処理
 	if (g_KeyFlg & PAD_INPUT_DOWN) {
-		PlaySoundMem(CursorSound, DX_PLAYTYPE_BACK);
 		if (++menuNo > 3) menuNo = 0;
 	}
 	if (g_KeyFlg & PAD_INPUT_UP) {
-		PlaySoundMem(CursorSound, DX_PLAYTYPE_BACK);
 		if (--menuNo < 0) menuNo = 3;
 	}
 
 	// Zキーでメニュー選択
 	if (g_KeyFlg & PAD_INPUT_A) {
-
-		PlaySoundMem(MoveSound, DX_PLAYTYPE_BACK);
 		switch (menuNo) {
 		//case 0:
 		//	GameMode = 1;			// INIT
@@ -74,13 +62,5 @@ int DrawTitle(int g_KeyFlg,int& GameMode) {
 	//DrawFormatString(0, 0, 0xffffff, "menuNo %d", menuNo);
 
 	return 0;
-
-}
-
-
-int LoadTitleSounds() {
-	
-	if ((CursorSound = LoadSoundMem("AppleSound/AppleSE/CursorMove.wav")) == -1)return -1;
-	if ((MoveSound = LoadSoundMem("AppleSound/AppleSE/カーソル移動12.wav")) == -1)return -1;
 
 }
