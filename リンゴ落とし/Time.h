@@ -6,6 +6,6 @@
 *関数のプロトタイプ宣言 *
 ************************/
 void GameInit(void); //タイムの初期化
-void Main(int& gamemode);     //タイムメイン
+void Time(int& gamemode);     //タイムメイン
 
 #endif // !TIME_H_

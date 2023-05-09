@@ -19,11 +19,12 @@ void GameInit(void)
 /********************
 *タイムのメイン     *
 ********************/
-void Main(int& gamemode)
+void Time(int& gamemode)
 {
+	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	int time = TIMELIMIT * (GetNowCount() - gStartTime);
 	if (time <= 0)
 	{
-		printf("テスト");
+		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	}
 }
