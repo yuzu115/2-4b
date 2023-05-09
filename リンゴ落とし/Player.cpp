@@ -31,9 +31,11 @@ struct PLAYER
 // プレイヤーの変数宣言
 struct PLAYER gPlayer;
 
+/******************************************
+ * 変数の宣言
+ ******************************************/
+// リンゴの座標
 float ax, ay, ar;
-
-float c1,c2,c3,c4;
 
 /******************************************
  * プレイヤー初期化
@@ -66,15 +68,14 @@ void PlayerControl(int oldkey,int gamemode)
 		{
 			// プレイヤー仮表示(赤)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-
 			gPlayer.x -= gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
-// プレイヤー仮表示(水色)
-DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
-gPlayer.x -= gPlayer.speed;
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+			gPlayer.x -= gPlayer.speed;
 		}
 
 
@@ -114,6 +115,7 @@ gPlayer.x -= gPlayer.speed;
 		gPlayer.x = 0;
 	}
 
+	// プレイヤーとリンゴの当たり判定 
 	HitPlayer();
 
 }
@@ -131,7 +133,7 @@ void GetApple(float ax0, float ay0, float ar0)
 
 }
 
-// ピタゴラスの定理の計算
+// 二乗+二乗の計算
 float Pythagorean(float px, float py, float ax, float ay)
 {
 	float dx, dy, r;
@@ -148,6 +150,7 @@ float Pythagorean(float px, float py, float ax, float ay)
 // リンゴとプレイヤーの当たり判定
 void HitPlayer(void)
 {
+	// リンゴとプレイヤーが当たっているか判定
 	int flg = 0;
 	float mx0, mx1, my0, my1;
 
@@ -161,26 +164,27 @@ void HitPlayer(void)
 	// リンゴの当たり判定表示
 	DrawCircle(ax, ay, ar, 0x000000, TRUE);
 
-	// 円の中心が長方形から見て上・中・下の位置にある場合
+	// 1:円の中心が長方形から見て上・中・下の位置にある場合
 	if ((mx0 < ax && ax < mx1) && (my0 - ar < ay && ay < my1 + ar))
 	{
 		flg = 1;
 	}
-	// 円の中心が長方形から見て左・中・右の位置にある場合
+	// 2:円の中心が長方形から見て左・中・右の位置にある場合
 	if ((mx0 - ar < ax && ax < mx1 + ar) && (my0 < ay && ay < my1))
 	{
 		flg = 2;
 	}
-	// 円の中心が長方形から見て斜め上下の位置にある場合
+	// 3:円の中心が長方形から見て斜め上下の位置にある場合
 	if (Pythagorean(mx0, my0, ax, ay) < ar * ar || Pythagorean(mx1, my0, ax, ay) < ar *ar ||
 		Pythagorean(mx0, my1, ax, ay) < ar * ar || Pythagorean(mx1, my1, ax, ay) < ar * ar)
 	{
 		flg = 3;
 	}
 
-	// 
+    // 上の1～３のどれか一つが当てはまったら当たっている
 	if (flg == 1 || flg == 2 || flg == 3)
 	{
+		// 当たっていたらリンゴの色を白に
 		DrawCircle(ax, ay, ar, 0xffffff, TRUE);
 	}
 }
