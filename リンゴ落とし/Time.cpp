@@ -29,6 +29,6 @@ void Main(int oldkey, int& gamemode)
 	
 		if (time <= 0)
 		{
-			GameMode = 7;
+			//GameMode = 7;
 		}
 }
