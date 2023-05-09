@@ -57,7 +57,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		case PAUSE:
 			pause(g_OldKey, GameMode);
 			break;
-
+		case TIME:
+			Main(GameMode);
+			break;
 		}
 
 		//— ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f‚·‚é

@@ -1,34 +1,29 @@
 #include "DxLib.h"
 #include "Time.h"
 
-
-/********************
-*定数の宣言         *
-********************/
+//定数の宣言
 const int TIMELIMIT = 3000;
 
-/********************
-*変数の宣言         *
-********************/
+//変数の宣言
 int gStartTime;
-int GameMode=0;
 
 /********************
-*タイム初期化処理   *
+*タイムの初期化     *
 ********************/
 void GameInit(void)
 {
+	//ゲーム開始時間の取得
 	gStartTime = GetNowCount();
 }
+
 /********************
-*タイム描画         *
+*タイムのメイン     *
 ********************/
-void Main(int oldkey, int& gamemode)
+void Main(int& gamemode)
 {
-	int time = TIMELIMIT *(GetNowCount() - gStartTime);
-	
-		if (time <= 0)
-		{
-			//GameMode = 7;
-		}
+	int time = TIMELIMIT * (GetNowCount() - gStartTime);
+	if (time <= 0)
+	{
+		gamemode = 6;
+	}
 }
