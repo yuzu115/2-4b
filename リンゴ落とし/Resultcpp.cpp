@@ -15,6 +15,8 @@ int DrawResult(int& GameMode)
 {
 	// リザルト画像の読込
 	if ((ResultImg = LoadGraph("images/Back.png")) == -1) return -1;
+	
+	// ReadRanking();		//ランキングデータの読込
 
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	//if (++g_WaitTime > 900)
