@@ -15,15 +15,21 @@ int DrawHelp(void)
 	// 背景画像の読込
 	if ((HelpBackImg = LoadGraph("images/Back.png")) == -1) return -1;
 
+	if (input.Buttons[12] == 0) {
+		Button_flg = FALSE;
+	}
+
 	// Aボタンでタイトルへ
-	//if (g_KeyFlg & PAD_INPUT_A) {
-	//	GameMode = 0;					// タイトル画面へ
-	//}
-	//// Bボタンでゲームスタート
-	//if (g_KeyFlg & PAD_INPUT_B) {
-	//	//GameMode = 1;					// ゲームスタートへ
-	//	GameMode = 7;					// エンドへ
-	//}
+	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+		GameMode = 0;					// タイトル画面へ
+	}
+	// Bボタンでゲームスタート
+	if (input.Buttons[13] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+		//GameMode = 1;					// ゲームスタートへ
+		GameMode = 7;					// エンドへ
+	}
 
 	// 画像の表示
 	DrawGraph(0, 0, HelpBackImg, FALSE);
