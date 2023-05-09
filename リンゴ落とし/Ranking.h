@@ -14,9 +14,9 @@
 #define NAME_MAX (11)			// 名前のサイズ
 
 /*****************************************
-*　構造体
+*　型定義
 ******************************************/
-//ランキングデータ構造体
+//ランキングデータ
 typedef struct
 {
 	int no;						// 順位
@@ -24,9 +24,9 @@ typedef struct
 	long score;					// スコア
 } RankingData;
 
-//ランキングデータの変数宣言
-//extern stract RankingData Ranking[RANK_MAX];
-
+/*****************************************
+*　プロトタイプ宣言
+******************************************/
 int DrawRanking(int g_KeyFlg, int& GameMode);		// ランキング画面描画処理
 int ReadRanking(void);								// ランキングデータの読込
 
@@ -34,5 +34,11 @@ int ReadRanking(void);								// ランキングデータの読込
 
 void SortRanking(void);			// ランキング並べ替え
 int SaveRanking(void);			// ランキングデータの保存
+
+/*****************************************
+*　extern宣言
+******************************************/
+//ランキングデータの変数宣言
+extern RankingData Ranking[RANK_MAX];			// RankingとResultで使用
 
 #endif // !RANKING_H__
