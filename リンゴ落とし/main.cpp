@@ -4,6 +4,7 @@
 #include "RANKING.h"
 #include "HELP.h"
 #include "END.h"
+#include "Result.h"
 
 /******************************************************
 *変数宣言
@@ -36,7 +37,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//g_OldKey = g_NowKey;
 		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
 		//g_KeyFlg = g_NowKey & ~g_OldKey;
-		
+
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle();		//ゲームタイトル描画処理
@@ -45,10 +46,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				DrawRanking();		//ゲームタイトル描画処理
 				break;
 			case HELP:
-				DrawHelp();		//ヘルプ画面描画処理
+				DrawHelp();			//ヘルプ画面描画処理
 				break;
 			case END:
-				DrawEnd();							//エンド画面描画処理
+				DrawEnd();			//エンド画面描画処理
+				break;
+			case RESULT:
+				DrawResult();		//リザルト画面
 				break;
 		}
 

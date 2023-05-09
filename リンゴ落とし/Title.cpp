@@ -14,7 +14,7 @@ int posY;				// カーソルのY座標
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle()
+int DrawTitle(void)
 {
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
@@ -39,9 +39,10 @@ int DrawTitle()
 		Button_flg = TRUE;
 
 		switch (menuNo) {
-		//case 0:
+		case 0:
 		//	GameMode = 1;			// INIT
-		//	break;
+			GameMode = 6;			// RESULT
+			break;
 		case 1:
 			GameMode = 3;			// RANKING
 			break;
