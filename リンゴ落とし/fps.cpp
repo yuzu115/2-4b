@@ -11,6 +11,7 @@ double deltaTime = 0;
 int fpsCounter = 0;
 int fps = 0;
 
+
 void wait_fanc() {
 	int term;
 	static int t = 0;
