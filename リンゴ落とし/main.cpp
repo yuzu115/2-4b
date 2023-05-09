@@ -51,24 +51,23 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// プレイヤー操作
 		PlayerControl(g_OldKey, GameMode);
 
-		PlayerFlashing(Count, on, off);
+		PlayerFlashing(Count,on,off);
 
+		if (Count == 121)Count = 0;
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
 
 		//fps固定処理
 		wait_fanc();
 
-		if (g_OldKey & PAD_INPUT_LEFT) {
+		if (KEY_INPUT_DOWN) {
 			Count++;
 			off++;
 			on ++;
 		}
-		if (Count == 121) {
-			Count=0;
-		}
+		
+		
 	}
-
 	DxLib_End();
 
 	return 0;

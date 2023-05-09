@@ -35,6 +35,7 @@ struct PLAYER gPlayer;
  ******************************************/
 // リンゴの座標
 float ax, ay, ar;
+//int off, on=0;
 
 /******************************************
  * プレイヤー初期化
@@ -188,7 +189,7 @@ void HitPlayer(void)
 	}
 }
 
-void PlayerFlashing(int Count, int on, int off) {
+int PlayerFlashing(int& Count,int& on,int& off) {
 
 	if (Count <= 120) {
 
@@ -197,8 +198,11 @@ void PlayerFlashing(int Count, int on, int off) {
 			off = 0;
 
 			DrawBox(0, 0, 40, 40, 0x000000, TRUE);
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x0000ff, TRUE);
+			return off;
+
 		}
 
 		if (off == 20) {
@@ -206,8 +210,11 @@ void PlayerFlashing(int Count, int on, int off) {
 			DrawBox(0, 0, 40, 40, 0xff0000, FALSE);
 
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x000000, TRUE);
+
+
+			return on;
 		}
 
 	}
-
+	
 }
