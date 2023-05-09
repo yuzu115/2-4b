@@ -24,6 +24,6 @@ void Main(int& gamemode)
 	int time = TIMELIMIT * (GetNowCount() - gStartTime);
 	if (time <= 0)
 	{
-		gamemode = 6;
+		printf("ƒeƒXƒg");
 	}
 }
