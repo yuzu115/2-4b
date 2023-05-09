@@ -25,8 +25,15 @@ int DrawRanking(void)
 
 	ReadRanking();		//ランキングデータの読込
 
-	//// スペースキーでメニューに戻る
-	//if (g_KeyFlg & PAD_INPUT_A) GameMode = 0;		// タイトル画面へ
+	if (input.Buttons[12] == 0) {
+		Button_flg = FALSE;
+	}
+
+	// Aボタンでスタート画面に戻る
+	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+		GameMode = 0;		// タイトル画面へ
+	}
 
 	//ランキング画像表示
 	DrawGraph(0, 0, RankingImg, FALSE);
@@ -46,33 +53,6 @@ int DrawRanking(void)
 
 	return 0;
 }
-
-///*****************************************
-//*　ランキング入力(名前入力)処理
-//******************************************/
-//void InputName(int g_KeyFlg, int& GameMode)
-//{
-//	// ランキング画像表示
-//	DrawGraph(0, 0, RankingImg, FALSE);
-//
-//	// フォントサイズ
-//	SetFontSize(16);
-//
-//	// 名前の入力指示文字列の描画
-//	DrawString(80, 150, "ランキングに登録します", 0xFFFFFF);
-//	DrawString(80, 170, "名前を英字で入力してください", 0xFFFFFF);
-//
-//	// 名前の入力
-//	DrawString(80, 200, ">", 0xFFFFFF);
-//	DrawBox(90, 195, 200, 220, 0x000055, TRUE);
-//	if (KeyInputSingleCharString(90, 200, 10, Ranking[RANK_MAX - 1].name, FALSE) == 1) {
-//		Ranking[RANK_MAX - 1].score = g_Score;			// ランキングデータの10番目にスコアを登録
-//		SortRanking();									// ランキング並べ替え
-//		SaveRanking();									// ランキングデータの保存
-//		GameMode = 3;							// ゲームモードの変更
-//	}
-//
-//}
 
 /***********************************************
  * ランキング並べ替え
