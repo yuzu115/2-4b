@@ -20,7 +20,8 @@ int off;//20f回ったか
 
 
 float x1, Y1 = 0;
-float x2, y2 = 0;
+float x2 = 40;
+float y2 = 60;
 
 float ip = 0;//内積
 float cp = 0;//外積
@@ -41,7 +42,7 @@ int sy = 250;//サークルのｙ座標
 
 int menseki = 0;
 
-float h = 20.0f;//円の半径
+float h = 60.0f;//円の半径
 
 int gKeyFlg;//キー入力されてるか
 int gOldKey;
@@ -115,7 +116,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		
 	
 		//動く四角形のDrawBox
-		DrawBox(0 + x1, 0+Y1, 40+x2, 40+y2, 0xffff0f, TRUE);
+		DrawBox(0 + x1, 0+Y1, x2, y2, 0xffff0f, TRUE);
 
 		//真ン中の座標を取ってそっからの距離を倍にできるか
 		//boxっぽくできるかどうか
@@ -125,17 +126,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//真ん中からbox終わりまでのｙ座標x座標とってそこに触ったら、消えるみたいな
 		//引くあたい逆にするとか
 		
-		ip = (40 * (x1-sx)) + (40 * c);
+		//c = (x1-sx)*(x1-sx)+(Y1-sy)*(Y1-sy);
 		//cp = (40*)
 
 		//
 
 		a = x1+20-sx;
-		b = Y1+20-sy;
+		b = Y1+30-sy;
 		c = sqrt(a * a + b * b);
+		
+		ip = c * a / c;
+		cp = c * b / c;
+		
 
-
-		DrawCircle(x1+20,Y1+20, 3, 0x008080, TRUE);
+		DrawCircle(x1+20,Y1+30, 3, 0x008080, TRUE);
 
 		a2 = 40+x2 - sx;
 		b2 = 40+y2 - sy;
@@ -154,10 +158,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		m = (x2)*(y2);
 
-		//半径より、cの値が小さくなったら色が変わる
-		//半径１００に入って来たら色が変わる
-		//円の中心から,半径は１００　ｃ、真ん中の距離から、どこまでなら
-		if (c<=h) {
+
+		//円の半径+正方形の真ん中の点からの半線
+		//長方形の時は半径+横線の半分 or演算 縦線の半分
+		if (c<=h+20||c<=h+30) {
 			/*if () {
 
 				DrawFormatString(390, 480, 0xffffff, "hit!!青色 c=%d", c);
@@ -183,10 +187,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		DrawFormatString(390, 500, 0xffffff, "青色 c=%f",c);
 		DrawFormatString(390, 520, 0xffffff, "緑 c2=%f",c2);
-		DrawFormatString(390, 540, 0xffffff, "オレンジ色 c3=%d",c3);
-		DrawFormatString(390, 560, 0xffffff, "赤色 c4=%d",c4);
+		DrawFormatString(390, 540, 0xffffff, "sy %f",sy);
+		DrawFormatString(390, 560, 0xffffff, "sx %f",sx);
 		DrawFormatString(390, 580, 0xffffff, "x1とsxの距離=%f",a);
 		DrawFormatString(390, 600, 0xffffff, "y1とsyの距離=%f",b);
+		DrawFormatString(390, 620, 0xffffff, "ip=%f",ip);
+		DrawFormatString(390, 640, 0xffffff, "cp=%f",cp);
 	
 
 
