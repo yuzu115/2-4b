@@ -1,5 +1,6 @@
 #include"DxLib.h"
 #include"DrawApple.h"
+#include"Player.h"
 
 /******************************************
 * 定数の宣言
@@ -41,10 +42,10 @@ int gRandApple;
 */
 int AppleSet(void)
 {
-	gAppleState[0] = gApple_Rd;		//赤リンゴのステータス格納
-	gAppleState[1] = gApple_Br;		//青リンゴのステータス格納
-	gAppleState[2] = gApple_Gl;		//金リンゴのステータス格納
-	gAppleState[3] = gApple_Po;		//毒リンゴのステータス格納
+	gAppleState[0] = gApple_Rd;
+	gAppleState[1] = gApple_Br;
+	gAppleState[2] = gApple_Gl;
+	gAppleState[3] = gApple_Po;
 
 	return 0;
 }
@@ -60,22 +61,30 @@ void DrawApple(void){
 		// リンゴの表示
 		if (gApple[i].flg == TRUE) {
 			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);
-			gApple[i].y += gApple[i].speed;
+			gApple[i].y +=  gApple[i].speed;
+
 
 			//gAppleのy座標が1000以下になったとき消去
 			if (gApple[i].y > 1000) {
 				gApple[i].flg = FALSE;
 			}
+			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
+			DrawFormatString(0, 20, 0x000000, "y:%d", gApple[i].y);
+			DrawFormatString(0, 40, 0x000000, "r:%d", gApple[i].r);
+			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
+			DrawFormatString(0, 80, 0x000000, "type:%d", gApple[i].type);
+
+
 		}
-		DrawFormatString(0, 20, 0x000000, "y:%d", gApple[1].y);
-		DrawFormatString(0, 40, 0x000000, "r:%d", gApple[1].r);
-		DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[1].flg);
-		DrawFormatString(0, 80, 0x000000, "type:%d", gApple[1].type);
+
+		// リンゴの座標を引数として渡す
+		GetApple(gApple[i].x,gApple[i].y,gApple[i].r);
+		// プレイヤーとの当たり判定
+		HitPlayer();
 	}
 
 	//生成関数の読み込み
 	CreateApple();
-	HitApple();
 
 }
 
@@ -88,7 +97,7 @@ int CreateApple()
 	//ステータスの読み込み
 	AppleSet();
 
-	for (int i = 0;  i < APPLE_MAX; i++) {
+	for (int i = 0; i < APPLE_MAX; i++) {
 		if (gApple[i].flg == FALSE) {
 			gApple[i] = gAppleState[gApple[i].type];	//ステータスの格納
 			gApple[i].type = RandApple();				//
@@ -134,21 +143,4 @@ int RandApple()
 	}
 }
 
-/**
-* リンゴの当たり判定
-*/
-void HitApple()
-{
-	for (int i = 0; i < APPLE_MAX; i++) {
-		// リンゴの表示
-		if (gApple[i].flg == TRUE) {
-			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0x000000, TRUE);
-			gApple[i].y += gApple[i].speed;
 
-			//gAppleのy座標が1000以下になったとき消去
-			if (gApple[i].y > 1000) {
-					gApple[i].flg = FALSE;
-			}
-		}
-	}
-}
