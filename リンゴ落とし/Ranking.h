@@ -30,7 +30,7 @@ typedef struct
 int DrawRanking(void);		// ランキング画面描画処理
 int ReadRanking(void);								// ランキングデータの読込
 
-//void InputRanking(int g_KeyFlg, int& GameMode);		// ランキング入力処理
+//void InputRanking(void);		// ランキング入力処理
 
 void SortRanking(void);			// ランキング並べ替え
 int SaveRanking(void);			// ランキングデータの保存
