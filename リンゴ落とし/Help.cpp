@@ -22,13 +22,13 @@ int DrawHelp(void)
 	// Aボタンでタイトルへ
 	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		GameMode = 0;					// タイトル画面へ
+		GameMode = 0;					// TITLE
 	}
 	// Bボタンでゲームスタート
 	if (input.Buttons[13] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		//GameMode = 1;					// ゲームスタートへ
-		GameMode = 7;					// エンドへ
+		//GameMode = 1;					// INIT
+		GameMode = 7;					// END
 	}
 
 	// 画像の表示

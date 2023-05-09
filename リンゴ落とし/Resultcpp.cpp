@@ -21,13 +21,13 @@ int DrawResult(void)
 
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	//if (++g_WaitTime > 900)
-	//スコアがランキングの最下位の値以上
-		//if (Ranking[RANK_MAX - 1].score >= g_Score){
-		//	GameMode = 5;			// 名前入力へ
-		//}
-		//else {
-		//	GameMode = 3;		// ランキング画面へ
-		//}
+	// スコアがランキングの最下位の値以上
+		if (Ranking[RANK_MAX - 1].score >= g_Score){
+			GameMode = 5;			// INPUTNAME
+		}
+		else {
+			GameMode = 3;		// RANKING
+		}
 	
 
 	SetFontSize(30);

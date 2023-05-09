@@ -32,7 +32,7 @@ int DrawRanking(void)
 	// Aボタンでスタート画面に戻る
 	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		GameMode = 0;		// タイトル画面へ
+		GameMode = 0;		// TITLE
 	}
 
 	//ランキング画像表示
