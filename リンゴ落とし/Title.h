@@ -10,6 +10,6 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-int DrawTitle(int g_KeyFlg,int& GameMode);
+int DrawTitle();
 
 #endif // !TITLE_H__

@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include "infomation.h"
 #include "Title.h"
 
 /****************************************
@@ -13,7 +14,7 @@ int posY;				// カーソルのY座標
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(int g_KeyFlg,int& GameMode)
+int DrawTitle()
 {
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
@@ -21,31 +22,37 @@ int DrawTitle(int g_KeyFlg,int& GameMode)
 	if ((AppleCursorImg = LoadGraph("images/RedApple.png")) == -1) return -1;
 
 	// メニューカーソル移動処理
-	if (g_KeyFlg & PAD_INPUT_DOWN) {
+	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 		if (++menuNo > 3) menuNo = 0;
 	}
-	if (g_KeyFlg & PAD_INPUT_UP) {
+	if (input.Buttons[0] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 		if (--menuNo < 0) menuNo = 3;
 	}
+	if (input.Buttons[1] == 0 && input.Buttons[0] == 0 && input.Buttons[12] == 0) {
+		Button_flg = FALSE;
+	}
+
 
 	// Zキーでメニュー選択
-	if (g_KeyFlg & PAD_INPUT_A) {
-		switch (menuNo) {
-		//case 0:
-		//	GameMode = 1;			// INIT
-		//	break;
-		case 1:
-			GameMode = 3;			// RANKING
-			break;
-		case 2:
-			GameMode = 4;			// HELP
-			break;
-	 	case 3:
-			GameMode = 7;			// END
-			break;
+	//if (g_KeyFlg & PAD_INPUT_A) {
+	//	switch (menuNo) {
+	//	//case 0:
+	//	//	GameMode = 1;			// INIT
+	//	//	break;
+	//	case 1:
+	//		GameMode = 3;			// RANKING
+	//		break;
+	//	case 2:
+	//		GameMode = 4;			// HELP
+	//		break;
+	// 	case 3:
+	//		GameMode = 7;			// END
+	//		break;
 
-		}
-	}
+	//	}
+	//}
 	
 	// タイトル画像の表示
 	DrawGraph(0, 0, TitleImg, FALSE);
