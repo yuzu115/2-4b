@@ -10,6 +10,6 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-//int DrawHelp(int g_KeyFlg,int& GameMode);
+int DrawHelp(void);
 
 #endif // ! HELP_H__

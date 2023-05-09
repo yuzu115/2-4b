@@ -41,15 +41,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			case TITLE:
 				DrawTitle();		//ゲームタイトル描画処理
 				break;
-			//case RANKING:
-			//	DrawRanking(g_KeyFlg,GameMode);		//ゲームタイトル描画処理
-			//	break;
-			//case HELP:
-			//	DrawHelp(g_KeyFlg,GameMode);		//ヘルプ画面描画処理
-			//	break;
-			//case END:
-			//	DrawEnd(GameMode);							//エンド画面描画処理
-			//	break;
+			case RANKING:
+				DrawRanking();		//ゲームタイトル描画処理
+				break;
+			case HELP:
+				DrawHelp();		//ヘルプ画面描画処理
+				break;
+			case END:
+				DrawEnd();							//エンド画面描画処理
+				break;
 		}
 
 		ScreenFlip();	//裏画面の内容を表画面に反映

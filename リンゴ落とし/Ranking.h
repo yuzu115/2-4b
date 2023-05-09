@@ -27,18 +27,18 @@ typedef struct
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-//int DrawRanking(int g_KeyFlg, int& GameMode);		// ランキング画面描画処理
-//int ReadRanking(void);								// ランキングデータの読込
-//
-////void InputRanking(int g_KeyFlg, int& GameMode);		// ランキング入力処理
-//
-//void SortRanking(void);			// ランキング並べ替え
-//int SaveRanking(void);			// ランキングデータの保存
-//
-///*****************************************
-//*　extern宣言
-//******************************************/
-////ランキングデータの変数宣言
-//extern RankingData Ranking[RANK_MAX];			// RankingとResultで使用
-//
+int DrawRanking(void);		// ランキング画面描画処理
+int ReadRanking(void);								// ランキングデータの読込
+
+//void InputRanking(int g_KeyFlg, int& GameMode);		// ランキング入力処理
+
+void SortRanking(void);			// ランキング並べ替え
+int SaveRanking(void);			// ランキングデータの保存
+
+/*****************************************
+*　extern宣言
+******************************************/
+//ランキングデータの変数宣言
+extern RankingData Ranking[RANK_MAX];			// RankingとResultで使用
+
 #endif // !RANKING_H__

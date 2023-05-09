@@ -34,25 +34,25 @@ int DrawTitle()
 		Button_flg = FALSE;
 	}
 
+	// Aボタンでメニュー選択
+	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 
-	// Zキーでメニュー選択
-	//if (g_KeyFlg & PAD_INPUT_A) {
-	//	switch (menuNo) {
-	//	//case 0:
-	//	//	GameMode = 1;			// INIT
-	//	//	break;
-	//	case 1:
-	//		GameMode = 3;			// RANKING
-	//		break;
-	//	case 2:
-	//		GameMode = 4;			// HELP
-	//		break;
-	// 	case 3:
-	//		GameMode = 7;			// END
-	//		break;
-
-	//	}
-	//}
+		switch (menuNo) {
+		//case 0:
+		//	GameMode = 1;			// INIT
+		//	break;
+		case 1:
+			GameMode = 3;			// RANKING
+			break;
+		case 2:
+			GameMode = 4;			// HELP
+			break;
+	 	case 3:
+			GameMode = 7;			// END
+			break;
+		}
+	}
 	
 	// タイトル画像の表示
 	DrawGraph(0, 0, TitleImg, FALSE);
