@@ -2,7 +2,6 @@
 #include <math.h>
 #include"Player.h"
 
-
 /******************************************
  * ’è”‚ÌéŒ¾
  ******************************************/
@@ -187,4 +186,8 @@ void HitPlayer(void)
 		// “–‚½‚Á‚Ä‚¢‚½‚çƒŠƒ“ƒS‚ÌF‚ğ”’‚É
 		DrawCircle(ax, ay, ar, 0xffffff, TRUE);
 	}
+}
+
+void PlayerFlashing() {
+
 }
