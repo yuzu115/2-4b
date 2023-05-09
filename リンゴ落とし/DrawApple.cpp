@@ -14,7 +14,7 @@ struct AppleDate {
 	int flg;		//フラグ
 	int type;		//種類
 	int img;		//画像表示用
-	int x, y, r;	//座標、半径
+	float x, y, r;	//座標、半径
 	float speed;		//落下速度
 	int score;		//スコア加算
 	int color;		//色(仮)
@@ -41,10 +41,10 @@ int gRandApple;
 */
 int AppleSet(void)
 {
-	gAppleState[0] = gApple_Rd;
-	gAppleState[1] = gApple_Br;
-	gAppleState[2] = gApple_Gl;
-	gAppleState[3] = gApple_Po;
+	gAppleState[0] = gApple_Rd;		//赤リンゴのステータス格納
+	gAppleState[1] = gApple_Br;		//青リンゴのステータス格納
+	gAppleState[2] = gApple_Gl;		//金リンゴのステータス格納
+	gAppleState[3] = gApple_Po;		//毒リンゴのステータス格納
 
 	return 0;
 }
@@ -66,13 +66,11 @@ void DrawApple(void){
 			if (gApple[i].y > 1000) {
 				gApple[i].flg = FALSE;
 			}
-			DrawFormatString(0, 0, 0x000000, "x:%d", gApple[i].x);
-			DrawFormatString(0, 20, 0x000000, "y:%d", gApple[i].y);
-			DrawFormatString(0, 40, 0x000000, "r:%d", gApple[i].r);
-			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
-			DrawFormatString(0, 80, 0x000000, "type:%d", gApple[i].type);
-
 		}
+		DrawFormatString(0, 20, 0x000000, "y:%d", gApple[1].y);
+		DrawFormatString(0, 40, 0x000000, "r:%d", gApple[1].r);
+		DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[1].flg);
+		DrawFormatString(0, 80, 0x000000, "type:%d", gApple[1].type);
 	}
 
 	//生成関数の読み込み
@@ -90,13 +88,13 @@ int CreateApple()
 	//ステータスの読み込み
 	AppleSet();
 
-	for (int i = 0; i < APPLE_MAX; i++) {
+	for (int i = 0;  i < APPLE_MAX; i++) {
 		if (gApple[i].flg == FALSE) {
 			gApple[i] = gAppleState[gApple[i].type];	//ステータスの格納
 			gApple[i].type = RandApple();				//
 			gApple[i].img = gApple[i].color;
 			gApple[i].x = GetRand(7) * 125 + 50;
-			gApple[i].speed = 1+1*gApple[i].speed;
+			gApple[i].speed = gApple[i].speed;
 			gApple[i].flg = TRUE;
 			return TRUE;
 		}
@@ -141,8 +139,7 @@ int RandApple()
 */
 void HitApple()
 {
-		for (int i = 0; i < APPLE_MAX; i++) {
-
+	for (int i = 0; i < APPLE_MAX; i++) {
 		// リンゴの表示
 		if (gApple[i].flg == TRUE) {
 			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0x000000, TRUE);
@@ -150,7 +147,7 @@ void HitApple()
 
 			//gAppleのy座標が1000以下になったとき消去
 			if (gApple[i].y > 1000) {
-				gApple[i].flg = FALSE;
+					gApple[i].flg = FALSE;
 			}
 		}
 	}
