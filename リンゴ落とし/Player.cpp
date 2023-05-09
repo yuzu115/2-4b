@@ -159,7 +159,7 @@ void HitPlayer(void)
 	my1 = SCREEN_HEIGHT;
 
 	// プレイヤーの当たり判定表示
-	DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
+	//DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
 	// リンゴの当たり判定表示
 	DrawCircle(ax, ay, ar, 0x000000, TRUE);
 
@@ -188,6 +188,26 @@ void HitPlayer(void)
 	}
 }
 
-void PlayerFlashing() {
+void PlayerFlashing(int Count, int on, int off) {
+
+	if (Count <= 120) {
+
+		//120秒たつまで、20f感覚で点滅
+		if (on == 20) {
+			off = 0;
+
+			DrawBox(0, 0, 40, 40, 0x000000, TRUE);
+
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x0000ff, TRUE);
+		}
+
+		if (off == 20) {
+			on = 0;
+			DrawBox(0, 0, 40, 40, 0xff0000, FALSE);
+
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x000000, TRUE);
+		}
+
+	}
 
 }
