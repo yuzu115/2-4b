@@ -4,7 +4,6 @@
 int gStartKeyFlg = FALSE;
 int gFinishKeyFlg = FALSE;
 
-
 /********************
 *ƒ|[ƒY‰æ–Ê‘JˆÚ     *
 ********************/

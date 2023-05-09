@@ -29,6 +29,7 @@ enum mode {
 	INPUTNAME,
 	RESULT,
 	PAUSE,
+	TIME,
 	END,
 	CLOSE,
 
