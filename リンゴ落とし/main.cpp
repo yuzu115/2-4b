@@ -64,7 +64,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			off++;
 			on ++;
 		}
-		if (Count >= 121) {
+		if (Count == 121) {
 			Count=0;
 		}
 	}
