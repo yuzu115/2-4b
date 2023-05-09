@@ -1,6 +1,6 @@
 #pragma once
-#ifndef FPS
-#define FPS
+#ifndef FPS_H_
+#define FPS_H_
 
 //関数のプロトタイプ宣言
 void wait_fanc();//FPS固定処理の関数
