@@ -19,7 +19,7 @@ int MoveSound;		//‰æ–Ê‘JˆÚŽž‚É‚È‚éƒTƒEƒ“ƒh
 *****************************************/
 int DrawTitle(void)
 {
-i//nt DrawTitle(int g_KeyFlg,int& GameMode) {
+//nt DrawTitle(int g_KeyFlg,int& GameMode) {
 
 	LoadTitleSounds();
 
