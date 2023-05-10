@@ -1,9 +1,21 @@
 #include"DxLib.h"
 #include"infomation.h"
 #include "TITLE.h"
+#include "RANKING.h"
 #include "HELP.h"
 #include "END.h"
+#include "Result.h"
 
+/******************************************************
+*変数宣言
+*******************************************************/
+XINPUT_STATE input;
+int Button_flg = FALSE;
+int GameMode = 0;
+
+/****************************************************
+*プログラムの開始
+******************************************************/
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -17,22 +29,30 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
-	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
+	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
-		//入力キー取得
-		g_OldKey = g_NowKey;
-		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッドのボタン
-		g_KeyFlg = g_NowKey & ~g_OldKey;
-		
+		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド
+
+		////入力キー取得
+		//g_OldKey = g_NowKey;
+		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
+		//g_KeyFlg = g_NowKey & ~g_OldKey;
+
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle(g_KeyFlg,GameMode);		//ゲームタイトル描画処理
+				DrawTitle();		//ゲームタイトル描画処理
+				break;
+			case RANKING:
+				DrawRanking();		//ゲームタイトル描画処理
 				break;
 			case HELP:
-				DrawHelp(g_KeyFlg,GameMode);		//ヘルプ画面描画処理
+				DrawHelp();			//ヘルプ画面描画処理
 				break;
 			case END:
-				DrawEnd(GameMode);							//エンド画面描画処理
+				DrawEnd();			//エンド画面描画処理
+				break;
+			case RESULT:
+				DrawResult();		//リザルト画面
 				break;
 		}
 

@@ -1,3 +1,5 @@
+#include "DxLib.h"
+#include "infomation.h"
 #include "Title.h"
 
 /****************************************
@@ -6,8 +8,8 @@
 int TitleImg;			// タイトル画像
 int AppleCursorImg;		// カーソル（赤リンゴ）画像
 
-int menuNo = 0;		// 0：START　1：RANKING　2：HELP　3：END
-int posY;					// カーソルのY座標
+int menuNo = 0;			// 0：START　1：RANKING　2：HELP　3：END
+int posY;				// カーソルのY座標
 
 int CursorSound;	//カーソルサウンド
 int MoveSound;		//画面遷移時になるサウンド
@@ -15,7 +17,9 @@ int MoveSound;		//画面遷移時になるサウンド
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(int g_KeyFlg,int& GameMode) {
+int DrawTitle(void)
+{
+i//nt DrawTitle(int g_KeyFlg,int& GameMode) {
 
 	LoadTitleSounds();
 
@@ -24,37 +28,39 @@ int DrawTitle(int g_KeyFlg,int& GameMode) {
 	// カーソル（赤リンゴ）画像
 	if ((AppleCursorImg = LoadGraph("images/RedApple.png")) == -1) return -1;
 
-
-	ChangeNextPlayVolumeSoundMem(180, CursorSound);  //次に流す音量を調整  ～２５５  255が通常
-	
-													 // メニューカーソル移動処理
-	if (g_KeyFlg & PAD_INPUT_DOWN) {
+	// メニューカーソル移動処理
+	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 		PlaySoundMem(CursorSound, DX_PLAYTYPE_BACK);
 		if (++menuNo > 3) menuNo = 0;
 	}
-	if (g_KeyFlg & PAD_INPUT_UP) {
+	if (input.Buttons[0] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 		PlaySoundMem(CursorSound, DX_PLAYTYPE_BACK);
 		if (--menuNo < 0) menuNo = 3;
 	}
+	if (input.Buttons[1] == 0 && input.Buttons[0] == 0 && input.Buttons[12] == 0) {
+		Button_flg = FALSE;
+	}
 
-	// Zキーでメニュー選択
-	if (g_KeyFlg & PAD_INPUT_A) {
-
+	// Aボタンでメニュー選択
+	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 		PlaySoundMem(MoveSound, DX_PLAYTYPE_BACK);
 		switch (menuNo) {
-		//case 0:
+		case 0:
 		//	GameMode = 1;			// INIT
-		//	break;
-		//case 1:
-		//	GameMode = 3;			// RANKING
-		//	break;
+			GameMode = 6;			// RESULT
+			break;
+		case 1:
+			GameMode = 3;			// RANKING
+			break;
 		case 2:
 			GameMode = 4;			// HELP
 			break;
 	 	case 3:
 			GameMode = 7;			// END
 			break;
-
 		}
 	}
 	

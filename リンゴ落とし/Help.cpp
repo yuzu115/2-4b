@@ -1,3 +1,5 @@
+#include "DxLib.h"
+#include "infomation.h"
 #include "Help.h"
 
 /****************************************
@@ -8,19 +10,25 @@ int HelpBackImg;		// 背景画像
 /****************************************
 * ヘルプ画面描画
 *****************************************/
-int DrawHelp(int g_KeyFlg,int& GameMode) {
-
+int DrawHelp(void)
+{
 	// 背景画像の読込
 	if ((HelpBackImg = LoadGraph("images/Back.png")) == -1) return -1;
 
+	if (input.Buttons[12] == 0) {
+		Button_flg = FALSE;
+	}
+
 	// Aボタンでタイトルへ
-	if (g_KeyFlg & PAD_INPUT_A) {
-		GameMode = 0;					// タイトル画面へ
+	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+		GameMode = 0;					// TITLE
 	}
 	// Bボタンでゲームスタート
-	if (g_KeyFlg & PAD_INPUT_B) {
-		//GameMode = 1;					// ゲームスタートへ
-		GameMode = 7;					// エンドへ
+	if (input.Buttons[13] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+		//GameMode = 1;					// INIT
+		GameMode = 7;					// END
 	}
 
 	// 画像の表示
