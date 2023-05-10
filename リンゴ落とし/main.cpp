@@ -1,5 +1,5 @@
-#include"DxLib.h"
-#include"infomation.h"
+#include "DxLib.h"
+#include "infomation.h"
 #include "TITLE.h"
 #include "RANKING.h"
 #include "HELP.h"
@@ -31,7 +31,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
-		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド
+		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
 		////入力キー取得
 		//g_OldKey = g_NowKey;

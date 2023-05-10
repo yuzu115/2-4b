@@ -12,7 +12,7 @@ int g_Score;			// 現在のスコア
 //int WaitTime = 0;			// 待ち時間
 
 /****************************************
-* リザルト画面描画処理
+* リザルト画面描画
 *****************************************/
 int DrawResult(void)
 {
@@ -35,7 +35,7 @@ int DrawResult(void)
 	DrawGraph(0, 0, ResultImg, FALSE);
 
 	SetFontSize(30);
-	DrawFormatString(400, 300, 0x000000, "赤リンゴ：%3d\n");		// テストで0の表示
+	DrawFormatString(400, 300, 0x000000, "赤リンゴ：%3d\n");
 	DrawFormatString(400, 340, 0x000000, "青リンゴ：%3d\n");
 	DrawFormatString(400, 380, 0x000000, "金リンゴ：%3d\n");
 	DrawFormatString(400, 420, 0x000000, "毒リンゴ：%3d\n");
