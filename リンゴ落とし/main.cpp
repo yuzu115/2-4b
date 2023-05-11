@@ -40,6 +40,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
+		PlayerImg();
+
 		DrawApple();
 		
 		//今出てるFPSの表示
@@ -51,7 +53,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// プレイヤー操作
 		PlayerControl(g_OldKey, GameMode);
 
-		PlayerFlashing(Count,on,off);
+		//PlayerFlashing(Count,on,off);
 
 		if (Count == 121)Count = 0;
 		//裏画面の内容を表画面に反映する

@@ -36,6 +36,9 @@ struct PLAYER gPlayer;
 // リンゴの座標
 float ax, ay, ar;
 //int off, on=0;
+//int gPlayerImg[];
+int gWalkImg[3];
+
 
 /******************************************
  * プレイヤー初期化
@@ -217,4 +220,15 @@ int PlayerFlashing(int& Count,int& on,int& off) {
 
 	}
 	
+}
+
+void PlayerImg() {
+
+	DrawGraph(300, 300, gWalkImg[0], TRUE);
+	DrawGraph(300, 330, gWalkImg[1], TRUE);
+	DrawGraph(300, 360, gWalkImg[2], TRUE);
+}
+
+int LoadImg(void) {
+	if (LoadDivGraph("images/PLwalk.png", 3, 3, 1, 32, 32, gWalkImg) == -1)return -1;
 }
