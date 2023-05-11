@@ -230,5 +230,5 @@ void PlayerImg() {
 }
 
 int LoadImg(void) {
-	if (LoadDivGraph("images/PLwalk.png", 3, 3, 1, 32, 32, gWalkImg) == -1)return -1;
+	if (LoadDivGraph("images/PLwalk.png", 3, 1, 3, 32, 32, gWalkImg) == -1)return -1;
 }

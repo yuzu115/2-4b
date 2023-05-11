@@ -40,7 +40,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
-		PlayerImg();
 
 		DrawApple();
 		
@@ -55,6 +54,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		//PlayerFlashing(Count,on,off);
 
+		PlayerImg();
 		if (Count == 121)Count = 0;
 		//— ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f‚·‚é
 		ScreenFlip();
