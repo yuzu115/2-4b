@@ -14,7 +14,7 @@ int posY;				// カーソルのY座標
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(void)
+int DrawTitle(int & GameMode)
 {
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;

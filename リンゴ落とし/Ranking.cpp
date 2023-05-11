@@ -18,7 +18,7 @@ int RankingImg;			// ランキング画像
 /****************************************
 * ランキング画面描画処理
 *****************************************/
-int DrawRanking(void)
+int DrawRanking(int& GameMode)
 {
 	// ランキング画像の読込
 	if ((RankingImg = LoadGraph("images/Back.png")) == -1) return -1;

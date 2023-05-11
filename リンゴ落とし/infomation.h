@@ -1,5 +1,7 @@
 #pragma once
 #include"DxLib.h"
+#ifndef  INFOMATION_H__
+#define INFOMATION_H__
 
 //変数・関数・構造体などの 宣言 はヘッダーです
 // 定義 は .cpp です
@@ -40,8 +42,11 @@ enum mode {
 //int g_NowKey;                  //今回の入力キー
 //int g_KeyFlg;                  //入力キー情報
 
-int g_Score;					 //スコア
-
 int GameMode;				 //モード
-XINPUT_STATE input;			// ゲームパッド
-int Button_flg;
+
+extern int g_Score;					 //スコア
+
+extern XINPUT_STATE input;			// ゲームパッド
+extern int Button_flg;
+
+#endif // ! INFOMATION_H__

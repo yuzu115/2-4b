@@ -27,7 +27,7 @@ typedef struct
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-int DrawRanking(void);		// ランキング画面描画処理
+int DrawRanking(int& GameMode);		// ランキング画面描画処理
 int ReadRanking(void);								// ランキングデータの読込
 
 //void InputRanking(void);		// ランキング入力処理

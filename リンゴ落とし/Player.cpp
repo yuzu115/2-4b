@@ -56,7 +56,7 @@ void PlayerInit(void)
 /*************************************
  * プレイヤーの移動
  *************************************/
-void PlayerControl(void)
+void PlayerControl(int& GameMode)
 {
 
 	// プレイヤーの左右移動

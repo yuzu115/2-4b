@@ -15,7 +15,7 @@
 *******************************************************/
 XINPUT_STATE input;
 int Button_flg = FALSE;
-int GameMode = 0;
+//int GameMode = 0;
 
 /****************************************************
 *プログラムの開始
@@ -42,7 +42,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// プレイヤー初期化
 	//PlayerInit();
-
 
 
 	// BACKボタンでプログラム終了
@@ -78,26 +77,27 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle();		//ゲームタイトル描画処理
+				DrawFormatString(450, 1200, 0xffffff, "aaaaa = %d", GameMode);
+				DrawTitle(GameMode);		//ゲームタイトル描画処理
 				break;
-			case MAIN:
-				PlayerInit();					// プレイヤー初期化
-				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-				DrawApple();
-				PlayerControl();				// プレイヤー操作
-				break;
-			case RANKING:
-				DrawRanking();		//ゲームタイトル描画処理
-				break;
-			case HELP:
-				DrawHelp();			//ヘルプ画面描画処理
-				break;
-			case END:
-				DrawEnd();			//エンド画面描画処理
-				break;
-			case RESULT:
-				DrawResult();		//リザルト画面
-				break;
+			//case MAIN:
+			//	PlayerInit();					// プレイヤー初期化
+			//	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+			//	DrawApple();
+			//	PlayerControl(GameMode);				// プレイヤー操作
+			//	break;
+			//case RANKING:
+			//	DrawRanking();		//ゲームタイトル描画処理
+			//	break;
+			//case HELP:
+			//	DrawHelp();			//ヘルプ画面描画処理
+			//	break;
+			//case END:
+			//	DrawEnd();			//エンド画面描画処理
+			//	break;
+			//case RESULT:
+			//	DrawResult();		//リザルト画面
+			//	break;
 		}
 
 		//fps固定処理

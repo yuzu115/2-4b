@@ -14,7 +14,7 @@ int g_Score;			// 現在のスコア
 /****************************************
 * リザルト画面描画処理
 *****************************************/
-int DrawResult(void)
+int DrawResult(int& GameMode)
 {
 	// リザルト画像の読込
 	if ((ResultImg = LoadGraph("images/Back.png")) == -1) return -1;
