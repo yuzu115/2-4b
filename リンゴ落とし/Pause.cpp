@@ -9,6 +9,7 @@ int gFinishKeyFlg = FALSE;
 ********************/
 void pause(int oldkey,int& gamemode)
 {
+	int flg=0;
 	//パッドキーを呼び出し
 	if (oldkey & PAD_INPUT_8) 
 	{
@@ -21,6 +22,17 @@ void pause(int oldkey,int& gamemode)
 		//画面への表示
 		SetFontSize(100);
 		DrawString(300, 300, "--ポーズ画面--", 0xffffff);
+		flg = 1;
+		WaitKey();
+	}
+
+
+	if (gStartKeyFlg == TRUE&&flg==1)
+	{
+		if (oldkey & PAD_INPUT_8)
+		{
+			gamemode = 2;
+		}
 	}
 
 }

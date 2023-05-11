@@ -32,6 +32,7 @@ enum mode {
 	TIME,
 	END,
 	CLOSE,
+	UISCORE,
 
 };
 
