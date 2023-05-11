@@ -31,12 +31,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
-		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド
-
-		////入力キー取得
-		//g_OldKey = g_NowKey;
-		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
-		//g_KeyFlg = g_NowKey & ~g_OldKey;
+		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
 		switch (GameMode) {
 			case TITLE:
