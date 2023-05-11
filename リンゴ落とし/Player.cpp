@@ -12,7 +12,7 @@ const int SCREEN_HEIGHT = 720;    // 高さ
 
  // プレイヤーの初期値の定数
 const int PLAYER_POS_X  = 600;  // X座標 
-const int PLAYER_POS_Y  = 570;  // Y座標 
+const int PLAYER_POS_Y  = 527;  // Y座標 
 const int PLAYER_SPEED  = 5;    // 移動速度
 
 /******************************************
@@ -37,6 +37,11 @@ struct PLAYER gPlayer;
 // リンゴの座標
 float ax, ay, ar;
 
+int LFlg = 0;
+int RFlg = 0;
+
+int gPlayerImg[5]; // 背景画像
+
 /******************************************
  * プレイヤー初期化
  ******************************************/
@@ -46,10 +51,26 @@ void PlayerInit(void)
 	gPlayer.flg = TRUE;         
 	gPlayer.x = PLAYER_POS_X;   
 	gPlayer.y = PLAYER_POS_Y;   
-	gPlayer.w = 76;
+	gPlayer.w = 80;
 	gPlayer.h = 150;
 	gPlayer.speed = PLAYER_SPEED;
 
+}
+
+int LoadPlayerImg(void)
+{
+	// プレイヤー(右向きに走る)画像の読込
+	if ((gPlayerImg[0] = LoadGraph("images/プレイヤー１.png")) == -1) return -1;
+	// プレイヤー(左向きに走る)画像の読込
+	if ((gPlayerImg[1] = LoadGraph("images/RunL.png")) == -1) return -1;
+	// プレイヤー(右向きに歩く)画像の読込
+	if ((gPlayerImg[2] = LoadGraph("images/プレイヤー２.png")) == -1) return -1;
+	// プレイヤー(左向きに歩く)画像の読込
+	if ((gPlayerImg[3] = LoadGraph("images/WalkL.png")) == -1) return -1;
+	// プレイヤー(静止)画像の読込
+	if ((gPlayerImg[4] = LoadGraph("images/プレイヤー３.png")) == -1) return -1;
+
+	return 0;
 }
 
 /*************************************
@@ -57,6 +78,8 @@ void PlayerInit(void)
  *************************************/
 void PlayerControl(int oldkey,int gamemode)
 {
+
+	LoadPlayerImg();
 
 	// プレイヤーの左右移動
 	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
@@ -67,32 +90,33 @@ void PlayerControl(int oldkey,int gamemode)
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed + 2;
+		    DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[1], TRUE);
+		    gPlayer.x -= gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
-			gPlayer.x -= gPlayer.speed;
+				DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[3], TRUE);
+				gPlayer.x -= gPlayer.speed;
 		}
-
 
 		// 右移動
 		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
 		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[0], TRUE);
 			gPlayer.x += gPlayer.speed + 2;
+			
 		}
 		// 歩く：左スティックを右に傾ける
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+			DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[2], TRUE);
 			gPlayer.x += gPlayer.speed;
+			
 		}
 
 	}
@@ -100,7 +124,7 @@ void PlayerControl(int oldkey,int gamemode)
 	else
 	{
 	// プレイヤー仮表示(白)
-	DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+		DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[4], TRUE);
 	}
 
 	// 画面をはみ出さないようにする
@@ -110,9 +134,9 @@ void PlayerControl(int oldkey,int gamemode)
 		gPlayer.x = 950;
 	}
 	// 左
-	if (gPlayer.x < 0)
+	if (gPlayer.x < -20)
 	{
-		gPlayer.x = 0;
+		gPlayer.x = -20;
 	}
 
 	// プレイヤーとリンゴの当たり判定 
@@ -150,8 +174,7 @@ float Pythagorean(float px, float py, float ax, float ay)
 // リンゴとプレイヤーの当たり判定
 void HitPlayer(void)
 {
-	// リンゴとプレイヤーが当たっているか判定
-	int flg = 0;
+
 	float mx0, mx1, my0, my1;
 
 	mx0 = gPlayer.x;
@@ -159,10 +182,13 @@ void HitPlayer(void)
 	my0 = gPlayer.y;
 	my1 = SCREEN_HEIGHT;
 
+	// リンゴとプレイヤーが当たっているか判定
+	int flg = 0;
+
 	// プレイヤーの当たり判定表示
-	DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
+	//DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
 	// リンゴの当たり判定表示
-	DrawCircle(ax, ay, ar, 0x000000, TRUE);
+	//DrawCircle(ax, ay, ar, 0x000000, TRUE);
 
 	// 1:円の中心が長方形から見て上・中・下の位置にある場合
 	if ((mx0 < ax && ax < mx1) && (my0 - ar < ay && ay < my1 + ar))
