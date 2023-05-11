@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include <math.h>
 #include"Player.h"
+#include "infomation.h"
 
 
 /******************************************
@@ -55,23 +56,23 @@ void PlayerInit(void)
 /*************************************
  * プレイヤーの移動
  *************************************/
-void PlayerControl(int oldkey,int gamemode)
+void PlayerControl(void)
 {
 
 	// プレイヤーの左右移動
-	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
+	if (input.Buttons[2] == 1 || input.Buttons[3] == 1)
 	{
 
 		// 左移動
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
+		if (input.Buttons[2] == 1 && input.Buttons[12] == 1)
 		{
 			// プレイヤー仮表示(赤)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 			gPlayer.x -= gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
-		else if (oldkey & PAD_INPUT_LEFT)
+		else if (input.Buttons[2] == 1)
 		{
 			// プレイヤー仮表示(水色)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
@@ -81,14 +82,14 @@ void PlayerControl(int oldkey,int gamemode)
 
 		// 右移動
 		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
+		if (input.Buttons[3] == 1 && input.Buttons[12] == 1)
 		{
 			// プレイヤー仮表示(赤)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 			gPlayer.x += gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを右に傾ける
-		else if (oldkey & PAD_INPUT_RIGHT)
+		else if (input.Buttons[3] == 1)
 		{
 			// プレイヤー仮表示(水色)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);

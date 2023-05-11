@@ -20,7 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DrawApple.cpp" />
+    <ClCompile Include="End.cpp" />
     <ClCompile Include="fps.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Resultcpp.cpp" />

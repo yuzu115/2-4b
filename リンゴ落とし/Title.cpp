@@ -40,7 +40,7 @@ int DrawTitle(void)
 
 		switch (menuNo) {
 		case 0:
-		//	GameMode = 1;			// INIT
+		//	GameMode = 2;			// MAIN
 			GameMode = 6;			// RESULT
 			break;
 		case 1:
