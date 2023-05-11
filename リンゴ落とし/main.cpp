@@ -15,7 +15,7 @@
 *******************************************************/
 XINPUT_STATE input;
 int Button_flg = FALSE;
-//int GameMode = 0;
+int GameMode = 0;
 
 /****************************************************
 *プログラムの開始
@@ -72,8 +72,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// プレイヤー操作
 		//PlayerControl(g_OldKey, GameMode);
 
-		//裏画面の内容を表画面に反映する
-		ScreenFlip();
 
 		switch (GameMode) {
 			case TITLE:
@@ -99,6 +97,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			//	DrawResult();		//リザルト画面
 			//	break;
 		}
+
+		//裏画面の内容を表画面に反映する
+		ScreenFlip();
 
 		//fps固定処理
 		wait_fanc();

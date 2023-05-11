@@ -42,7 +42,7 @@ enum mode {
 //int g_NowKey;                  //今回の入力キー
 //int g_KeyFlg;                  //入力キー情報
 
-int GameMode;				 //モード
+extern int GameMode;				 //モード
 
 extern int g_Score;					 //スコア
 
