@@ -30,7 +30,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ÉvÉåÉCÉÑÅ[èâä˙âª
 	PlayerInit();
-	GameMode = UISCORE;
+	GameMode = PAUSE;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -67,7 +67,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		case UISCORE:
 			uiscore(GameMode);
 			DrawBack();
-			DrawApple();
+			//DrawApple();
 			break;
 		}
 

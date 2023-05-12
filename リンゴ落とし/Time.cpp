@@ -28,3 +28,4 @@ void Time(int& gamemode)
 		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	}
 }
+
