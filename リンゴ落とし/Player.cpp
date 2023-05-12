@@ -90,14 +90,14 @@ void PlayerControl(int oldkey,int gamemode)
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-		    DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[1], TRUE);
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 		    gPlayer.x -= gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
 			// プレイヤー仮表示(水色)
-				DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[3], TRUE);
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 				gPlayer.x -= gPlayer.speed;
 		}
 
@@ -106,7 +106,7 @@ void PlayerControl(int oldkey,int gamemode)
 		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-			DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[0], TRUE);
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
 			gPlayer.x += gPlayer.speed + 2;
 			
 		}
@@ -114,7 +114,7 @@ void PlayerControl(int oldkey,int gamemode)
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[2], TRUE);
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
 			gPlayer.x += gPlayer.speed;
 			
 		}
@@ -124,7 +124,7 @@ void PlayerControl(int oldkey,int gamemode)
 	else
 	{
 	// プレイヤー仮表示(白)
-		DrawGraph(gPlayer.x, gPlayer.y, gPlayerImg[4], TRUE);
+		DrawBox(gPlayer.x, gPlayer.y,gPlayer.x + gPlayer.w,SCREEN_HEIGHT, 0xffffff, TRUE);
 	}
 
 	// 画面をはみ出さないようにする
