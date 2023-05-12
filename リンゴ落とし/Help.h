@@ -10,6 +10,7 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-int DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ヘルプ画面描画
+void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ヘルプ画面描画
+int LoadHelpImages(void);			// ヘルプ画像読込
 
 #endif // ! HELP_H__

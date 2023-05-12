@@ -4,7 +4,7 @@
 /****************************************
 *　変数の宣言
 *****************************************/
-int RankingImg;			// ランキング画像
+int RankingBackImg;			// 背景画像
 
 //ランキングデータの変数宣言
 // RankingData Ranking[RANK_MAX];
@@ -12,10 +12,9 @@ int RankingImg;			// ランキング画像
 /****************************************
 * ランキング画面描画
 *****************************************/
-int DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode)
+void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode)
 {
-	// ランキング画像の読込
-	if ((RankingImg = LoadGraph("images/Back.png")) == -1) return -1;
+	LoadRankingImages();		// ランキング画像読込
 
 	ReadRanking(Ranking);		//ランキングデータの読込
 
@@ -30,7 +29,7 @@ int DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int&
 	}
 
 	//ランキング画像表示
-	DrawGraph(0, 0, RankingImg, FALSE);
+	DrawGraph(0, 0, RankingBackImg, FALSE);
 
 	// ランキング一覧を表示
 	SetFontSize(90);
@@ -45,7 +44,6 @@ int DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int&
 	SetFontSize(30);
 	DrawFormatString(600, 650, 0x000000, "A：タイトル");
 
-	return 0;
 }
 
 /***********************************************
@@ -131,6 +129,17 @@ int ReadRanking(RankingData Ranking[])
 
 	//ファイルクローズ
 	fclose(fp);
+
+	return 0;
+}
+
+/*************************************
+ * ランキング画像読込
+ *************************************/
+int LoadRankingImages(void)
+{
+	// 背景画像の読込
+	if ((RankingBackImg = LoadGraph("images/Back.png")) == -1) return -1;
 
 	return 0;
 }

@@ -11,6 +11,7 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-int DrawResult(RankingData Ranking[],int& GameMode);		// リザルト画面描画
+void DrawResult(RankingData Ranking[],int& GameMode);		// リザルト画面描画
+int LoadResultImages(void);			// リザルト画像読込
 
 #endif // !RESULT_H__

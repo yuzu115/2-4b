@@ -13,12 +13,9 @@ int posY;				// カーソルのY座標
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
+void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
-	// タイトル画像の読込
-	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
-	// カーソル（赤リンゴ）画像
-	if ((AppleCursorImg = LoadGraph("images/RedApple.png")) == -1) return -1;
+	LoadTitleImages();		// タイトル画像読込
 
 	// メニューカーソル移動処理
 	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
@@ -69,6 +66,18 @@ int DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 	//DrawTriangle(810, 325 + posY, 840, 345 + posY, 810, 365 + posY, 0xff0000, TRUE);
 
 	//DrawFormatString(0, 0, 0xffffff, "menuNo %d", menuNo);
+
+}
+
+/****************************************
+* タイトル画像読込
+*****************************************/
+int LoadTitleImages(void)
+{
+	// タイトル画像の読込
+	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
+	// カーソル（赤リンゴ）画像
+	if ((AppleCursorImg = LoadGraph("images/RedApple.png")) == -1) return -1;
 
 	return 0;
 }

@@ -9,10 +9,9 @@ int HelpBackImg;		// ”wŒi‰æ‘œ
 /****************************************
 * ƒwƒ‹ƒv‰æ–Ê•`‰æ
 *****************************************/
-int DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)
+void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
-	// ”wŒi‰æ‘œ‚Ì“Ç
-	if ((HelpBackImg = LoadGraph("images/Back.png")) == -1) return -1;
+	LoadHelpImages();					// ƒwƒ‹ƒv‰æ‘œ“Ç
 
 	if (input.Buttons[12] == 0) {
 		Button_flg = FALSE;
@@ -43,6 +42,16 @@ int DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)
 	SetFontSize(30);
 	DrawFormatString(400, 650, 0x000000, "AFƒ^ƒCƒgƒ‹");
 	DrawFormatString(800, 650, 0x000000, "BFƒGƒ“ƒh");
+
+}
+
+/****************************************
+* ƒwƒ‹ƒv‰æ‘œ“Ç
+*****************************************/
+int LoadHelpImages(void)
+{
+	// ”wŒi‰æ‘œ‚Ì“Ç
+	if ((HelpBackImg = LoadGraph("images/Back.png")) == -1) return -1;
 
 	return 0;
 }

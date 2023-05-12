@@ -27,12 +27,13 @@ typedef struct
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-int DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode);			// ランキング画面描画処理
-int ReadRanking(RankingData Ranking[]);			// ランキングデータの読込
+void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode);			// ランキング画面描画処理
+int ReadRanking(RankingData Ranking[]);				// ランキングデータの読込
 
 void SortRanking(RankingData Ranking[]);			// ランキング並べ替え
-int SaveRanking(RankingData Ranking[]);			// ランキングデータの保存
+int SaveRanking(RankingData Ranking[]);				// ランキングデータの保存
 
+int LoadRankingImages(void);						// ランキング画像読込
 
 //ランキングデータの変数宣言
 //extern RankingData Ranking[RANK_MAX];			// RankingとResultで使用
