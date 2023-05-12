@@ -10,7 +10,7 @@ int gStartTime;
 /********************
 *タイムの初期化     *
 ********************/
-void GameInit(void)
+void TimeInit(void)
 {
 	//ゲーム開始時間の取得
 	gStartTime = GetNowCount();
@@ -19,8 +19,9 @@ void GameInit(void)
 /********************
 *タイムのメイン     *
 ********************/
-void Time(int& gamemode)
+void Time(int gamemode)
 {
+	TimeInit();
 	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	int time = TIMELIMIT * (GetNowCount() - gStartTime);
 	if (time <= 0)

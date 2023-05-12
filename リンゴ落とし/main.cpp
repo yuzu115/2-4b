@@ -1,13 +1,13 @@
-#include"DxLib.h"
-#include"math.h"
-#include"infomation.h"
-#include"DrawApple.h"
-#include"FPS.h"
-#include"Player.h"
-#include"Pause.h"
-#include"Time.h"
-#include"UIscore.h"
-#include"GameMain.h"
+#include "DxLib.h"
+#include "math.h"
+#include "infomation.h"
+#include "DrawApple.h"
+#include "FPS.h"
+#include "Player.h"
+#include "Pause.h"
+#include "Time.h"
+#include "UIscore.h"
+#include "GameMain.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -30,7 +30,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// プレイヤー初期化
 	PlayerInit();
-	GameMode = UISCORE;
+	GameMode = PAUSE;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{

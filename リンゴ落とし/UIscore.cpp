@@ -33,8 +33,8 @@ int LoadAppleImg(void)
 void DrawUIApple(void)
 {
 	LoadAppleImg();
-	DrawExtendGraph(1030, 350, 1080, 400, gUIAppleImg[0], TRUE);
-	DrawExtendGraph(1115, 350, 1165, 400, gUIAppleImg[1], TRUE);
-	DrawExtendGraph(1200, 350, 1250, 400, gUIAppleImg[2], TRUE);
+	DrawExtendGraph(1030, 310, 1080, 360, gUIAppleImg[0], TRUE);
+	DrawExtendGraph(1115, 310, 1165, 360, gUIAppleImg[1], TRUE);
+	DrawExtendGraph(1200, 310, 1250, 360, gUIAppleImg[2], TRUE);
 	
 }
