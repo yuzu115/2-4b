@@ -38,8 +38,14 @@ float ax, ay, ar;
 //int off, on=0;
 //int gPlayerImg[];
 int gWalkImg[6];
+int gRanImg[6];
 int Movex = 0;	//動いた位置
 int OPx = 0;	//元の位置
+//int Sc[3]={10,35,50};
+
+int Img;	//画像を表示し続ける用
+
+const int sc[3]={10,35,50};
 
 
 /******************************************
@@ -66,7 +72,7 @@ void PlayerInit(void)
 void PlayerControl(int oldkey,int gamemode)
 {
 	LoadImg();
-	PlayerImg();
+
 	// プレイヤーの左右移動
 	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
 	{
@@ -78,18 +84,12 @@ void PlayerControl(int oldkey,int gamemode)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 			gPlayer.x -= gPlayer.speed + 2;
 		}
+
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
-			//歩く画像
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[0], TRUE);
-
-		if (Movex-OPx == -20) {
-			OPx = gPlayer.x;
-
-				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[1], TRUE);
-			}
-
+			
+			PlayerImg();
 
 			Movex = gPlayer.x;
 			gPlayer.x -= gPlayer.speed;
@@ -108,19 +108,8 @@ void PlayerControl(int oldkey,int gamemode)
 		// 歩く：左スティックを右に傾ける
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
-			// プレイヤー仮表示(水色)
-			//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
-			//DrawTurnGraph(gPlayer.x, gPlayer.y, gWalkImg[0], TRUE);
-
-
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[3], TRUE);
-
-
-			if (Movex - OPx == 20) {
-				OPx = gPlayer.x;
-
-				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[4], TRUE);
-			}
+			
+			
 
 			Movex = gPlayer.x;
 			gPlayer.x += gPlayer.speed;
@@ -255,10 +244,45 @@ int PlayerFlashing(int& Count,int& on,int& off) {
 }
 
 void PlayerImg() {
+	
+	//歩く 左向き
+	switch (Movex - OPx) {
+	case -10:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[0], TRUE);
+		Img = 0;
+		break;
+	case -35:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[1], TRUE);
+		Img = 1;
+		break;
+	case -50:
+		OPx = gPlayer.x;
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[2], TRUE);
+		Img = 2;
+		break;
+	default:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
+	}
 
-	//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[0], TRUE);
-	DrawGraph(300, 330, gWalkImg[1], TRUE);
-	DrawGraph(300, 360, gWalkImg[2], TRUE);
+	//歩行　右向き
+	switch (Movex - OPx) {
+	case 10:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[3], TRUE);
+		Img = 3;
+		break;
+	case 35:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[4], TRUE);
+		Img = 4;
+		break;
+	case 50:
+		OPx = gPlayer.x;
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[5], TRUE);
+		Img = 5;
+		break;
+	default:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
+	}
+
 }
 
 int LoadImg(void) {
@@ -273,6 +297,6 @@ int LoadImg(void) {
 	*画像を格納する配列
 	*/
 	if (LoadDivGraph("images/PLwalk2.png", 6, 3, 2, 32, 32, gWalkImg) == -1)return -1;
-	//if ((gWalkImg[0] = LoadGraph("images/PLwalk.png")) == -1)return -1;
+	if (LoadDivGraph("images/PLRan.png", 6, 3, 2, 32, 32, gRanImg) == -1)return -1;
 	return 0;
 }

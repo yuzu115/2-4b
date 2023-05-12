@@ -11,8 +11,9 @@ void GetApple(float ax0, float ay0, float ar0);         // ƒŠƒ“ƒS‚ÌÀ•W‚ğ•Ï”‚ÉŠ
 void HitPlayer(void);                            // ƒŠƒ“ƒS‚ÆƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è
 float Pythagorean(float px, float py, float ax, float ay);  // ƒsƒ^ƒSƒ‰ƒX‚Ì’è—‚ÌŒvZ
 int PlayerFlashing(int& Count,int& on,int& off);
-void PlayerImg(void);
+void PlayerImg(int& sc);
 int LoadImg(void);
 
+//—ñ‹“‘Ìì‚é
 
 #endif
