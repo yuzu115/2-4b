@@ -41,12 +41,16 @@ int gWalkImg[6];
 int gRanImg[6];
 int Movex = 0;	//動いた位置
 int OPx = 0;	//元の位置
+int MoveRanx = 0;
+int OPxRan = 0;
 //int Sc[3]={10,35,50};
 
-int Img;	//画像を表示し続ける用
+int Img;	//条件に達するまでの少しの間同じ画像を表示し続ける用
+int wImg;		//walkImgの画像どれ表示するかの表示
 
-const int sc[3]={10,35,50};
-
+int RL = 0;	//左か右か判別する変数
+int onceFlg = 1;//判別を押されてから一度だけやる為のフラグ
+int a;
 
 /******************************************
  * プレイヤー初期化
@@ -80,20 +84,21 @@ void PlayerControl(int oldkey,int gamemode)
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
 		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			RL = 0;
+			PlayerRan(RL);
+
 			gPlayer.x -= gPlayer.speed + 2;
 		}
 
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
-			
-			PlayerImg();
 
-			Movex = gPlayer.x;
+			RL = 0;
+			PlayerWalk(RL);
 			gPlayer.x -= gPlayer.speed;
-
+			Movex = gPlayer.x;
+			
 		}
 
 
@@ -101,18 +106,22 @@ void PlayerControl(int oldkey,int gamemode)
 		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
 		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
 		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			RL = 3;
+			PlayerRan(RL);
+
 			gPlayer.x += gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを右に傾ける
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
 			
-			
 
-			Movex = gPlayer.x;
+			RL = 3;
+
+			PlayerWalk(RL);
 			gPlayer.x += gPlayer.speed;
+			Movex = gPlayer.x;
+			
 		}
 
 	}
@@ -141,7 +150,12 @@ void PlayerControl(int oldkey,int gamemode)
 
 	DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
 	DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
-	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",Movex-OPx);
+	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
+	DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
+	DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
+	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
+	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
+	DrawFormatString(390, 170, 0x000000, "Move-OPRan=%d", abs(MoveRanx - OPxRan));
 }
 
 // リンゴの座標を変数sx,sy,srに格納
@@ -243,46 +257,62 @@ int PlayerFlashing(int& Count,int& on,int& off) {
 	
 }
 
-void PlayerImg() {
-	
-	//歩く 左向き
-	switch (Movex - OPx) {
-	case -10:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[0], TRUE);
-		Img = 0;
-		break;
-	case -35:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[1], TRUE);
-		Img = 1;
-		break;
-	case -50:
-		OPx = gPlayer.x;
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[2], TRUE);
-		Img = 2;
-		break;
-	default:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
-	}
+void PlayerWalk(int wImg) {
 
-	//歩行　右向き
-	switch (Movex - OPx) {
+	if (abs(Movex - OPx) > 50) {
+		//OPxが動かなくならないように
+		OPx = Movex-10;
+	}
+	else {
+
+	//歩く動き
+	switch (abs(Movex - OPx)) {
 	case 10:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[3], TRUE);
-		Img = 3;
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg], TRUE);
+		Img = wImg;
 		break;
 	case 35:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[4], TRUE);
-		Img = 4;
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg + 1], TRUE);
+		Img = wImg + 1;
 		break;
 	case 50:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg + 2], TRUE);
+		Img = wImg + 2;
 		OPx = gPlayer.x;
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[5], TRUE);
-		Img = 5;
 		break;
 	default:
 		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
+
 	}
 
+}
+
+	
+}
+
+void PlayerRan(int rImg)
+{
+		//走る動き
+		switch (abs(MoveRanx - OPxRan)) {
+		case 10:
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
+			Img = rImg;
+			break;
+		case 35:
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
+			Img = rImg + 1;
+			break;
+		case 50:
+			OPxRan = gPlayer.x;
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
+			Img = rImg + 2;
+			break;
+		default:
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[Img], TRUE);
+		}
+
+		MoveRanx = gPlayer.x;
+		//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg+1], TRUE);
 }
 
 int LoadImg(void) {
