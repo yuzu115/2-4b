@@ -4,7 +4,7 @@
 /****************************************
 *　変数の宣言
 *****************************************/
-int RankingBackImg;			// 背景画像
+int RankingImg;			// ランキング画像
 
 //ランキングデータの変数宣言
 // RankingData Ranking[RANK_MAX];
@@ -29,20 +29,20 @@ void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int
 	}
 
 	//ランキング画像表示
-	DrawGraph(0, 0, RankingBackImg, FALSE);
+	DrawGraph(0, 0, RankingImg, FALSE);
 
 	// ランキング一覧を表示
-	SetFontSize(90);
+	SetFontSize(60);
 	for (int i = 0; i < RANK_MAX; i++) {
-		DrawFormatString(80, 170 + i * 85, 0x000000, "%2d %-10s %10d",
+		DrawFormatString(260, 180 + i * 85, 0x000000, "%2d %-10s %10d",
 			Ranking[i].no, Ranking[i].name, Ranking[i].score);
 	}
 
-	SetFontSize(100);
-	DrawFormatString(400, 50, 0x000000, "ランキング");
+	//SetFontSize(100);
+	//DrawFormatString(400, 50, 0x000000, "ランキング");
 
-	SetFontSize(30);
-	DrawFormatString(600, 650, 0x000000, "A：タイトル");
+	//SetFontSize(30);
+	//DrawFormatString(570, 650, 0x000000, "A：タイトル");
 
 }
 
@@ -138,8 +138,8 @@ int ReadRanking(RankingData Ranking[])
  *************************************/
 int LoadRankingImages(void)
 {
-	// 背景画像の読込
-	if ((RankingBackImg = LoadGraph("images/Back.png")) == -1) return -1;
+	// ランキング画像の読込
+	if ((RankingImg = LoadGraph("images/ranking.png")) == -1) return -1;
 
 	return 0;
 }
