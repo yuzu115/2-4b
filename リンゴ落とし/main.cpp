@@ -30,7 +30,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ƒvƒŒƒCƒ„[‰Šú‰»
 	PlayerInit();
-	GameMode = PAUSE;
+	GameMode = UISCORE;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
