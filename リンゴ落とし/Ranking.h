@@ -37,6 +37,7 @@ int SaveRanking(void);			// ランキングデータの保存
 *　extern宣言
 ******************************************/
 //ランキングデータの変数宣言
-extern RankingData Ranking[RANK_MAX];			// RankingとResultで使用
+//extern RankingData Ranking[RANK_MAX];			// RankingとResultで使用
+//RankingData Ranking[RANK_MAX];			// RankingとResultで使用
 
 #endif // !RANKING_H__
