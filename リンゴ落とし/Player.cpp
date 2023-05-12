@@ -1,39 +1,12 @@
 #include"DxLib.h"
 #include <math.h>
 #include"Player.h"
+#include"Score.h"
+#include"DrawApple.h"
 
-
-/******************************************
- * 定数の宣言
- ******************************************/
-// 画面サイズ
-const int SCREEN_WIDTH  = 1280;   // 幅
-const int SCREEN_HEIGHT = 720;    // 高さ
-
- // プレイヤーの初期値の定数
-const int PLAYER_POS_X  = 600;  // X座標 
-const int PLAYER_POS_Y  = 570;  // Y座標 
-const int PLAYER_SPEED  = 5;    // 移動速度
-
-/******************************************
- * 構造体の宣言
- ******************************************/
- // プレイヤーの構造体
-struct PLAYER
-{
-	int flg;       // 使用フラグ
-	float x, y;      // 座標
-	int w, h;      // 幅、高さ
-	int speed;     // 移動速度
-
-};
 
 // プレイヤーの変数宣言
-struct PLAYER gPlayer;
-
-float ax, ay, ar;
-
-float c1,c2,c3,c4;
+PLAYER gPlayer;
 
 /******************************************
  * プレイヤー初期化
@@ -59,7 +32,6 @@ void PlayerControl(int oldkey,int gamemode)
 	// プレイヤーの左右移動
 	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
 	{
-
 		// 左移動
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
@@ -72,9 +44,9 @@ void PlayerControl(int oldkey,int gamemode)
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
-// プレイヤー仮表示(水色)
-DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
-gPlayer.x -= gPlayer.speed;
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+			gPlayer.x -= gPlayer.speed;
 		}
 
 
@@ -114,22 +86,21 @@ gPlayer.x -= gPlayer.speed;
 		gPlayer.x = 0;
 	}
 
-	HitPlayer();
-
 }
 
-// リンゴの座標を変数sx,sy,srに格納
-void GetApple(float ax0, float ay0, float ar0)
-{
-	// リンゴの座標
-
-	ax = ax0;
-	ay = ay0;
-	ar = ar0;
-
-	//DrawCircle(sx, sy, sr, 0x000000, TRUE);
-
-}
+////リンゴの座標を変数sx,sy,srに格納
+//void GetApple(int ax0, float ay0, int ar0,float size)
+//{
+//	// リンゴの座標
+//
+//	ax = ax0;
+//	ay = ay0;
+//	ar = ar0;
+//	as = size;
+//
+//	//DrawCircle(sx, sy, sr, 0x000000, TRUE);
+//
+//}
 
 // ピタゴラスの定理の計算
 float Pythagorean(float px, float py, float ax, float ay)
@@ -146,20 +117,28 @@ float Pythagorean(float px, float py, float ax, float ay)
 }
 
 // リンゴとプレイヤーの当たり判定
-void HitPlayer(void)
+int HitPlayer(APPLE_DATE *a, PLAYER *p)
 {
 	int flg = 0;
 	float mx0, mx1, my0, my1;
+	float ax, ay, ar;
+	float as;
 
-	mx0 = gPlayer.x;
-	mx1 = gPlayer.x + gPlayer.w;
-	my0 = gPlayer.y;
+	mx0 = p->x;
+	mx1 = mx0 + p->w;
+	my0 = p->y;
 	my1 = SCREEN_HEIGHT;
+
+	ax = a->x;
+	ay = a->y;
+	ar = a->r;
+	as = a->size;
+
 
 	// プレイヤーの当たり判定表示
 	DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
 	// リンゴの当たり判定表示
-	DrawCircle(ax, ay, ar, 0x000000, TRUE);
+	DrawCircle(ax, ay, ar*as, 0x000000, TRUE);
 
 	// 円の中心が長方形から見て上・中・下の位置にある場合
 	if ((mx0 < ax && ax < mx1) && (my0 - ar < ay && ay < my1 + ar))
@@ -172,15 +151,19 @@ void HitPlayer(void)
 		flg = 2;
 	}
 	// 円の中心が長方形から見て斜め上下の位置にある場合
-	if (Pythagorean(mx0, my0, ax, ay) < ar * ar || Pythagorean(mx1, my0, ax, ay) < ar *ar ||
+	if (Pythagorean(mx0, my0, ax, ay) < ar * ar || Pythagorean(mx1, my0, ax, ay) < ar * ar ||
 		Pythagorean(mx0, my1, ax, ay) < ar * ar || Pythagorean(mx1, my1, ax, ay) < ar * ar)
 	{
 		flg = 3;
 	}
 
-	// 
+	
 	if (flg == 1 || flg == 2 || flg == 3)
 	{
-		DrawCircle(ax, ay, ar, 0xffffff, TRUE);
+		DrawCircle(ax, ay, ar * as, 0xffffff, TRUE);
+		return TRUE;
+		flg = 0;
 	}
+	return FALSE;
+	DrawFormatString(0, 300, 0x00ff00, "flg:%d", flg);
 }
