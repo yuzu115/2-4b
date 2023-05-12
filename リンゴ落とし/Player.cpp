@@ -37,7 +37,9 @@ struct PLAYER gPlayer;
 float ax, ay, ar;
 //int off, on=0;
 //int gPlayerImg[];
-int gWalkImg[3];
+int gWalkImg[6];
+int Movex = 0;	//動いた位置
+int OPx = 0;	//元の位置
 
 
 /******************************************
@@ -53,6 +55,9 @@ void PlayerInit(void)
 	gPlayer.h = 150;
 	gPlayer.speed = PLAYER_SPEED;
 
+
+	OPx = gPlayer.x;
+
 }
 
 /*************************************
@@ -60,11 +65,11 @@ void PlayerInit(void)
  *************************************/
 void PlayerControl(int oldkey,int gamemode)
 {
-
+	LoadImg();
+	PlayerImg();
 	// プレイヤーの左右移動
 	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
 	{
-
 		// 左移動
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
@@ -76,9 +81,19 @@ void PlayerControl(int oldkey,int gamemode)
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+			//歩く画像
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[0], TRUE);
+
+		if (Movex-OPx == -20) {
+			OPx = gPlayer.x;
+
+				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[1], TRUE);
+			}
+
+
+			Movex = gPlayer.x;
 			gPlayer.x -= gPlayer.speed;
+
 		}
 
 
@@ -94,7 +109,20 @@ void PlayerControl(int oldkey,int gamemode)
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+			//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+			//DrawTurnGraph(gPlayer.x, gPlayer.y, gWalkImg[0], TRUE);
+
+
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[3], TRUE);
+
+
+			if (Movex - OPx == 20) {
+				OPx = gPlayer.x;
+
+				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[4], TRUE);
+			}
+
+			Movex = gPlayer.x;
 			gPlayer.x += gPlayer.speed;
 		}
 
@@ -121,6 +149,10 @@ void PlayerControl(int oldkey,int gamemode)
 	// プレイヤーとリンゴの当たり判定 
 	HitPlayer();
 
+
+	DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
+	DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
+	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",Movex-OPx);
 }
 
 // リンゴの座標を変数sx,sy,srに格納
@@ -224,11 +256,23 @@ int PlayerFlashing(int& Count,int& on,int& off) {
 
 void PlayerImg() {
 
-	DrawGraph(300, 300, gWalkImg[0], TRUE);
+	//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[0], TRUE);
 	DrawGraph(300, 330, gWalkImg[1], TRUE);
 	DrawGraph(300, 360, gWalkImg[2], TRUE);
 }
 
 int LoadImg(void) {
-	if (LoadDivGraph("images/PLwalk.png", 3, 1, 3, 32, 32, gWalkImg) == -1)return -1;
+	//画像分割読み込み
+	/*以下LoadDivGraphの引数の内容
+	*ファイル名
+	*画像の数
+	*横方向の画像の数
+	*縦方向の画像の数
+	*画像一つの横サイズ
+	*画像一つの縦サイズ
+	*画像を格納する配列
+	*/
+	if (LoadDivGraph("images/PLwalk2.png", 6, 3, 2, 32, 32, gWalkImg) == -1)return -1;
+	//if ((gWalkImg[0] = LoadGraph("images/PLwalk.png")) == -1)return -1;
+	return 0;
 }

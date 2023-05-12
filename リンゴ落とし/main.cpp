@@ -31,6 +31,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
+		
+
 		//キー入力取得 
 		g_OldKey = g_NowKey;
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);    //例のコントローラーの入力も使えます
@@ -54,7 +56,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		//PlayerFlashing(Count,on,off);
 
-		PlayerImg();
+		//PlayerImg();
+
 		if (Count == 121)Count = 0;
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
