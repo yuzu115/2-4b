@@ -1,5 +1,4 @@
 #include "DxLib.h"
-#include "infomation.h"
 #include "Title.h"
 
 /****************************************
@@ -14,7 +13,7 @@ int posY;				// カーソルのY座標
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(void)
+int DrawTitle(XINPUT_STATE input, int Button_flg, int& GameMode)
 {
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
@@ -23,6 +22,7 @@ int DrawTitle(void)
 
 	// メニューカーソル移動処理
 	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
+		DrawFormatString(450, 100, 0x000000, "操作説明");
 		Button_flg = TRUE;
 		if (++menuNo > 3) menuNo = 0;
 	}
@@ -31,6 +31,7 @@ int DrawTitle(void)
 		if (--menuNo < 0) menuNo = 3;
 	}
 	if (input.Buttons[1] == 0 && input.Buttons[0] == 0 && input.Buttons[12] == 0) {
+		//DrawFormatString(450, 100, 0x000000, "操作説明");
 		Button_flg = FALSE;
 	}
 

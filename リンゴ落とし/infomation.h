@@ -39,11 +39,8 @@ enum mode {
 //int g_NowKey;                  //今回の入力キー
 //int g_KeyFlg;                  //入力キー情報
 
-/********************************************************************
-*　extern宣言
-********************************************************************/
-extern int g_Score;					 //スコア
+//int g_Score;					 //スコア
 
-extern int GameMode;				 //モード
-extern XINPUT_STATE input;			// ゲームパッド
-extern int Button_flg;
+//int GameMode;				 //モード
+//XINPUT_STATE input;			// ゲームパッド
+//int Button_flg;

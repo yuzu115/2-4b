@@ -40,7 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle();		//ゲームタイトル描画処理
+				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			//case RANKING:
 			//	DrawRanking();		//ゲームタイトル描画処理
