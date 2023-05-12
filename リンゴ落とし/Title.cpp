@@ -13,7 +13,7 @@ int posY;				// カーソルのY座標
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(XINPUT_STATE input, int Button_flg, int& GameMode)
+int DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
@@ -22,7 +22,6 @@ int DrawTitle(XINPUT_STATE input, int Button_flg, int& GameMode)
 
 	// メニューカーソル移動処理
 	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
-		DrawFormatString(450, 100, 0x000000, "操作説明");
 		Button_flg = TRUE;
 		if (++menuNo > 3) menuNo = 0;
 	}

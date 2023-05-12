@@ -1,5 +1,4 @@
 //#include "DxLib.h"
-//#include "infomation.h"
 //#include "Help.h"
 //
 ///****************************************
