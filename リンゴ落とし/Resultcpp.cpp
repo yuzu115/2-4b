@@ -1,6 +1,5 @@
 #include "DxLib.h"
 #include "Result.h"
-#include "Ranking.h"
 
 /****************************************
 *　変数の宣言
@@ -13,7 +12,7 @@ int g_Score;			// 現在のスコア
 /****************************************
 * リザルト画面描画
 *****************************************/
-int DrawResult(int& GameMode)
+int DrawResult(RankingData Ranking[],int& GameMode)
 {
 	// リザルト画像の読込
 	if ((ResultImg = LoadGraph("images/Back.png")) == -1) return -1;
@@ -23,12 +22,12 @@ int DrawResult(int& GameMode)
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	//if (++WaitTime > 900)
 	// スコアがランキングの最下位の値以上
-		//if (Ranking[RANK_MAX - 1].score >= g_Score){
-		//	GameMode = 5;			// INPUTNAME
-		//}
-		//else {
-		//	GameMode = 3;		// RANKING
-		// }
+		if (Ranking[RANK_MAX - 1].score >= g_Score){
+			GameMode = 5;			// INPUTNAME
+		}
+		else {
+			GameMode = 3;			// RANKING
+		 }
 		
 	// リザルト画像の表示
 	DrawGraph(0, 0, ResultImg, FALSE);

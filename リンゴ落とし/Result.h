@@ -1,4 +1,5 @@
 #pragma once
+#include "Ranking.h"
 
 #ifndef RESULT_H__
 #define RESULT_H__
@@ -10,6 +11,6 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-int DrawResult(int& GameMode);		// リザルト画面描画
+int DrawResult(RankingData Ranking[],int& GameMode);		// リザルト画面描画
 
 #endif // !RESULT_H__

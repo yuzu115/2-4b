@@ -2,27 +2,22 @@
 #include "Ranking.h"
 
 /****************************************
-*　定数の宣言
-*****************************************/
-//const int RANK_MAX = 5;			// ランキングは上位5位まで
-
-/****************************************
 *　変数の宣言
 *****************************************/
 int RankingImg;			// ランキング画像
 
 //ランキングデータの変数宣言
- RankingData Ranking[RANK_MAX];
+// RankingData Ranking[RANK_MAX];
 
 /****************************************
 * ランキング画面描画
 *****************************************/
-int DrawRanking(XINPUT_STATE input, int& Button_flg, int& GameMode)
+int DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode)
 {
 	// ランキング画像の読込
 	if ((RankingImg = LoadGraph("images/Back.png")) == -1) return -1;
 
-	ReadRanking();		//ランキングデータの読込
+	ReadRanking(Ranking);		//ランキングデータの読込
 
 	if (input.Buttons[12] == 0) {
 		Button_flg = FALSE;
@@ -56,7 +51,7 @@ int DrawRanking(XINPUT_STATE input, int& Button_flg, int& GameMode)
 /***********************************************
  * ランキング並べ替え
  ***********************************************/
-void SortRanking(void)
+void SortRanking(RankingData Ranking[])
 {
 	int i, j;
 	RankingData work;
@@ -91,7 +86,7 @@ void SortRanking(void)
 /***********************************************
  * ランキングデータの保存
  ***********************************************/
-int  SaveRanking(void)
+int  SaveRanking(RankingData Ranking[])
 {
 	FILE* fp;
 #pragma warning(disable:4996)
@@ -117,7 +112,7 @@ int  SaveRanking(void)
 /*************************************
  * ランキングデータ読み込み
  *************************************/
-int ReadRanking(void)
+int ReadRanking(RankingData Ranking[])
 {
 	FILE* fp;
 #pragma warning(disable:4996)

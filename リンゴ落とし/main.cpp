@@ -13,6 +13,9 @@ XINPUT_STATE input;
 int Button_flg = FALSE;
 int GameMode = 0;
 
+//ランキングデータの変数宣言
+RankingData Ranking[RANK_MAX];
+
 /****************************************************
 *プログラムの開始
 ******************************************************/
@@ -43,7 +46,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case RANKING:
-				DrawRanking(input,Button_flg,GameMode);		//ランキング描画処理
+				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
 				break;
 			case HELP:
 				DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
@@ -52,7 +55,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				DrawEnd(GameMode);			//エンド画面描画処理
 				break;
 			case RESULT:
-				DrawResult(GameMode);		//リザルト画面
+				DrawResult(Ranking,GameMode);		//リザルト画面
 				break;
 		}
 
