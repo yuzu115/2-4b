@@ -12,7 +12,7 @@ void uiscore(int gamemode)
 	SetFontSize(50);
 	DrawString(1080, 10, "TIME", 0x2E8B57);
 	//gamemode = 8;
-	//DrawString(1070, 300, "æ“¾”", 0x2E8B57);
+	DrawString(1070, 255, "æ“¾”", 0x2E8B57);
 	DrawUIApple();
 }
 /*****************
