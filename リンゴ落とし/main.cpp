@@ -43,9 +43,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//ループ前にFPS計測を初期化
 	Reset_fps();
 
-	// プレイヤー初期化
-	PlayerInit();
-
+	//// プレイヤー初期化
+	//PlayerInit();
 
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
@@ -60,6 +59,18 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				break;
+			case MAIN:
+				PlayerInit();						// プレイヤー初期化
+
+				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+
+				DrawApple();
+
+				// プレイヤー操作
+				PlayerControl(g_OldKey, GameMode);
+
+
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
@@ -76,9 +87,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		}
 		ClearDrawScreen();                 //画面を初期化
 
-		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
-		DrawApple();
+		//DrawApple();
 		
 		//今出てるFPSの表示
 		display_fps();
@@ -86,8 +97,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//fpsの計測
 		Keisoku_fps();
 
-		// プレイヤー操作
-		PlayerControl(g_OldKey, GameMode);
+		//// プレイヤー操作
+		//PlayerControl(g_OldKey, GameMode);
 
 
 		//裏画面の内容を表画面に反映する
