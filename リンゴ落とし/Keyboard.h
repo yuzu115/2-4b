@@ -6,5 +6,5 @@
  * 関数のプロトタイプ宣言
  ******************************************/
 void DrawKeyboard(void);  // キーボード表示
-int LoadImg(void);       // 画像読込
+int LoadImg(void);        // 画像読込
 #endif
