@@ -46,6 +46,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//// プレイヤー初期化
 	//PlayerInit();
 
+	//ClearDrawScreen();                 //画面を初期化
+
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
@@ -56,21 +58,18 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
+		ClearDrawScreen();                 //画面を初期化
+
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case MAIN:
 				PlayerInit();						// プレイヤー初期化
-
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-
 				DrawApple();
-
 				// プレイヤー操作
 				PlayerControl(g_OldKey, GameMode);
-
-
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
@@ -85,7 +84,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawResult(Ranking,GameMode);		//リザルト画面
 				break;
 		}
-		ClearDrawScreen();                 //画面を初期化
+		//ClearDrawScreen();                 //画面を初期化
 
 		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
