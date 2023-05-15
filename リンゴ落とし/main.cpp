@@ -1,10 +1,16 @@
 #include "DxLib.h"
 #include "infomation.h"
+#include"DxLib.h"
+#include"math.h"
+#include"infomation.h"
 #include "TITLE.h"
 #include "RANKING.h"
 #include "HELP.h"
 #include "END.h"
 #include "Result.h"
+#include"DrawApple.h"
+#include"FPS.h"
+#include"Player.h"
 
 /******************************************************
 *変数宣言
@@ -20,7 +26,7 @@ RankingData Ranking[RANK_MAX];
 *プログラムの開始
 ******************************************************/
 // プログラムは WinMain から始まります
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	SetMainWindowText("リンゴ落とし");
 	ChangeWindowMode(TRUE);
@@ -32,20 +38,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
-	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
+	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
-		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
+		//入力キー取得
+		g_OldKey = g_NowKey;
+		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-		////入力キー取得
-		//g_OldKey = g_NowKey;
-		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
+	//ScreenFlipを実行しても垂直同期信号を待たない
+		//SetWaitVSyncFlag(FALSE);
+
+	//ループ前にFPS計測を初期化
+	Reset_fps();
+
+	// プレイヤー初期化
+	PlayerInit();
+
+
+
+	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
+
 		//g_KeyFlg = g_NowKey & ~g_OldKey;
 
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
-			case RANKING:
+		}
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
 				break;
 			case HELP:
@@ -63,6 +81,26 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	}
 	DxLib_End();	//DXライブラリ使用の終了処理
+		ClearDrawScreen();                 //画面を初期化
 
-	return 0;	//ソフトの終了
+		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+
+		DrawApple();
+		
+		//今出てるFPSの表示
+		display_fps();
+
+		//fpsの計測
+		Keisoku_fps();
+
+		// プレイヤー操作
+		PlayerControl(g_OldKey, GameMode);
+
+
+		//裏画面の内容を表画面に反映する
+		ScreenFlip();
+
+	DxLib_End();
+
+	return 0;
 }
