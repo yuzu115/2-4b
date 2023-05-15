@@ -1,39 +1,24 @@
 #include "DxLib.h"
 #include "Pause.h"
+#include "InputControl.h"
 
-int gStartKeyFlg = FALSE;
-int gFinishKeyFlg = FALSE;
+//int gStartKeyFlg = FALSE;
+//int gFinishKeyFlg = FALSE;
 
 /********************
 *ポーズ画面遷移     *
 ********************/
-void pause(int oldkey,int& gamemode)
+void pause(int oldkey, int& gamemode)
 {
-	int flg=0;
+	int flg = 0;
 	//パッドキーを呼び出し
-	if (oldkey & PAD_INPUT_8) 
+	if (InputControl::GetKeyDown(PAD_INPUT_8))
 	{
-		//呼び出されたら下の処理に移動
-		gStartKeyFlg = TRUE;
-
-	}
-	if (gStartKeyFlg == TRUE)
-	{
+		WaitKey();
 		//画面への表示
 		SetFontSize(100);
 		DrawString(300, 300, "--ポーズ画面--", 0xffffff);
 		flg = 1;
-		WaitKey();
+
 	}
-
-
-	if (gStartKeyFlg == TRUE&&flg==1)
-	{
-		if (oldkey & PAD_INPUT_8)
-		{
-			gamemode = 2;
-		}
-	}
-
 }
-

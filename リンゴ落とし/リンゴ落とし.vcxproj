@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AppleMain.cpp" />
     <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="fps.cpp" />
     <ClCompile Include="GameMain.cpp" />
@@ -39,6 +38,7 @@
     <ClInclude Include="infomation.h" />
     <ClInclude Include="InputControl.h" />
     <ClInclude Include="PadInput.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="UIscore.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
