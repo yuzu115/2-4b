@@ -19,7 +19,7 @@ void DrawTitle(int& GameMode)
 	LoadTitleImages();		// タイトル画像読込
 
 	// カーソル移動上
-	if (InputControl::GetKeyDown(PAD_INPUT_UP))
+	if (InputControl::GetKey(PAD_INPUT_UP))
 	{
 		if (--menuNo < 0) menuNo = 3;
 	}
