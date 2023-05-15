@@ -2,6 +2,8 @@
 
 #include "DxLib.h"
 
+extern XINPUT_STATE input;
+
 class InputControl
 {
 private:

@@ -7,7 +7,6 @@
 //#include "Result.h"
 #include "InputControl.h"
 
-
 /******************************************************
 *変数宣言
 *******************************************************/
@@ -34,16 +33,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
 		//GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
-		////入力キー取得
-		//g_OldKey = g_NowKey;
-		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
-		//g_KeyFlg = g_NowKey & ~g_OldKey;
-
-		InputControl::Update();
+		InputControl::Update();				// 入力キーの取得
 
 		switch (GameMode) {
 			case TITLE:

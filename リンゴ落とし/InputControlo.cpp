@@ -8,9 +8,8 @@ int InputControl::old_key;
 void InputControl::Update()
 {
 	old_key = now_key;
-	now_key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-
-//	now_key = GetJoypadXInputState(DX_INPUT_PAD1, &input);
+//	now_key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	now_key = GetJoypadXInputState(DX_INPUT_PAD1, &input);
 	key_flg = now_key & ~old_key;
 }
 
