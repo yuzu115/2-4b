@@ -1,6 +1,8 @@
 #include"DxLib.h"
 #include <math.h>
 #include"Player.h"
+#include"InputControl.h"
+
 
 /******************************************
  * 定数の宣言
@@ -67,31 +69,33 @@ void PlayerInit(void)
 
 
 	OPx = gPlayer.x;
+	OPxRan = gPlayer.x;
 
 }
 
 /*************************************
  * プレイヤーの移動
  *************************************/
-void PlayerControl(int oldkey,int gamemode)
+void PlayerControl(int gamemode)
 {
 	LoadImg();
 
 	// プレイヤーの左右移動
-	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
+	if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
 	{
 		// 左移動
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
+		if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
 		{
 			RL = 0;
 			PlayerRan(RL);
 
 			gPlayer.x -= gPlayer.speed + 2;
+			MoveRanx = gPlayer.x;
 		}
 
 		// 歩く：左スティックを左に傾ける
-		else if (oldkey & PAD_INPUT_LEFT)
+		else if (InputControl::GetKey(PAD_INPUT_LEFT))
 		{
 
 			RL = 0;
@@ -104,15 +108,17 @@ void PlayerControl(int oldkey,int gamemode)
 
 		// 右移動
 		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
+		if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
 		{
 			RL = 3;
 			PlayerRan(RL);
 
 			gPlayer.x += gPlayer.speed + 2;
+			MoveRanx = gPlayer.x;
+
 		}
 		// 歩く：左スティックを右に傾ける
-		else if (oldkey & PAD_INPUT_RIGHT)
+		else if (InputControl::GetKey(PAD_INPUT_RIGHT))
 		{
 			
 
@@ -156,6 +162,7 @@ void PlayerControl(int oldkey,int gamemode)
 	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
 	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
 	DrawFormatString(390, 170, 0x000000, "Move-OPRan=%d", abs(MoveRanx - OPxRan));
+	DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
 }
 
 // リンゴの座標を変数sx,sy,srに格納
@@ -257,6 +264,7 @@ int PlayerFlashing(int& Count,int& on,int& off) {
 	
 }
 
+//Playerの歩く動き
 void PlayerWalk(int wImg) {
 
 	if (abs(Movex - OPx) > 50) {
@@ -290,11 +298,16 @@ void PlayerWalk(int wImg) {
 	
 }
 
+//Playerの走る動き
 void PlayerRan(int rImg)
 {
+	if (abs(MoveRanx - OPxRan) > 50) {
+		//OPxが動かなくならないように
+		OPxRan = MoveRanx - 12;
+	}
 		//走る動き
 		switch (abs(MoveRanx - OPxRan)) {
-		case 10:
+		case 9:
 			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
 			Img = rImg;
 			break;
@@ -302,16 +315,15 @@ void PlayerRan(int rImg)
 			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
 			Img = rImg + 1;
 			break;
-		case 50:
-			OPxRan = gPlayer.x;
+		case 49:
 			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
 			Img = rImg + 2;
+			OPxRan = gPlayer.x;
 			break;
 		default:
 			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[Img], TRUE);
 		}
 
-		MoveRanx = gPlayer.x;
 		//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg+1], TRUE);
 }
 
