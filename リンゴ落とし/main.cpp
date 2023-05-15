@@ -1,20 +1,22 @@
 #include "DxLib.h"
 #include "infomation.h"
 #include "TITLE.h"
-#include "RANKING.h"
-#include "HELP.h"
-#include "END.h"
-#include "Result.h"
+//#include "RANKING.h"
+//#include "HELP.h"
+//#include "END.h"
+//#include "Result.h"
+#include "InputControl.h"
+
 
 /******************************************************
 *変数宣言
 *******************************************************/
 XINPUT_STATE input;
-int Button_flg = FALSE;
+//int Button_flg = FALSE;
 int GameMode = 0;
 
 //ランキングデータの変数宣言
-RankingData Ranking[RANK_MAX];
+//RankingData Ranking[RANK_MAX];
 
 /****************************************************
 *プログラムの開始
@@ -34,29 +36,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
-		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
+		//GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
 		////入力キー取得
 		//g_OldKey = g_NowKey;
 		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
 		//g_KeyFlg = g_NowKey & ~g_OldKey;
 
+		InputControl::Update();
+
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				DrawTitle(GameMode);		//ゲームタイトル描画処理
 				break;
-			case RANKING:
-				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
-				break;
-			case HELP:
-				DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
-				break;
-			case END:
-				DrawEnd(GameMode);			//エンド画面描画処理
-				break;
-			case RESULT:
-				DrawResult(Ranking,GameMode);		//リザルト画面
-				break;
+			//case RANKING:
+			//	DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
+			//	break;
+			//case HELP:
+			//	DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
+			//	break;
+			//case END:
+			//	DrawEnd(GameMode);			//エンド画面描画処理
+			//	break;
+			//case RESULT:
+			//	DrawResult(Ranking,GameMode);		//リザルト画面
+			//	break;
 		}
 
 		ScreenFlip();	//裏画面の内容を表画面に反映

@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="End.cpp" />
     <ClCompile Include="Help.cpp" />
+    <ClCompile Include="InputControlo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Resultcpp.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InputControl.h" />
     <ClInclude Include="infomation.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "Title.h"
+#include "InputControl.h"
 
 /****************************************
 *　変数の宣言
@@ -13,44 +14,53 @@ int posY;				// カーソルのY座標
 /****************************************
 * タイトル画面描画
 *****************************************/
-void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
+void DrawTitle(int& GameMode)
 {
 	LoadTitleImages();		// タイトル画像読込
 
-	// メニューカーソル移動処理
-	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
-		Button_flg = TRUE;
-		if (++menuNo > 3) menuNo = 0;
-	}
-	if (input.Buttons[0] == 1 && Button_flg == FALSE) {
-		Button_flg = TRUE;
+	// カーソル移動上
+	if (InputControl::GetKeyDown(PAD_INPUT_UP))
+	{
 		if (--menuNo < 0) menuNo = 3;
 	}
-	if (input.Buttons[1] == 0 && input.Buttons[0] == 0 && input.Buttons[12] == 0) {
-		//DrawFormatString(450, 100, 0x000000, "操作説明");
-		Button_flg = FALSE;
+	if (InputControl::GetKeyDown(PAD_INPUT_DOWN))
+	{
+		if (++menuNo > 3) menuNo = 0;
 	}
 
-	// Aボタンでメニュー選択
-	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
-		Button_flg = TRUE;
+	//// メニューカーソル移動処理
+	//if (input.Buttons[1] == 1 && Button_flg == FALSE) {
+	//	Button_flg = TRUE;
+	//	if (++menuNo > 3) menuNo = 0;
+	//}
+	////if (input.Buttons[0] == 1 && Button_flg == FALSE) {
+	////	Button_flg = TRUE;
+	////	if (--menuNo < 0) menuNo = 3;
+	////}
+	//if (input.Buttons[1] == 0 && input.Buttons[0] == 0 && input.Buttons[12] == 0) {
+	//	Button_flg = FALSE;
+	//}
 
-		switch (menuNo) {
-		case 0:
-		//	GameMode = 1;			// INIT
-			GameMode = 6;			// RESULT
-			break;
-		case 1:
-			GameMode = 3;			// RANKING
-			break;
-		case 2:
-			GameMode = 4;			// HELP
-			break;
-	 	case 3:
-			GameMode = 7;			// END
-			break;
-		}
-	}
+	//// Aボタンでメニュー選択
+	//if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+	//	Button_flg = TRUE;
+
+	//	switch (menuNo) {
+	//	case 0:
+	//	//	GameMode = 1;			// INIT
+	//		GameMode = 6;			// RESULT
+	//		break;
+	//	case 1:
+	//		GameMode = 3;			// RANKING
+	//		break;
+	//	case 2:
+	//		GameMode = 4;			// HELP
+	//		break;
+	// 	case 3:
+	//		GameMode = 7;			// END
+	//		break;
+	//	}
+	//}
 	
 	// タイトル画像の表示
 	DrawGraph(0, 0, TitleImg, FALSE);
