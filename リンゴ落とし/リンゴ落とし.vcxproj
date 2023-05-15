@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppleMain.cpp" />
     <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="fps.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="InputControl.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -35,6 +37,7 @@
     <ClInclude Include="FPS.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="infomation.h" />
+    <ClInclude Include="InputControl.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="UIscore.h" />
   </ItemGroup>
