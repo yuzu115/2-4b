@@ -235,6 +235,8 @@ void HitPlayer(void)
 	}
 }
 
+
+//画像を点滅できるようにする
 int PlayerFlashing(int& Count,int& on,int& off) {
 
 	if (Count <= 120) {
@@ -303,10 +305,10 @@ void PlayerWalk(int wImg) {
 void PlayerRan(int rImg)
 {
 	if (abs(MoveRanx - OPxRan) > 56) {
-		//OPxが動かなくならないように
-		//歩く動きからZで切り替えたとき、caseで判定できる数より、
-		//MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
-		//if文でリセットしている
+		/*OPxが動かなくならないように
+		歩く動きからZで切り替えたとき、caseで判定できる数より、
+		MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
+		if文でリセットしている*/
 		OPxRan = MoveRanx;
 	}
 		//走る動き
