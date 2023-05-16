@@ -159,10 +159,11 @@ void PlayerControl(int gamemode)
 	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
 	DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
 	DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
+
 	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
 	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
-	DrawFormatString(390, 170, 0x000000, "Move-OPRan=%d", abs(MoveRanx - OPxRan));
-	DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
+	DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
+	//DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
 }
 
 // リンゴの座標を変数sx,sy,srに格納
@@ -301,13 +302,16 @@ void PlayerWalk(int wImg) {
 //Playerの走る動き
 void PlayerRan(int rImg)
 {
-	if (abs(MoveRanx - OPxRan) > 50) {
+	if (abs(MoveRanx - OPxRan) > 56) {
 		//OPxが動かなくならないように
-		OPxRan = MoveRanx - 12;
+		//歩く動きからZで切り替えたとき、caseで判定できる数より、
+		//MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
+		//if文でリセットしている
+		OPxRan = MoveRanx;
 	}
 		//走る動き
 		switch (abs(MoveRanx - OPxRan)) {
-		case 9:
+		case 21:
 			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
 			Img = rImg;
 			break;
@@ -315,7 +319,7 @@ void PlayerRan(int rImg)
 			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
 			Img = rImg + 1;
 			break;
-		case 49:
+		case 56:
 			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
 			Img = rImg + 2;
 			OPxRan = gPlayer.x;
