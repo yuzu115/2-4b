@@ -14,6 +14,14 @@
 #include"Player.h"
 #include"InputControl.h"
 
+/******************************************************
+*•Ï”éŒ¾
+*******************************************************/
+XINPUT_STATE input;
+int Button_flg = FALSE;
+int GameMode = 0;
+
+
 // ƒvƒƒOƒ‰ƒ€‚Í WinMain ‚©‚çn‚Ü‚è‚Ü‚·
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
