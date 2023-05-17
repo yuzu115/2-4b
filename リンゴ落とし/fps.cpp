@@ -1,5 +1,5 @@
 #include"DxLib.h"
-#include"math.h"
+#include<math.h>
 #include"FPS.h"
 
 int count;
@@ -18,8 +18,8 @@ void wait_fanc() {
 	//Œ»Ý‚ÌŽžŠÔ - 1‰ñ‘O‚ÉŽæ‚Á‚½ŽžŠÔ‚Å16•b‚Ü‚Ä‚Ä‚é‚©’²‚×‚é 
 	term = GetNowCount() - t;
 
-	if (16 - term > 0)
-		Sleep(16 - term);
+	if (4 - term > 0)
+		Sleep(4 - term);
 
 	t = GetNowCount();
 	return;

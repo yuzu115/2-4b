@@ -6,13 +6,13 @@
 *****************************************/
 int EndImg;					// エンド画像
 
-int WaitTime = 0;			// 待ち時間
+//int WaitTime = 0;			// 待ち時間
 int PosY;					// スクロール時のＹ座標
 
 /****************************************
 * エンド画面描画（エンドロール）
 *****************************************/
-void DrawEnd(int& GameMode)
+void DrawEnd(int& GameMode,int& Count)
 {
 	LoadEndImages();				// エンド画像読込
 
@@ -20,10 +20,10 @@ void DrawEnd(int& GameMode)
 	DrawGraph(0, 0, EndImg, FALSE);
 
 	//エンディング表示(仮)
-	if (++WaitTime < 600) PosY = 300 - WaitTime / 2;
+	if (++Count < 600) PosY = 300 - Count / 2;
 
 	SetFontSize(30);
-	DrawFormatString(0, 0, 0x000000, "WaitTime%4d", WaitTime);
+	DrawFormatString(0, 0, 0x000000, "Count%4d", Count);
 		
 	SetFontSize(40);
 	DrawFormatString(100, 310 + PosY, 0x000000, "素材利用");
@@ -31,12 +31,13 @@ void DrawEnd(int& GameMode)
 	DrawFormatString(100, 410 + PosY, 0x000000, "　SE　　　　　ＸＸＸＸＸＸＸＸ");
 
 	//タイムの加算処理＆300f経過後終了(仮)
-	if (++WaitTime > 900)
+	if (++Count >= 300)
 	{
 		GameMode = 8;				// CLOSE
 	}
 
 }
+
 
 /****************************************
 * エンド画像読込

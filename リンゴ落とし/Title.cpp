@@ -27,7 +27,6 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 		if (--menuNo < 0) menuNo = 3;
 	}
 	if (input.Buttons[1] == 0 && input.Buttons[0] == 0 && input.Buttons[12] == 0) {
-		//DrawFormatString(450, 100, 0x000000, "‘€ìà–¾");
 		Button_flg = FALSE;
 	}
 
@@ -37,8 +36,8 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 
 		switch (menuNo) {
 		case 0:
-			GameMode = 2;			// MAIN
-			//GameMode = 6;			// RESULT
+			//GameMode = 2;			// MAIN
+			GameMode = 6;			// RESULT
 			break;
 		case 1:
 			GameMode = 3;			// RANKING
