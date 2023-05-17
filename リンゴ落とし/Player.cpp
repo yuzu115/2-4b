@@ -3,50 +3,50 @@
 #include"Player.h"
 
 
-/******************************************
- * 定数の宣言
- ******************************************/
-// 画面サイズ
-const int SCREEN_WIDTH  = 1280;   // 幅
-const int SCREEN_HEIGHT = 720;    // 高さ
-
- // プレイヤーの初期値の定数
-const int PLAYER_POS_X  = 600;  // X座標 
-const int PLAYER_POS_Y  = 527;  // Y座標 
-const int PLAYER_SPEED  = 5;    // 移動速度
-
-/******************************************
- * 構造体の宣言
- ******************************************/
- // プレイヤーの構造体
-struct PLAYER
-{
-	int flg;       // 使用フラグ
-	float x, y;      // 座標
-	int w, h;      // 幅、高さ
-	int speed;     // 移動速度
-
-};
-
-// プレイヤーの変数宣言
-struct PLAYER gPlayer;
-
-/******************************************
- * 変数の宣言
- ******************************************/
-// リンゴの座標
-float ax, ay, ar;
-
-int LFlg = 0;
-int RFlg = 0;
-
-int gPlayerImg[5]; // 背景画像
+///******************************************
+// * 定数の宣言
+// ******************************************/
+//// 画面サイズ
+//const int SCREEN_WIDTH  = 1280;   // 幅
+//const int SCREEN_HEIGHT = 720;    // 高さ
+//
+// // プレイヤーの初期値の定数
+//const int PLAYER_POS_X  = 600;  // X座標 
+//const int PLAYER_POS_Y  = 527;  // Y座標 
+//const int PLAYER_SPEED  = 5;    // 移動速度
+//
+///******************************************
+// * 構造体の宣言
+// ******************************************/
+// // プレイヤーの構造体
+//struct PLAYER
+//{
+//	int flg;       // 使用フラグ
+//	float x, y;      // 座標
+//	int w, h;      // 幅、高さ
+//	int speed;     // 移動速度
+//
+//};
+//
+//// プレイヤーの変数宣言
+//struct PLAYER gPlayer;
+//
+///******************************************
+// * 変数の宣言
+// ******************************************/
+//// リンゴの座標
+//float ax, ay, ar;
+//
+//int LFlg = 0;
+//int RFlg = 0;
+//
+//int gPlayerImg[5]; // 背景画像
 
 /******************************************
  * プレイヤー初期化
  ******************************************/
 // プレイヤーの初期設定
-void PlayerInit(void)
+void Player::PlayerInit(void)
 {
 	gPlayer.flg = TRUE;         
 	gPlayer.x = PLAYER_POS_X;   
@@ -57,7 +57,7 @@ void PlayerInit(void)
 
 }
 
-int LoadPlayerImg(void)
+int Player::LoadPlayerImg(void)
 {
 	// プレイヤー(右向きに走る)画像の読込
 	if ((gPlayerImg[0] = LoadGraph("images/プレイヤー１.png")) == -1) return -1;
@@ -76,10 +76,10 @@ int LoadPlayerImg(void)
 /*************************************
  * プレイヤーの移動
  *************************************/
-void PlayerControl(int oldkey,int gamemode)
+void Player::PlayerControl(int oldkey,int gamemode)
 {
 
-	LoadPlayerImg();
+	Player::LoadPlayerImg();
 
 	// プレイヤーの左右移動
 	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
@@ -145,7 +145,7 @@ void PlayerControl(int oldkey,int gamemode)
 }
 
 // リンゴの座標を変数sx,sy,srに格納
-void GetApple(float ax0, float ay0, float ar0)
+void Player::GetApple(float ax0, float ay0, float ar0)
 {
 	// リンゴの座標
 
@@ -158,7 +158,7 @@ void GetApple(float ax0, float ay0, float ar0)
 }
 
 // 二乗+二乗の計算
-float Pythagorean(float px, float py, float ax, float ay)
+float Player::Pythagorean(float px, float py, float ax, float ay)
 {
 	float dx, dy, r;
 
@@ -172,7 +172,7 @@ float Pythagorean(float px, float py, float ax, float ay)
 }
 
 // リンゴとプレイヤーの当たり判定
-void HitPlayer(void)
+void Player::HitPlayer(void)
 {
 
 	float mx0, mx1, my0, my1;
