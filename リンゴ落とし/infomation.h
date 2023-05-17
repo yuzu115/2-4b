@@ -44,4 +44,7 @@ int GameMode;     //モード
 
 int g_Score;      //スコア
 
+int Count=0;
+int on, off = 0;
+
 

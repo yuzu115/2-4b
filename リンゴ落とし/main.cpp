@@ -1,30 +1,11 @@
-#include "DxLib.h"
-#include "infomation.h"
 #include"DxLib.h"
 #include"math.h"
 #include"infomation.h"
-#include "TITLE.h"
-#include "RANKING.h"
-#include "HELP.h"
-#include "END.h"
-#include "Result.h"
 #include"DrawApple.h"
 #include"FPS.h"
 #include"Player.h"
+#include"InputControl.h"
 
-/******************************************************
-*変数宣言
-*******************************************************/
-XINPUT_STATE input;
-int Button_flg = FALSE;
-int GameMode = 0;
-
-//ランキングデータの変数宣言
-RankingData Ranking[RANK_MAX];
-
-/****************************************************
-*プログラムの開始
-******************************************************/
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -35,14 +16,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetGraphMode(SCREENSIZE_X,SCREENSIZE_Y,32);
 
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
-
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
-
-	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
-	{
-		//入力キー取得
-		g_OldKey = g_NowKey;
-		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
@@ -56,34 +30,21 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
+	{
+		
+		InputControl::Update();
 
+		//g_OldKey = g_NowKey;
+		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);    //例のコントローラーの入力も使えます
 		//g_KeyFlg = g_NowKey & ~g_OldKey;
 
-		switch (GameMode) {
-			case TITLE:
-				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
-				break;
-		}
-				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
-				break;
-			case HELP:
-				DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
-				break;
-			case END:
-				DrawEnd(GameMode);			//エンド画面描画処理
-				break;
-			case RESULT:
-				DrawResult(Ranking,GameMode);		//リザルト画面
-				break;
-		}
-
-		ScreenFlip();	//裏画面の内容を表画面に反映
-
-	}
-	DxLib_End();	//DXライブラリ使用の終了処理
 		ClearDrawScreen();                 //画面を初期化
 
+		////キー入力取得 
+		InputControl::Update();
+
 		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+
 
 		DrawApple();
 		
@@ -92,14 +53,30 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		//fpsの計測
 		Keisoku_fps();
-
+		
 		// プレイヤー操作
-		PlayerControl(g_OldKey, GameMode);
+		PlayerControl(GameMode);
 
+		//PlayerFlashing(Count,on,off);
 
+		//PlayerImg();
+
+		if (Count == 121)Count = 0;
+		
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
 
+		//fps固定処理
+		wait_fanc();
+
+		if (KEY_INPUT_DOWN) {
+			Count++;
+			off++;
+			on ++;
+		}
+		
+		
+	}
 	DxLib_End();
 
 	return 0;

@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include <math.h>
 #include"Player.h"
+#include"InputControl.h"
 
 
 /******************************************
@@ -36,6 +37,22 @@ struct PLAYER gPlayer;
  ******************************************/
 // リンゴの座標
 float ax, ay, ar;
+//int off, on=0;
+//int gPlayerImg[];
+int gWalkImg[6];
+int gRanImg[6];
+int Movex = 0;	//動いた位置
+int OPx = 0;	//元の位置
+int MoveRanx = 0;
+int OPxRan = 0;
+//int Sc[3]={10,35,50};
+
+int Img;	//条件に達するまでの少しの間同じ画像を表示し続ける用
+int wImg;		//walkImgの画像どれ表示するかの表示
+
+int RL = 0;	//左か右か判別する変数
+int onceFlg = 1;//判別を押されてから一度だけやる為のフラグ
+int a;
 
 /******************************************
  * プレイヤー初期化
@@ -50,49 +67,67 @@ void PlayerInit(void)
 	gPlayer.h = 150;
 	gPlayer.speed = PLAYER_SPEED;
 
+
+	OPx = gPlayer.x;
+	OPxRan = gPlayer.x;
+
 }
 
 /*************************************
  * プレイヤーの移動
  *************************************/
-void PlayerControl(int oldkey,int gamemode)
+void PlayerControl(int gamemode)
 {
+	LoadImg();
 
 	// プレイヤーの左右移動
-	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
+	if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
 	{
-
 		// 左移動
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
+		if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
 		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			RL = 0;
+			PlayerRan(RL);
+
 			gPlayer.x -= gPlayer.speed + 2;
+			MoveRanx = gPlayer.x;
 		}
+
 		// 歩く：左スティックを左に傾ける
-		else if (oldkey & PAD_INPUT_LEFT)
+		else if (InputControl::GetKey(PAD_INPUT_LEFT))
 		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+
+			RL = 0;
+			PlayerWalk(RL);
 			gPlayer.x -= gPlayer.speed;
+			Movex = gPlayer.x;
+			
 		}
 
 
 		// 右移動
 		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
+		if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
 		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			RL = 3;
+			PlayerRan(RL);
+
 			gPlayer.x += gPlayer.speed + 2;
+			MoveRanx = gPlayer.x;
+
 		}
 		// 歩く：左スティックを右に傾ける
-		else if (oldkey & PAD_INPUT_RIGHT)
+		else if (InputControl::GetKey(PAD_INPUT_RIGHT))
 		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ffff, TRUE);
+			
+
+			RL = 3;
+
+			PlayerWalk(RL);
 			gPlayer.x += gPlayer.speed;
+			Movex = gPlayer.x;
+			
 		}
 
 	}
@@ -118,6 +153,17 @@ void PlayerControl(int oldkey,int gamemode)
 	// プレイヤーとリンゴの当たり判定 
 	HitPlayer();
 
+
+	DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
+	DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
+	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
+	DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
+	DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
+
+	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
+	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
+	DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
+	//DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
 }
 
 // リンゴの座標を変数sx,sy,srに格納
@@ -160,7 +206,7 @@ void HitPlayer(void)
 	my1 = SCREEN_HEIGHT;
 
 	// プレイヤーの当たり判定表示
-	DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
+	//DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
 	// リンゴの当たり判定表示
 	DrawCircle(ax, ay, ar, 0x000000, TRUE);
 
@@ -187,4 +233,118 @@ void HitPlayer(void)
 		// 当たっていたらリンゴの色を白に
 		DrawCircle(ax, ay, ar, 0xffffff, TRUE);
 	}
+}
+
+
+//画像を点滅できるようにする
+int PlayerFlashing(int& Count,int& on,int& off) {
+
+	if (Count <= 120) {
+
+		//120秒たつまで、20f感覚で点滅
+		if (on == 20) {
+			off = 0;
+
+			DrawBox(0, 0, 40, 40, 0x000000, TRUE);
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+
+			return off;
+
+		}
+
+		if (off == 20) {
+			on = 0;
+			DrawBox(0, 0, 40, 40, 0xff0000, FALSE);
+
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x000000, TRUE);
+
+
+			return on;
+		}
+
+	}
+	
+}
+
+//Playerの歩く動き
+void PlayerWalk(int wImg) {
+
+	if (abs(Movex - OPx) > 50) {
+		//OPxが動かなくならないように
+		OPx = Movex-10;
+	}
+	else {
+
+	//歩く動き
+	switch (abs(Movex - OPx)) {
+	case 10:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg], TRUE);
+		Img = wImg;
+		break;
+	case 35:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg + 1], TRUE);
+		Img = wImg + 1;
+		break;
+	case 50:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg + 2], TRUE);
+		Img = wImg + 2;
+		OPx = gPlayer.x;
+		break;
+	default:
+		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
+
+	}
+
+}
+
+	
+}
+
+//Playerの走る動き
+void PlayerRan(int rImg)
+{
+	if (abs(MoveRanx - OPxRan) > 56) {
+		/*OPxが動かなくならないように
+		歩く動きからZで切り替えたとき、caseで判定できる数より、
+		MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
+		if文でリセットしている*/
+		OPxRan = MoveRanx;
+	}
+		//走る動き
+		switch (abs(MoveRanx - OPxRan)) {
+		case 21:
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
+			Img = rImg;
+			break;
+		case 35:
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
+			Img = rImg + 1;
+			break;
+		case 56:
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
+			Img = rImg + 2;
+			OPxRan = gPlayer.x;
+			break;
+		default:
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[Img], TRUE);
+		}
+
+		//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg+1], TRUE);
+}
+
+int LoadImg(void) {
+	//画像分割読み込み
+	/*以下LoadDivGraphの引数の内容
+	*ファイル名
+	*画像の数
+	*横方向の画像の数
+	*縦方向の画像の数
+	*画像一つの横サイズ
+	*画像一つの縦サイズ
+	*画像を格納する配列
+	*/
+	if (LoadDivGraph("images/PLwalk2.png", 6, 3, 2, 32, 32, gWalkImg) == -1)return -1;
+	if (LoadDivGraph("images/PLRan.png", 6, 3, 2, 32, 32, gRanImg) == -1)return -1;
+	return 0;
 }
