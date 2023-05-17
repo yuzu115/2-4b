@@ -18,6 +18,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// ウィンドウサイズを設定
 	SetGraphMode(SCREENSIZE_X,SCREENSIZE_Y,32);
 
+	//垂直同期を切る
+	SetWaitVSyncFlag(FALSE);
+
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
