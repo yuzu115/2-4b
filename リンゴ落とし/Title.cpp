@@ -18,20 +18,20 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 	LoadTitleImages();		// タイトル画像読込
 
 	// メニューカーソル移動処理
-	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
+	if (input.ThumbLY < 128 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 		if (++menuNo > 3) menuNo = 0;
 	}
-	if (input.Buttons[0] == 1 && Button_flg == FALSE) {
+	if (input.ThumbLY > 128 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 		if (--menuNo < 0) menuNo = 3;
 	}
-	if (input.Buttons[1] == 0 && input.Buttons[0] == 0 && input.Buttons[12] == 0) {
+	if (input.ThumbLY == 128 && input.Buttons[XINPUT_BUTTON_A] == 0) {
 		Button_flg = FALSE;
 	}
 
 	// Aボタンでメニュー選択
-	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 
 		switch (menuNo) {
