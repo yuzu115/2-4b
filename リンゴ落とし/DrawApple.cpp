@@ -1,29 +1,29 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
-#include"Score.h"
 
 //リンゴの変数
-struct APPLE_DATE gApple[APPLE_MAX];
+Apple::APPLE_DATE gApple[APPLE_MAX];
 
 //各リンゴのデータ
-struct APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
-struct APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
-struct APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
-struct APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
+Apple::APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
+Apple::APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
+Apple::APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
+Apple::APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 
 //ステータス格納変数
-struct APPLE_DATE gAppleState[APPLE_TYPE];
+Apple::APPLE_DATE gAppleState[APPLE_TYPE];
 
-//乱数格納変数
-int gRandApple;
+
 int gAppleImg[APPLE_TYPE];
+int gRandApple;
 
-/**
+/*
 * リンゴのデータ格納
 */
 int AppleSet(void)
 {
+	
 	gAppleState[0] = gApple_Rd;
 	gAppleState[1] = gApple_Bl;
 	gAppleState[2] = gApple_Gl;
@@ -60,10 +60,12 @@ void DrawApple(void){
 			if (gApple[i].y > 1000) {
 				gApple[i].flg = FALSE;
 			}
-			if (HitPlayer(&gApple[i], &gPlayer) == TRUE) {
+
+			//当たったら消える処理にしたい
+			/*if (HitPlayer(&gApple[i], &gPlayer) == TRUE) {
 				gApple[i].flg = FALSE;
 			}
-			
+			*/
 
 			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
 			DrawFormatString(0, 20, 0x000000, "A_flg:%d");
@@ -80,14 +82,14 @@ void DrawApple(void){
 	}
 
 	//生成関数の読み込み
-	CreateApple();
+	Apple::CreateApple();
 
 }
 
 /**
 * リンゴの生成
 **/
-int CreateApple()
+int Apple::CreateApple()
 {
 	for (int i = 0; i < APPLE_MAX; i++) {
 		if (gApple[i].flg == FALSE) {

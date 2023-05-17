@@ -86,6 +86,8 @@ void PlayerControl(int oldkey,int gamemode)
 		gPlayer.x = 0;
 	}
 
+	HitPlayer(&Apple::gApple[i],&gPlayer);
+
 }
 
 ////ƒŠƒ“ƒS‚ÌÀ•W‚ğ•Ï”sx,sy,sr‚ÉŠi”[
@@ -117,7 +119,7 @@ float Pythagorean(float px, float py, float ax, float ay)
 }
 
 // ƒŠƒ“ƒS‚ÆƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è
-int HitPlayer(APPLE_DATE *a, PLAYER *p)
+int HitPlayer(Apple::APPLE_DATE *a, Player::PLAYER *p)
 {
 	int flg = 0;
 	float mx0, mx1, my0, my1;
