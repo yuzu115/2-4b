@@ -10,6 +10,7 @@
 #include"FPS.h"
 #include"Player.h"
 #include"InputControl.h"
+#include"fpsclass.h"
 
 /******************************************************
 *変数宣言
@@ -37,11 +38,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// ウィンドウサイズを設定
 	SetGraphMode(SCREENSIZE_X,SCREENSIZE_Y,32);
 
+	//ScreenFlipを実行しても垂直同期信号を待たない
+	//SetWaitVSyncFlag(0);
+
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
-	//ScreenFlipを実行しても垂直同期信号を待たない
-		//SetWaitVSyncFlag(FALSE);
+
 
 	//ループ前にFPS計測を初期化
 	Reset_fps();
@@ -50,6 +53,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//PlayerInit();
 
 	//ClearDrawScreen();                 //画面を初期化
+
+	//FPSControll
+	FPSControll FpsCtrl(60.0f, 800);
 
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
@@ -66,7 +72,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		ClearDrawScreen();                 //画面を初期化
 		
 		InputControl::Update();
-		FpsTimeFanction();
+
 
 		DrawFormatString(50, 60, 0x000000, "FPS %f", Fps); //fpsを表示
 
@@ -95,15 +101,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				break;
 		}
 
+
+		FpsTimeFanction();
 		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 		//DrawApple();
-		
-		//今出てるFPSの表示
-		display_fps();
 
-		//fpsの計測
-		Keisoku_fps();
-		
+
 		// プレイヤー操作
 		//PlayerControl(GameMode);
 		
@@ -114,11 +117,21 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		if (Count == 121)Count = 0;
 		
+		//FPS固定処理
+		FpsCtrl.Get();
+		FpsCtrl.Wait();
+		FpsCtrl.Disp();
+
+		//fpsの計測
+		Keisoku_fps();
+		//今出てるFPSの表示
+		display_fps();
+
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
 
 		//fps固定処理
-		wait_fanc();
+		//wait_fanc();
 
 			Count++;
 			off++;
