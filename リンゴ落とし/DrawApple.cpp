@@ -78,9 +78,9 @@ void DrawApple(void){
 		}
 
 		// リンゴの座標を引数として渡す
-		GetApple(gApple[i].x,gApple[i].y,gApple[i].r);
+		Player::GetApple(gApple[i].x,gApple[i].y,gApple[i].r);
 		// プレイヤーとの当たり判定
-		HitPlayer();
+		Player::HitPlayer();
 	}
 
 	//生成関数の読み込み

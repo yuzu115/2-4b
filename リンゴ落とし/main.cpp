@@ -3,8 +3,10 @@
 #include"infomation.h"
 #include"DrawApple.h"
 #include"FPS.h"
-#include"Player.h"
+//#include"Player.h"
 #include"Keyboard.h"
+#include "InputControl.h"
+
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -26,9 +28,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	Reset_fps();
 
 	// プレイヤー初期化
-	PlayerInit();
+	//PlayerInit();
 
-	GameMode = INPUTNAME;
+	GameMode = MAIN;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -38,6 +40,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
 		ClearDrawScreen();                 //画面を初期化
+
+		InputControl::Update();
+
 
 		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
@@ -51,6 +56,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	/*	//プレイヤー操作
 		PlayerControl(g_OldKey, GameMode);*/
+
+		if (GameMode == MAIN)
+		{
+			DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+		}
+
+		if (InputControl::GetKey(PAD_INPUT_1))
+		{
+			GameMode = INPUTNAME;
+		}
 
 		if (GameMode == INPUTNAME)
 		{
