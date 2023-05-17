@@ -57,3 +57,4 @@ void display_fps() {
 	DrawFormatString(390, 5, 0xffffff, "FPS:%3d DELTA: %8.6fsec", fps, deltaTime);
 
 }
+
