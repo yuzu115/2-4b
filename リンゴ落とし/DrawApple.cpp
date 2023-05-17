@@ -14,8 +14,9 @@ Apple::APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 //ステータス格納変数
 Apple::APPLE_DATE gAppleState[APPLE_TYPE];
 
-
+//画像
 int gAppleImg[APPLE_TYPE];
+//乱数取得
 int gRandApple;
 
 /*

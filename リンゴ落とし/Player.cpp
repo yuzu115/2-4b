@@ -86,7 +86,7 @@ void PlayerControl(int oldkey,int gamemode)
 		gPlayer.x = 0;
 	}
 
-	HitPlayer(&Apple::gApple[i],&gPlayer);
+	HitPlayer(&Apple::gApple,&gPlayer);
 
 }
 
