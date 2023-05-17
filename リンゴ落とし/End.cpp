@@ -20,7 +20,7 @@ void DrawEnd(int& GameMode,int& Count)
 	DrawGraph(0, 0, EndImg, FALSE);
 
 	//エンディング表示(仮)
-	if (++Count < 600) PosY = 300 - Count / 2;
+	if (++Count < 250) PosY = 250 - Count;
 
 	SetFontSize(30);
 	DrawFormatString(0, 0, 0x000000, "Count%4d", Count);

@@ -21,13 +21,6 @@ int GameMode = 0;
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
 
-int Time = 0;     //待ち時間
-int StartTime;
-int NowTime = 0;
-int RefreshTime;
-double Fps = 0.0;
-int counter = 0, FpsTime[2] = { 0, }, FpsTime_i = 0;
-
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -54,8 +47,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
-		RefreshTime = GetNowCount();
-
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
 		//入力キー取得
@@ -66,9 +57,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		ClearDrawScreen();                 //画面を初期化
 		
 		InputControl::Update();
-		FpsTimeFanction();
-
-		DrawFormatString(50, 60, 0x000000, "FPS %f", Fps); //fpsを表示
 
 		switch (GameMode) {
 			case TITLE:
@@ -132,20 +120,3 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	return 0;
 }
 
-
-void FpsTimeFanction() {
-	if (FpsTime_i == 0)
-		FpsTime[0] = GetNowCount();               //1周目の時間取得
-	if (FpsTime_i == 49) {
-		FpsTime[1] = GetNowCount();               //50周目の時間取得
-		Fps = 1000.0f / ((FpsTime[1] - FpsTime[0]) / 50.0f);//測定した値からfpsを計算
-		FpsTime_i = 0;//カウントを初期化
-				DrawFormatString(50, 60, 0x000000, "FPS %.1f", Fps); //fpsを表示
-
-	}
-	else
-		FpsTime_i++;//現在何周目かカウント
-	if (Fps != 0)
-		DrawFormatString(50, 60, 0x000000, "FPS %.1f", Fps); //fpsを表示
-	return;
-}
