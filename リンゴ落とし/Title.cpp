@@ -19,14 +19,15 @@ void DrawTitle(int& GameMode)
 	LoadTitleImages();		// タイトル画像読込
 
 	// カーソル移動上
-	if (InputControl::GetKeyDown(input.Buttons[XINPUT_BUTTON_DPAD_UP]))
+	if (InputControl::GetStick(input.ThumbLY))
 	{
 		if (--menuNo < 0) menuNo = 3;
 	}
-	if (InputControl::GetKeyDown(PAD_INPUT_DOWN))
-	{
-		if (++menuNo > 3) menuNo = 0;
-	}
+	//if (InputControl::GetKeyDown(PAD_INPUT_DOWN))
+	//{
+	//	if (++menuNo > 3) menuNo = 0;
+	//}
+	InputControl::Nullify(input.ThumbLY);
 
 	//// メニューカーソル移動処理
 	//if (input.Buttons[1] == 1 && Button_flg == FALSE) {
