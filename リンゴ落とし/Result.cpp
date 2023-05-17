@@ -14,25 +14,25 @@ int g_Score;						// 現在のスコア
 *****************************************/
 void DrawResult(RankingData Ranking[],int& GameMode)
 {
-	LoadResultImages();					// リザルト画像読込
+	//LoadResultImages();					// リザルト画像読込
 
 	// ReadRanking(Ranking);			//ランキングデータの読込
 
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	//if (++WaitTime > 900)
 	// スコアがランキングの最下位の値以上
-		if (Ranking[RANK_MAX - 1].score >= g_Score){
-			GameMode = 5;				// INPUTNAME
-		}
-		else {
-			GameMode = 3;				// RANKING
-		 }
+		//if (Ranking[RANK_MAX - 1].score >= g_Score){
+		//	//GameMode = 5;				// INPUTNAME
+		//}
+		//else {
+		//	GameMode = 3;				// RANKING
+		// }
 		
 	// リザルト画像の表示
-	DrawGraph(0, 0, ResultBackImg, FALSE);
+	//DrawGraph(0, 0, ResultBackImg, FALSE);
 
 	SetFontSize(30);
-	DrawFormatString(400, 300, 0x000000, "赤リンゴ：%3d\n");
+	DrawFormatString(400, 300, 0xffffff, "赤リンゴ：%3d\n");
 	DrawFormatString(400, 340, 0x000000, "青リンゴ：%3d\n");
 	DrawFormatString(400, 380, 0x000000, "金リンゴ：%3d\n");
 	DrawFormatString(400, 420, 0x000000, "毒リンゴ：%3d\n");

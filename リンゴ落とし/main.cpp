@@ -10,7 +10,7 @@
 #include"FPS.h"
 #include"Player.h"
 #include"InputControl.h"
-#include"fpsclass.h"
+
 
 /******************************************************
 *変数宣言
@@ -22,12 +22,9 @@ int GameMode = 0;
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
 
-int Time = 0;     //待ち時間
-int StartTime;
-int NowTime = 0;
-int RefreshTime;
-double Fps = 0.0;
-int counter = 0, FpsTime[2] = { 0, }, FpsTime_i = 0;
+
+
+int LoadImages();
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -44,7 +41,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
-
+	//画像読込
+	/*各関数で読み込むと時間が掛かってFPSが大幅に遅れる為、
+	ゲームループが始まる前にあらかじめ画像、サウンドなどを読み込む関数を作り
+	先に読み込んでおく*/
+	if (LoadImages() == -1)return -1;
 
 	//ループ前にFPS計測を初期化
 	Reset_fps();
@@ -54,14 +55,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	//ClearDrawScreen();                 //画面を初期化
 
-	//FPSControll
-	FPSControll FpsCtrl(60.0f, 800);
 
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
-		RefreshTime = GetNowCount();
-
+	
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
 		//入力キー取得
@@ -72,9 +70,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		ClearDrawScreen();                 //画面を初期化
 		
 		InputControl::Update();
-
-
-		DrawFormatString(50, 60, 0x000000, "FPS %f", Fps); //fpsを表示
 
 		switch (GameMode) {
 			case TITLE:
@@ -102,7 +97,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		}
 
 
-		FpsTimeFanction();
+		DrawFormatString(50, 60, 0xffffff, "GameMode %d", GameMode);
 		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 		//DrawApple();
 
@@ -117,10 +112,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		if (Count == 121)Count = 0;
 		
-		//FPS固定処理
-		FpsCtrl.Get();
-		FpsCtrl.Wait();
-		FpsCtrl.Disp();
 
 		//fpsの計測
 		Keisoku_fps();
@@ -131,7 +122,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		ScreenFlip();
 
 		//fps固定処理
-		//wait_fanc();
+		wait_fanc();
 
 			Count++;
 			off++;
@@ -145,19 +136,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 }
 
 
-void FpsTimeFanction() {
-	if (FpsTime_i == 0)
-		FpsTime[0] = GetNowCount();               //1周目の時間取得
-	if (FpsTime_i == 49) {
-		FpsTime[1] = GetNowCount();               //50周目の時間取得
-		Fps = 1000.0f / ((FpsTime[1] - FpsTime[0]) / 50.0f);//測定した値からfpsを計算
-		FpsTime_i = 0;//カウントを初期化
-				DrawFormatString(50, 60, 0x000000, "FPS %.1f", Fps); //fpsを表示
-
-	}
-	else
-		FpsTime_i++;//現在何周目かカウント
-	if (Fps != 0)
-		DrawFormatString(50, 60, 0x000000, "FPS %.1f", Fps); //fpsを表示
-	return;
+int LoadImages() {
+	if(LoadTitleImages()==-1) return -1;
+	return 0;
 }

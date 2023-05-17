@@ -15,7 +15,7 @@ int posY;				// カーソルのY座標
 *****************************************/
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
-	LoadTitleImages();		// タイトル画像読込
+	//LoadTitleImages();		// タイトル画像読込
 
 	// メニューカーソル移動処理
 	if (input.Buttons[1] == 1 && Button_flg == FALSE) {
@@ -71,7 +71,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 /****************************************
 * タイトル画像読込
 *****************************************/
-int LoadTitleImages(void)
+int LoadTitleImages()
 {
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/title.png")) == -1) return -1;
