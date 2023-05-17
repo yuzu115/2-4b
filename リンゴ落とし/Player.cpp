@@ -1,8 +1,23 @@
 #include"DxLib.h"
 #include <math.h>
 #include"Player.h"
+#include"DrawApple.h"
 
+// 画面サイズ
+#define SCREEN_WIDTH  1280   // 幅
+#define SCREEN_HEIGHT 720    // 高さ
 
+ // プレイヤーの初期値の定数
+#define PLAYER_POS_X  600  // X座標 
+#define PLAYER_POS_Y  527  // Y座標 
+#define PLAYER_SPEED  5    // 移動速度
+
+float Player::ax, ay, ar;
+
+float Player::mx0, mx1, my0, my1;
+
+Player pl;
+Apple ap;
 /******************************************
  * 定数の宣言
  ******************************************/
@@ -48,12 +63,12 @@
 // プレイヤーの初期設定
 void Player::PlayerInit(void)
 {
-	gPlayer.flg = TRUE;         
-	gPlayer.x = PLAYER_POS_X;   
-	gPlayer.y = PLAYER_POS_Y;   
-	gPlayer.w = 80;
-	gPlayer.h = 150;
-	gPlayer.speed = PLAYER_SPEED;
+	flg = TRUE;         
+	x = PLAYER_POS_X;   
+	y = PLAYER_POS_Y;   
+	w = 80;
+	h = 150;
+	speed = PLAYER_SPEED;
 
 }
 
@@ -78,7 +93,7 @@ int Player::LoadPlayerImg(void)
  *************************************/
 void Player::PlayerControl(int oldkey,int gamemode)
 {
-
+	Apple app;
 	LoadPlayerImg();
 
 	// プレイヤーの左右移動
@@ -90,15 +105,15 @@ void Player::PlayerControl(int oldkey,int gamemode)
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-		    gPlayer.x -= gPlayer.speed + 2;
+			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0xff0000, TRUE);
+		    x -= speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-				gPlayer.x -= gPlayer.speed;
+			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			x -= speed;
 		}
 
 		// 右移動
@@ -106,16 +121,16 @@ void Player::PlayerControl(int oldkey,int gamemode)
 		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed + 2;
+			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			x += speed + 2;
 			
 		}
 		// 歩く：左スティックを右に傾ける
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed;
+			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			x += speed;
 			
 		}
 
@@ -124,66 +139,69 @@ void Player::PlayerControl(int oldkey,int gamemode)
 	else
 	{
 	// プレイヤー仮表示(白)
-		DrawBox(gPlayer.x, gPlayer.y,gPlayer.x + gPlayer.w,SCREEN_HEIGHT, 0xffffff, TRUE);
+		DrawBox(x, y, x + w, SCREEN_HEIGHT, 0xffffff, TRUE);
 	}
 
 	// 画面をはみ出さないようにする
 	// 右
-	if (gPlayer.x > 950)
+	if (x > 950)
 	{
-		gPlayer.x = 950;
+		x = 950;
 	}
 	// 左
-	if (gPlayer.x < -20)
+	if (x < -20)
 	{
-		gPlayer.x = -20;
+		x = -20;
 	}
 
 	// プレイヤーとリンゴの当たり判定 
-	HitPlayer();
+	//HitPlayer(,&gPlayer);
 
 }
 
-// リンゴの座標を変数sx,sy,srに格納
-void Player::GetApple(float ax0, float ay0, float ar0)
-{
-	// リンゴの座標
+//// リンゴの座標を変数sx,sy,srに格納
+//void Player::GetApple(float ax0, float ay0, float ar0)
+//{
+//	// リンゴの座標
+//
+//	ax = ax0;
+//	ay = ay0;
+//	ar = ar0;
+//
+//	//DrawCircle(sx, sy, sr, 0x000000, TRUE);
+//
+//}
 
-	ax = ax0;
-	ay = ay0;
-	ar = ar0;
-
-	//DrawCircle(sx, sy, sr, 0x000000, TRUE);
-
-}
-
-// 二乗+二乗の計算
-float Player::Pythagorean(float px, float py, float ax, float ay)
-{
-	float dx, dy, r;
-
-	dx = px - ax;
-	dy = py - ay;
-
-	r = (dx * dx) + (dy * dy);
-
-	return (r);
-
-}
+//// 二乗+二乗の計算
+//float Player::Pythagorean(float px, float py, float ax, float ay)
+//{
+//	float dx, dy, r;
+//
+//	dx = px - ax;
+//	dy = py - ay;
+//
+//	r = (dx * dx) + (dy * dy);
+//
+//	return (r);
+//
+//}
 
 // リンゴとプレイヤーの当たり判定
-void Player::HitPlayer(void)
+int Player::HitPlayer(Apple::APPLE_DATE* a)
 {
-
-	float mx0, mx1, my0, my1;
-
-	mx0 = gPlayer.x;
-	mx1 = gPlayer.x + gPlayer.w;
-	my0 = gPlayer.y;
-	my1 = SCREEN_HEIGHT;
-
 	// リンゴとプレイヤーが当たっているか判定
 	int flg = 0;
+
+	mx0 = x;
+	mx1 = mx0 + w;
+	my0 = y;
+	my1 = SCREEN_HEIGHT;
+
+	ax = a->x;
+	ay = a->y;
+	ar = a->r;
+
+
 
 	// プレイヤーの当たり判定表示
 	//DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
@@ -201,8 +219,8 @@ void Player::HitPlayer(void)
 		flg = 2;
 	}
 	// 3:円の中心が長方形から見て斜め上下の位置にある場合
-	if (Pythagorean(mx0, my0, ax, ay) < ar * ar || Pythagorean(mx1, my0, ax, ay) < ar *ar ||
-		Pythagorean(mx0, my1, ax, ay) < ar * ar || Pythagorean(mx1, my1, ax, ay) < ar * ar)
+	if (pl.Pythagorean(mx0, my0, ax, ay) < ar * ar || pl.Pythagorean(mx1, my0, ax, ay) < ar *ar ||
+		pl.Pythagorean(mx0, my1, ax, ay) < ar * ar || pl.Pythagorean(mx1, my1, ax, ay) < ar * ar)
 	{
 		flg = 3;
 	}
@@ -212,5 +230,6 @@ void Player::HitPlayer(void)
 	{
 		// 当たっていたらリンゴの色を白に
 		DrawCircle(ax, ay, ar, 0xffffff, TRUE);
+		return TRUE;
 	}
 }

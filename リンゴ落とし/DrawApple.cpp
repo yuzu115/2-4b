@@ -5,27 +5,28 @@
 #define APPLE_MAX  10	//リンゴの最大生成数
 #define APPLE_TYPE  4		//リンゴの種類
 #define APPLE_SIZE  400
-
-struct APPLE_DATE {
-	int flg;		//フラグ
-	int type;		//種類
-	int img;		//画像表示用
-	float x, y, r;		//座標、半径
-	float speed;		//落下速度
-	int score;		//スコア加算
-	float size;		//当たり判定の倍率
-};
+//
+//struct APPLE_DATE {
+//	int flg;		//フラグ
+//	int type;		//種類
+//	int img;		//画像表示用
+//	float x, y, r;		//座標、半径
+//	float speed;		//落下速度
+//	int score;		//スコア加算
+//	float size;		//当たり判定の倍率
+//};
+// 
 //リンゴの変数
-struct APPLE_DATE gApple[APPLE_MAX];
+Apple::APPLE_DATE gApple[APPLE_MAX];
 
 //各リンゴのデータ
-struct APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
-struct APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
-struct APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
-struct APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
+Apple::APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
+Apple::APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
+Apple::APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
+Apple::APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 
 //ステータス格納変数
-struct APPLE_DATE gAppleState[APPLE_TYPE];
+Apple::APPLE_DATE gAppleState[APPLE_TYPE];
 
 
 int gAppleImg[APPLE_TYPE];
@@ -56,7 +57,8 @@ int Apple::AppleSet(void)
 */
 void Apple::DrawApple(void){
 
-	DrawRotaGraph(100, 100, 0.25, 0, gAppleImg[0], TRUE, TRUE);
+	Player p;
+	AppleSet();
 
 	for (int i = 0; i < APPLE_MAX; i++){
 		
@@ -77,10 +79,10 @@ void Apple::DrawApple(void){
 			}
 
 			//当たったら消える処理にしたい
-			/*if (HitPlayer(&gApple[i], &gPlayer) == TRUE) {
+			if (p.HitPlayer(&gApple[i]) == TRUE) {
 				gApple[i].flg = FALSE;
 			}
-			*/
+			
 
 			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
 			DrawFormatString(0, 20, 0x000000, "A:%d",gApple[i]);
