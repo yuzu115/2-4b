@@ -9,9 +9,6 @@
 #include"DrawApple.h"
 #include"FPS.h"
 #include"Player.h"
-#include"DrawApple.h"
-#include"FPS.h"
-#include"Player.h"
 #include"InputControl.h"
 
 /******************************************************
@@ -73,11 +70,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case MAIN:
-				PlayerInit();						// プレイヤー初期化
+				PlayerInit();								// プレイヤー初期化
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				DrawApple();
-				// プレイヤー操作
-				PlayerControl(g_OldKey, GameMode);
+				PlayerControl(GameMode);						// プレイヤー操作
+				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
@@ -107,11 +104,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		
 		// プレイヤー操作
 		//PlayerControl(GameMode);
-
-		//PlayerFlashing(Count,on,off);
+		
+		PlayerFlashing(Count,on,off);
 
 		//PlayerImg();
-		PlayerControl(g_OldKey, GameMode);
+		//PlayerControl(GameMode);
 
 		if (Count == 121)Count = 0;
 		
