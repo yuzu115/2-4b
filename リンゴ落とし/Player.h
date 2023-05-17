@@ -1,7 +1,18 @@
 #pragma once
+
+// 画面サイズ
+#define SCREEN_WIDTH  1280   // 幅
+#define SCREEN_HEIGHT 720    // 高さ
+
+ // プレイヤーの初期値の定数
+#define PLAYER_POS_X  600  // X座標 
+#define PLAYER_POS_Y  527  // Y座標 
+#define PLAYER_SPEED  5    // 移動速度
+
 class Player
 {
 private:
+
 		int flg;       // 使用フラグ
 		float x, y;      // 座標
 		float w, h;      // 幅、高さ
@@ -9,6 +20,7 @@ private:
 
 	// リンゴの座標
 	static float ax, ay, ar;
+
 
 	static float mx0, mx1, my0, my1;
 

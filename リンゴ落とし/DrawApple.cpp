@@ -2,9 +2,7 @@
 #include"DrawApple.h"
 #include"Player.h"
 
-#define APPLE_MAX  10	//リンゴの最大生成数
-#define APPLE_TYPE  4		//リンゴの種類
-#define APPLE_SIZE  400
+
 //
 //struct APPLE_DATE {
 //	int flg;		//フラグ
@@ -15,7 +13,8 @@
 //	int score;		//スコア加算
 //	float size;		//当たり判定の倍率
 //};
-// 
+
+
 //リンゴの変数
 Apple::APPLE_DATE gApple[APPLE_MAX];
 
@@ -27,10 +26,6 @@ Apple::APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 
 //ステータス格納変数
 Apple::APPLE_DATE gAppleState[APPLE_TYPE];
-
-
-int gAppleImg[APPLE_TYPE];
-int gRandApple;
 
 
 /*
@@ -83,7 +78,6 @@ void Apple::DrawApple(void){
 				gApple[i].flg = FALSE;
 			}
 			
-
 			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
 			DrawFormatString(0, 20, 0x000000, "A:%d",gApple[i]);
 			DrawFormatString(0, 40, 0x000000, "r:%d", gApple[i].r);

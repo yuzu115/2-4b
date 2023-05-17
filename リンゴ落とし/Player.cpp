@@ -3,15 +3,6 @@
 #include"Player.h"
 #include"DrawApple.h"
 
-// 画面サイズ
-#define SCREEN_WIDTH  1280   // 幅
-#define SCREEN_HEIGHT 720    // 高さ
-
- // プレイヤーの初期値の定数
-#define PLAYER_POS_X  600  // X座標 
-#define PLAYER_POS_Y  527  // Y座標 
-#define PLAYER_SPEED  5    // 移動速度
-
 float Player::ax, ay, ar;
 
 float Player::mx0, mx1, my0, my1;
@@ -93,7 +84,6 @@ int Player::LoadPlayerImg(void)
  *************************************/
 void Player::PlayerControl(int oldkey,int gamemode)
 {
-	Apple app;
 	LoadPlayerImg();
 
 	// プレイヤーの左右移動
