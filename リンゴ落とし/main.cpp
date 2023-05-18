@@ -42,11 +42,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//// プレイヤー初期化
 	//PlayerInit();
 
-	//ClearDrawScreen();                 //画面を初期化
-
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
+		ClearDrawScreen();                 //画面を初期化
+
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
 		//入力キー取得
@@ -54,8 +54,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
-		ClearDrawScreen();                 //画面を初期化
-		
 		InputControl::Update();
 
 		switch (GameMode) {
@@ -66,7 +64,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				PlayerInit();								// プレイヤー初期化
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				DrawApple();
-				PlayerControl(GameMode);						// プレイヤー操作
+				PlayerControl(GameMode);						// プレイヤー操作(joypad)
 				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 				break;
 			case RANKING:
@@ -82,8 +80,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawResult(Ranking,GameMode);		//リザルト画面
 				break;
 		}
-		DrawFormatString(0, 16, 0x00000, "ThumbLX:%d ThumbLY:%d",
-			input.ThumbLX, input.ThumbLY);
+		DrawFormatString(0, 16, 0x00000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
+
 		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 		//DrawApple();
 		
@@ -101,7 +99,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//PlayerImg();
 		//PlayerControl(GameMode);
 
-		if (Count == 121)Count = 0;
+		if (Count > 120)Count = 0;
 		
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
@@ -112,7 +110,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			Count++;
 			off++;
 			on ++;
-		
 		
 	}
 	DxLib_End();
