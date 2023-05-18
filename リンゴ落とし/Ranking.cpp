@@ -18,12 +18,12 @@ void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int
 
 	ReadRanking(Ranking);		//ランキングデータの読込
 
-	if (input.Buttons[12] == 0) {
+	if (input.Buttons[XINPUT_BUTTON_A] == 0) {
 		Button_flg = FALSE;
 	}
 
 	// Aボタンでスタート画面に戻る
-	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 		GameMode = 0;		// TITLE
 	}

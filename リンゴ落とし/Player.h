@@ -15,5 +15,6 @@ void PlayerWalk(int wImg);
 void PlayerRan(int rImg);
 int LoadImg(void);
 
+void PlayerXControl(XINPUT_STATE input, int& Button_flg);     // ƒvƒŒƒCƒ„[§Œä(XInput)
 
 #endif

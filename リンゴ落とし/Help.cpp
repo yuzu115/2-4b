@@ -18,12 +18,12 @@ void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)
 	}
 
 	// Aボタンでタイトルへ
-	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 		GameMode = 0;					// TITLE
 	}
 	// Bボタンでゲームスタート
-	if (input.Buttons[13] == 1 && Button_flg == FALSE) {
+	if (input.Buttons[XINPUT_BUTTON_B] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 		//GameMode = 1;					// INIT
 		GameMode = 7;					// END

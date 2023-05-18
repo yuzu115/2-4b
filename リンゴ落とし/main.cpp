@@ -49,10 +49,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
-		//入力キー取得
-		g_OldKey = g_NowKey;
-		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
-		g_KeyFlg = g_NowKey & ~g_OldKey;
+		////入力キー取得
+		//g_OldKey = g_NowKey;
+		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
+		//g_KeyFlg = g_NowKey & ~g_OldKey;
 
 		InputControl::Update();
 
@@ -64,7 +64,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				PlayerInit();								// プレイヤー初期化
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				DrawApple();
-				PlayerControl(GameMode);						// プレイヤー操作(joypad)
+				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
+				PlayerXControl(input, Button_flg);						// プレイヤー操作(XInput)
 				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 				break;
 			case RANKING:
