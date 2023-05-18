@@ -350,7 +350,7 @@ int LoadImg(void) {
 }
 
 /*************************************
- * プレイヤーの移動
+ * プレイヤーの移動（XInput）
  *************************************/
 void PlayerXControl(XINPUT_STATE input, int& Button_flg)
 {
@@ -373,14 +373,11 @@ void PlayerXControl(XINPUT_STATE input, int& Button_flg)
 		// 歩く：左スティックを左に傾ける
 		else if (input.ThumbLX < 128)
 		{
-
 			RL = 0;
 			PlayerWalk(RL);
 			gPlayer.x -= gPlayer.speed;
 			Movex = gPlayer.x;
-
 		}
-
 
 		// 右移動
 		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
@@ -391,19 +388,15 @@ void PlayerXControl(XINPUT_STATE input, int& Button_flg)
 
 			gPlayer.x += gPlayer.speed + 2;
 			MoveRanx = gPlayer.x;
-
 		}
 		// 歩く：左スティックを右に傾ける
 		else if (input.ThumbLX > 128)
 		{
-
-
 			RL = 3;
 
 			PlayerWalk(RL);
 			gPlayer.x += gPlayer.speed;
 			Movex = gPlayer.x;
-
 		}
 
 	}
