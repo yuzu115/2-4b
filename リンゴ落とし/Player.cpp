@@ -54,12 +54,12 @@ Apple ap;
 // プレイヤーの初期設定
 void Player::PlayerInit(void)
 {
-	flg = TRUE;         
-	x = PLAYER_POS_X;   
-	y = PLAYER_POS_Y;   
-	w = 80;
-	h = 150;
-	speed = PLAYER_SPEED;
+	gPlayer.flg = TRUE;
+	gPlayer.x = PLAYER_POS_X;
+	gPlayer.y = PLAYER_POS_Y;
+	gPlayer.w = 80;
+	gPlayer.h = 150;
+	gPlayer.speed = PLAYER_SPEED;
 
 }
 
@@ -95,15 +95,15 @@ void Player::PlayerControl(int oldkey,int gamemode)
 		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0xff0000, TRUE);
-		    x -= speed + 2;
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			gPlayer.x -= gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
 		else if (oldkey & PAD_INPUT_LEFT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			x -= speed;
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			gPlayer.x -= gPlayer.speed;
 		}
 
 		// 右移動
@@ -111,16 +111,16 @@ void Player::PlayerControl(int oldkey,int gamemode)
 		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
-			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			x += speed + 2;
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			gPlayer.x += gPlayer.speed + 2;
 			
 		}
 		// 歩く：左スティックを右に傾ける
 		else if (oldkey & PAD_INPUT_RIGHT)
 		{
 			// プレイヤー仮表示(水色)
-			DrawBox(x, y, x + w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			x += speed;
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			gPlayer.x += gPlayer.speed;
 			
 		}
 
@@ -129,19 +129,19 @@ void Player::PlayerControl(int oldkey,int gamemode)
 	else
 	{
 	// プレイヤー仮表示(白)
-		DrawBox(x, y, x + w, SCREEN_HEIGHT, 0xffffff, TRUE);
+		DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
 	}
 
 	// 画面をはみ出さないようにする
 	// 右
-	if (x > 950)
+	if (gPlayer.x > 950)
 	{
-		x = 950;
+		gPlayer.x = 950;
 	}
 	// 左
-	if (x < -20)
+	if (gPlayer.x < -20)
 	{
-		x = -20;
+		gPlayer.x = -20;
 	}
 }
 
@@ -173,14 +173,14 @@ void Player::PlayerControl(int oldkey,int gamemode)
 //}
 
 // リンゴとプレイヤーの当たり判定
-int Player::HitPlayer()
+int Player::HitPlayer(APPLE_DATE* a)
 {
 	// リンゴとプレイヤーが当たっているか判定
 	int flg = 0;
 
-	mx0 = pl.x;
-	mx1 = mx0 + pl.w;
-	my0 = pl.y;
+	mx0 = gPlayer.x;
+	mx1 = mx0 + gPlayer.w;
+	my0 = gPlayer.y;
 	my1 = SCREEN_HEIGHT;
 
 	ax = a->x;

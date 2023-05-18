@@ -15,16 +15,16 @@
 //};
 
 	//リンゴの変数
-Apple::APPLE_DATE gApple[APPLE_MAX];
+APPLE_DATE gApple[APPLE_MAX];
 
 //各リンゴのデータ
-Apple::APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
-Apple::APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
-Apple::APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
-Apple::APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
+APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
+APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
+APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
+APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 
 //ステータス格納変数
-Apple::APPLE_DATE gAppleState[APPLE_TYPE];
+APPLE_DATE gAppleState[APPLE_TYPE];
 
 /*
 * リンゴのデータ格納
