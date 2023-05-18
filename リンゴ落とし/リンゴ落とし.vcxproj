@@ -22,6 +22,7 @@
     <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="fps.cpp" />
+    <ClCompile Include="GameInit.cpp" />
     <ClCompile Include="inputControl.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
@@ -34,6 +35,7 @@
   <ItemGroup>
     <ClInclude Include="DrawApple.h" />
     <ClInclude Include="FPS.h" />
+    <ClInclude Include="GameInit.h" />
     <ClInclude Include="infomation.h" />
     <ClInclude Include="InputControl.h" />
     <ClInclude Include="PadInput.h" />
