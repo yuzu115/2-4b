@@ -13,10 +13,10 @@ class Player
 {
 private:
 
-		int flg;       // 使用フラグ
-		float x, y;      // 座標
-		float w, h;      // 幅、高さ
-		float speed;     // 移動速度
+	int flg;       // 使用フラグ
+	float x, y;      // 座標
+	float w, h;      // 幅、高さ
+	float speed;     // 移動速度
 
 	// リンゴの座標
 	static float ax, ay, ar;
@@ -34,7 +34,8 @@ public:
 	void PlayerInit(void);                            // プレイヤー初期化
 	void PlayerControl(int oldkey, int gamemode);     // プレイヤー制御
 	//void GetApple(float ax0, float ay0, float ar0);         // リンゴの座標を変数に格納
-	int HitPlayer(Apple::APPLE_DATE* a);                          // リンゴとプレイヤーの当たり判定
+
+	int HitPlayer();                          // リンゴとプレイヤーの当たり判定
 	float Pythagorean(float px, float py, float ax, float ay);  // ピタゴラスの定理の計算
 	int LoadPlayerImg(void);       // 画像読込
 };

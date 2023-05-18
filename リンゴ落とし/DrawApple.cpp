@@ -14,8 +14,7 @@
 //	float size;		//当たり判定の倍率
 //};
 
-
-//リンゴの変数
+	//リンゴの変数
 Apple::APPLE_DATE gApple[APPLE_MAX];
 
 //各リンゴのデータ
@@ -26,7 +25,6 @@ Apple::APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 
 //ステータス格納変数
 Apple::APPLE_DATE gAppleState[APPLE_TYPE];
-
 
 /*
 * リンゴのデータ格納

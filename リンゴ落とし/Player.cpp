@@ -143,10 +143,6 @@ void Player::PlayerControl(int oldkey,int gamemode)
 	{
 		x = -20;
 	}
-
-	// ƒvƒŒƒCƒ„[‚ÆƒŠƒ“ƒS‚Ì“–‚½‚è”»’è 
-	//HitPlayer(,&gPlayer);
-
 }
 
 //// ƒŠƒ“ƒS‚ÌÀ•W‚ð•Ï”sx,sy,sr‚ÉŠi”[
@@ -177,14 +173,14 @@ void Player::PlayerControl(int oldkey,int gamemode)
 //}
 
 // ƒŠƒ“ƒS‚ÆƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è
-int Player::HitPlayer(Apple::APPLE_DATE* a)
+int Player::HitPlayer()
 {
 	// ƒŠƒ“ƒS‚ÆƒvƒŒƒCƒ„[‚ª“–‚½‚Á‚Ä‚¢‚é‚©”»’è
 	int flg = 0;
 
-	mx0 = x;
-	mx1 = mx0 + w;
-	my0 = y;
+	mx0 = pl.x;
+	mx1 = mx0 + pl.w;
+	my0 = pl.y;
 	my1 = SCREEN_HEIGHT;
 
 	ax = a->x;
