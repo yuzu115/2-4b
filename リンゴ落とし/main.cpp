@@ -3,10 +3,8 @@
 #include"infomation.h"
 #include"DrawApple.h"
 #include"FPS.h"
-//#include"Player.h"
+#include"Player.h"
 #include"Keyboard.h"
-#include "InputControl.h"
-
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -20,17 +18,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	Player p;
+	Apple app;
+
+	app.AppleSet();
+	p.LoadPlayerImg();
 
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
 
 	//ループ前にFPS計測を初期化
 	Reset_fps();
-
-	// プレイヤー初期化
-	//PlayerInit();
-
-	GameMode = MAIN;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -41,12 +39,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		ClearDrawScreen();                 //画面を初期化
 
-		InputControl::Update();
+		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
 
-		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-
-		/*DrawApple();*/
+		app.DrawApple();
 	
 		//今出てるFPSの表示
 		display_fps();
@@ -54,18 +50,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//fpsの計測
 		Keisoku_fps();
 
-	/*	//プレイヤー操作
-		PlayerControl(g_OldKey, GameMode);*/
-
-		if (GameMode == MAIN)
-		{
-			DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-		}
-
-		if (InputControl::GetKey(PAD_INPUT_1))
-		{
-			GameMode = INPUTNAME;
-		}
+		//プレイヤー操作
+		p.PlayerControl(g_OldKey, GameMode);
 
 		if (GameMode == INPUTNAME)
 		{

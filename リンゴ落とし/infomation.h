@@ -1,4 +1,5 @@
 #pragma once
+#include"DxLib.h"
 
 //変数・関数・構造体などの 宣言 はヘッダーです
 // 定義 は .cpp です
@@ -27,8 +28,12 @@ enum mode {
 	HELP,
 	INPUTNAME,
 	RESULT,
+	PAUSE,
+	TIME,
 	END,
 	CLOSE,
+	UISCORE,
+
 };
 
 /********************************************************************
@@ -38,7 +43,7 @@ int g_OldKey;                  //前回の入力キー
 int g_NowKey;                  //今回の入力キー
 int g_KeyFlg;                  //入力キー情報
 
-int GameMode;     //モード
+int GameMode=PAUSE;     //モード
 
 int g_Score;      //スコア
 
