@@ -18,19 +18,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	Player p;
+	Apple app;
+
+	app.AppleSet();
+	p.LoadPlayerImg();
 
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
 
 	//ループ前にFPS計測を初期化
 	Reset_fps();
-
-	Player p;
-	Apple app;
-	// プレイヤー初期化
-	p.PlayerInit();
-
-	//GameMode = INPUTNAME;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{

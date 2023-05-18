@@ -2,41 +2,37 @@
 #include"DrawApple.h"
 #include"Player.h"
 
+int gAppleImg[APPLE_TYPE];
+int gRandApple;
 
-//
-//struct APPLE_DATE {
-//	int flg;		//フラグ
-//	int type;		//種類
-//	int img;		//画像表示用
-//	float x, y, r;		//座標、半径
-//	float speed;		//落下速度
-//	int score;		//スコア加算
-//	float size;		//当たり判定の倍率
-//};
-
-	//リンゴの変数
-APPLE_DATE gApple[APPLE_MAX];
-
-//各リンゴのデータ
-APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
-APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
-APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
-APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
+//リンゴの変数
+Apple::APPLE_DATE gApple[APPLE_MAX];
 
 //ステータス格納変数
-APPLE_DATE gAppleState[APPLE_TYPE];
+Apple::APPLE_DATE gAppleState[APPLE_TYPE];
 
+Apple::Apple()
+{
+	gAppleState[0] = gApple_Rd;
+	gAppleState[1] = gApple_Bl;
+	gAppleState[2] = gApple_Gl;
+	gAppleState[3] = gApple_Po;
+
+	
+	gRandApple = 0;
+
+}
+
+Apple::~Apple()
+{
+
+}
 /*
 * リンゴのデータ格納
 */
 int Apple::AppleSet(void)
 {
 	
-	gAppleState[0] = gApple_Rd;
-	gAppleState[1] = gApple_Bl;
-	gAppleState[2] = gApple_Gl;
-	gAppleState[3] = gApple_Po;
-
 	if ((gAppleImg[0] = LoadGraph("images/Apple_Red.png")) == -1)return -1;
 	if ((gAppleImg[1] = LoadGraph("images/Apple_Blue.png")) == -1)return -1;
 	if ((gAppleImg[2] = LoadGraph("images/Apple_Gold.png")) == -1)return -1;
@@ -51,20 +47,15 @@ int Apple::AppleSet(void)
 void Apple::DrawApple(void){
 
 	Player p;
-	AppleSet();
+
 
 	for (int i = 0; i < APPLE_MAX; i++){
-		
-		//リンゴのスコアデータを渡す
-		//GetDate(gApple[i].score);
-		// プレイヤーとの当たり判定
-		//PlayerScore();
 
 		// リンゴの表示
 		if (gApple[i].flg == TRUE) {
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
 			gApple[i].y +=  gApple[i].speed * 2;
-
+			p.GetApple(&gApple[i]);
 
 			//gAppleのy座標が1000以下になったとき消去
 			if (gApple[i].y > 1000) {
@@ -72,7 +63,7 @@ void Apple::DrawApple(void){
 			}
 
 			//当たったら消える処理にしたい
-			if (p.HitPlayer(&gApple[i]) == TRUE) {
+			if (p.HitPlayer() == TRUE) {
 				gApple[i].flg = FALSE;
 			}
 			
