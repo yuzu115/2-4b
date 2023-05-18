@@ -46,5 +46,3 @@ int g_KeyFlg;                  //“ü—ÍƒL[î•ñ
 
 int Count=0;
 int on, off = 0;
-
-void FpsTimeFanction();

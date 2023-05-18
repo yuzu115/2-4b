@@ -39,6 +39,7 @@ struct PLAYER gPlayer;
 float ax, ay, ar;
 //int off, on=0;
 //int gPlayerImg[];
+int gStopImg;
 int gWalkImg[6];
 int gRanImg[6];
 int Movex = 0;	//動いた位置
@@ -63,7 +64,7 @@ void PlayerInit(void)
 	gPlayer.flg = TRUE;         
 	gPlayer.x = PLAYER_POS_X;   
 	gPlayer.y = PLAYER_POS_Y;   
-	gPlayer.w = 76;
+	gPlayer.w = 76+30;
 	gPlayer.h = 150;
 	gPlayer.speed = PLAYER_SPEED;
 
@@ -78,7 +79,7 @@ void PlayerInit(void)
  *************************************/
 void PlayerControl(int gamemode)
 {
-	LoadImg();
+	//LoadImg();
 
 	// プレイヤーの左右移動
 	if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
@@ -136,6 +137,9 @@ void PlayerControl(int gamemode)
 	{
 	// プレイヤー仮表示(白)
 	DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+
+	//プレイヤー止まってる画像表示
+	DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gStopImg, TRUE);
 	}
 
 	// 画面をはみ出さないようにする
@@ -154,16 +158,16 @@ void PlayerControl(int gamemode)
 	HitPlayer();
 
 
-	DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
-	DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
-	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
-	DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
-	DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
+	//DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
+	//DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
+	//DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
+	//DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
+	//DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
 
-	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
-	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
-	DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
-	//DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
+	//DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
+	//DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
+	//DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
+	DrawFormatString(390, 190, 0x000000, "Playerx=%d", gPlayer.x);
 }
 
 // リンゴの座標を変数sx,sy,srに格納
@@ -344,7 +348,8 @@ int LoadImg(void) {
 	*画像一つの縦サイズ
 	*画像を格納する配列
 	*/
-	if (LoadDivGraph("images/PLwalk2.png", 6, 3, 2, 32, 32, gWalkImg) == -1)return -1;
+	if (LoadDivGraph("images/BearWalk.png", 6, 3, 2, 32, 32, gWalkImg) == -1)return -1;
 	if (LoadDivGraph("images/PLRan.png", 6, 3, 2, 32, 32, gRanImg) == -1)return -1;
+	if ((gStopImg = LoadGraph("images/kuma.png")) == -1) return -1;
 	return 0;
 }

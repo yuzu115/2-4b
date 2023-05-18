@@ -10,7 +10,7 @@
 #include"FPS.h"
 #include"Player.h"
 #include"InputControl.h"
-
+#include "GameMain.h"
 
 /******************************************************
 *変数宣言
@@ -51,9 +51,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	Reset_fps();
 
 	//// プレイヤー初期化
-	//PlayerInit();
-
-	//ClearDrawScreen();                 //画面を初期化
+	PlayerInit();
 
 
 	// BACKボタンでプログラム終了
@@ -76,11 +74,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case MAIN:
-				PlayerInit();								// プレイヤー初期化
-				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-				DrawApple();
-				PlayerControl(GameMode);						// プレイヤー操作
-				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
+				GameMain(GameMode);
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
@@ -105,7 +99,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// プレイヤー操作
 		//PlayerControl(GameMode);
 		
-		PlayerFlashing(Count,on,off);
+		//PlayerFlashing(Count,on,off);
 
 		//PlayerImg();
 		//PlayerControl(GameMode);
@@ -138,5 +132,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 int LoadImages() {
 	if(LoadTitleImages()==-1) return -1;
+	if (LoadImg() == -1)return -1;
+	//LoadImg();
 	return 0;
 }
