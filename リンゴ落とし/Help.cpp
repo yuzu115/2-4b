@@ -1,41 +1,46 @@
+#include "DxLib.h"
 #include "Help.h"
 
 /****************************************
 *　変数の宣言
 *****************************************/
-int HelpBackImg;		// 背景画像
+int HelpImg;				// ヘルプ画像
 
 /****************************************
 * ヘルプ画面描画
 *****************************************/
-int DrawHelp(int g_KeyFlg,int& GameMode) {
+void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)
+{
+	LoadHelpImages();					// ヘルプ画像読込
 
-	// 背景画像の読込
-	if ((HelpBackImg = LoadGraph("images/Back.png")) == -1) return -1;
+	if (input.Buttons[12] == 0) {
+		Button_flg = FALSE;
+	}
 
 	// Aボタンでタイトルへ
-	if (g_KeyFlg & PAD_INPUT_A) {
-		GameMode = 0;					// タイトル画面へ
+	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+		GameMode = 0;					// TITLE
 	}
 	// Bボタンでゲームスタート
-	if (g_KeyFlg & PAD_INPUT_B) {
-		//GameMode = 1;					// ゲームスタートへ
-		GameMode = 7;					// エンドへ
+	if (input.Buttons[XINPUT_BUTTON_B] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+		//GameMode = 1;					// INIT
+		GameMode = 7;					// END
 	}
 
 	// 画像の表示
-	DrawGraph(0, 0, HelpBackImg, FALSE);
+	DrawGraph(0, 0, HelpImg, FALSE);
 
-	SetFontSize(100);
-	DrawFormatString(450, 100, 0x000000, "操作説明");
+}
 
-	SetFontSize(70);
-	DrawFormatString(100, 310, 0x000000, "左スティック  左右移動");
-	DrawFormatString(100, 410, 0x000000, "STARTボタン　 ポーズ/ポーズ解除");
-
-	SetFontSize(30);
-	DrawFormatString(400, 650, 0x000000, "A：タイトル");
-	DrawFormatString(800, 650, 0x000000, "B：エンド");
+/****************************************
+* ヘルプ画像読込
+*****************************************/
+int LoadHelpImages(void)
+{
+	// ヘルプ画像の読込
+	if ((HelpImg = LoadGraph("images/help.png")) == -1) return -1;
 
 	return 0;
 }

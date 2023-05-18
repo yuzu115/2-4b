@@ -1,3 +1,4 @@
+#include "DxLib.h"
 #include "Title.h"
 
 /****************************************
@@ -6,43 +7,47 @@
 int TitleImg;			// タイトル画像
 int AppleCursorImg;		// カーソル（赤リンゴ）画像
 
-int menuNo = 0;		// 0：START　1：RANKING　2：HELP　3：END
-int posY;					// カーソルのY座標
+int menuNo = 0;			// 0：START　1：RANKING　2：HELP　3：END
+int posY;				// カーソルのY座標
 
 /****************************************
 * タイトル画面描画
 *****************************************/
-int DrawTitle(int g_KeyFlg,int& GameMode) {
-
-	// タイトル画像の読込
-	if ((TitleImg = LoadGraph("images/Title.png")) == -1) return -1;
-	// カーソル（赤リンゴ）画像
-	if ((AppleCursorImg = LoadGraph("images/RedApple.png")) == -1) return -1;
+void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
+{
+	LoadTitleImages();		// タイトル画像読込
 
 	// メニューカーソル移動処理
-	if (g_KeyFlg & PAD_INPUT_DOWN) {
+	if (input.ThumbLY < 128 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 		if (++menuNo > 3) menuNo = 0;
 	}
-	if (g_KeyFlg & PAD_INPUT_UP) {
+	if (input.ThumbLY > 128 && Button_flg == FALSE) {
+		Button_flg = TRUE;
 		if (--menuNo < 0) menuNo = 3;
 	}
+	if (input.ThumbLY == 128 && input.Buttons[XINPUT_BUTTON_A] == 0) {
+		Button_flg = FALSE;
+	}
 
-	// Zキーでメニュー選択
-	if (g_KeyFlg & PAD_INPUT_A) {
+	// Aボタンでメニュー選択
+	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
+		Button_flg = TRUE;
+
 		switch (menuNo) {
-		//case 0:
-		//	GameMode = 1;			// INIT
-		//	break;
-		//case 1:
-		//	GameMode = 3;			// RANKING
-		//	break;
+		case 0:
+			GameMode = 2;			// MAIN
+			//GameMode = 6;			// RESULT
+			break;
+		case 1:
+			GameMode = 3;			// RANKING
+			break;
 		case 2:
 			GameMode = 4;			// HELP
 			break;
 	 	case 3:
 			GameMode = 7;			// END
 			break;
-
 		}
 	}
 	
@@ -61,6 +66,17 @@ int DrawTitle(int g_KeyFlg,int& GameMode) {
 
 	//DrawFormatString(0, 0, 0xffffff, "menuNo %d", menuNo);
 
-	return 0;
+}
 
+/****************************************
+* タイトル画像読込
+*****************************************/
+int LoadTitleImages(void)
+{
+	// タイトル画像の読込
+	if ((TitleImg = LoadGraph("images/title.png")) == -1) return -1;
+	// カーソル（赤リンゴ）画像
+	if ((AppleCursorImg = LoadGraph("images/redapple.png")) == -1) return -1;
+
+	return 0;
 }

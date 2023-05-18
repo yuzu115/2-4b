@@ -19,15 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="End.cpp" />
+    <ClCompile Include="fps.cpp" />
+    <ClCompile Include="inputControl.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Resultcpp.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawApple.h" />
+    <ClInclude Include="FPS.h" />
     <ClInclude Include="infomation.h" />
+    <ClInclude Include="InputControl.h" />
+    <ClInclude Include="PadInput.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -152,9 +161,9 @@
   <ItemGroup>
     <ClInclude Include="End.h" />
     <ClInclude Include="Help.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
-    <ClInclude Include="Resalt.h" />
-    <ClInclude Include="Resulth.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
