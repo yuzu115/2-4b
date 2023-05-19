@@ -54,7 +54,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				DrawTitle(GameMode);		//ゲームタイトル描画処理
 				break;
 			case INIT:
 				GameInit(GameMode);							// ゲーム初期化

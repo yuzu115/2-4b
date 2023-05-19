@@ -87,46 +87,60 @@ void DrawTitle(int& GameMode)
 {
 	LoadTitleImages();		// タイトル画像読込
 
-	if (InputControl::GetKey(input.ThumbLY))
-	{
+		// タイトル画像の表示
+	DrawGraph(0, 0, TitleImg, FALSE);
 
-	}
-	// メニューカーソル移動処理
-	if (input.ThumbLY < 128 && Button_flg == FALSE) {
-		Button_flg = TRUE;
-		if (++menuNo > 3) menuNo = 0;
-	}
-	if (input.ThumbLY > 128 && Button_flg == FALSE) {
-		Button_flg = TRUE;
+	// カーソルを上に移動
+	if (InputControl::GetStick())
+	{
 		if (--menuNo < 0) menuNo = 3;
 	}
-	if (input.ThumbLY == 128 && input.Buttons[XINPUT_BUTTON_A] == 0) {
-		Button_flg = FALSE;
-	}
+	InputControl::ChangeFlg();
 
-	// Aボタンでメニュー選択
-	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
-		Button_flg = TRUE;
+	InputControl::DrawFlg();
 
-		switch (menuNo) {
-		case 0:
-			GameMode = 1;			// INIT
-			//GameMode = 6;			// RESULT
-			break;
-		case 1:
-			GameMode = 3;			// RANKING
-			break;
-		case 2:
-			GameMode = 4;			// HELP
-			break;
-	 	case 3:
-			GameMode = 7;			// END
-			break;
-		}
-	}
+	//// カーソルを下に移動
+	//if (InputControl::GetStick())
+	//{
+	//	if (--menuNo < 0) menuNo = 3;
+	//}
+
+	//// メニューカーソル移動処理
+	//if (input.ThumbLY < 128 && Button_flg == FALSE) {
+	//	Button_flg = TRUE;
+	//	if (++menuNo > 3) menuNo = 0;
+	//}
+	//if (input.ThumbLY > 128 && Button_flg == FALSE) {
+	//	Button_flg = TRUE;
+	//	if (--menuNo < 0) menuNo = 3;
+	//}
+	//if (input.ThumbLY == 128 && input.Buttons[XINPUT_BUTTON_A] == 0) {
+	//	Button_flg = FALSE;
+	//}
+
+	//// Aボタンでメニュー選択
+	//if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
+	//	Button_flg = TRUE;
+
+	//	switch (menuNo) {
+	//	case 0:
+	//		GameMode = 1;			// INIT
+	//		//GameMode = 6;			// RESULT
+	//		break;
+	//	case 1:
+	//		GameMode = 3;			// RANKING
+	//		break;
+	//	case 2:
+	//		GameMode = 4;			// HELP
+	//		break;
+	// 	case 3:
+	//		GameMode = 7;			// END
+	//		break;
+	//	}
+	//}
 	
 	// タイトル画像の表示
-	DrawGraph(0, 0, TitleImg, FALSE);
+	//DrawGraph(0, 0, TitleImg, FALSE);
 
 	// メニューカーソルの表示
 	posY = menuNo * 100;
