@@ -5,6 +5,7 @@ int InputControl::now_key;
 int InputControl::old_key;
 
 int InputControl::Button_flg;
+int InputControl::input;
 
 void InputControl::Update()
 {

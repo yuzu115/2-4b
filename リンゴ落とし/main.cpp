@@ -50,11 +50,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
-		////入力キー取得
-		//g_OldKey = g_NowKey;
-		//g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
-		//g_KeyFlg = g_NowKey & ~g_OldKey;
-
 		InputControl::Update();
 
 		switch (GameMode) {

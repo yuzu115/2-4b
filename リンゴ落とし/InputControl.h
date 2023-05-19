@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DxLib.h"
+//XINPUT_STATE input;
 
 class InputControl
 {
@@ -10,6 +11,10 @@ private:
 	static int old_key;
 
 	static int Button_flg;				// “ü—Í‚ª‚ ‚é‚©
+	static XINPUT_STATE input;
+
+//public:
+//	XINPUT_STATE input;
 
 public:
 	InputControl()
