@@ -13,7 +13,7 @@
 void DrawEnd(int& GameMode, int& Count);		// エンド画面描画
 int LoadEndImages(void);			// エンド画像読込
 
-class End
+class END
 {
 private:
 	int EndImg;					// エンド画像
@@ -21,9 +21,9 @@ private:
 	int PosY;					// スクロール時のＹ座標
 
 public:
-	END();
+	END();											// コンストラクタ			
 	void DrawEnd(int& GameMode, int& Count);		// エンド画面描画
-	int LoadEndImages(void);			// エンド画像読込
+	int LoadEndImages(void);						// エンド画像読込
 
 };
 
