@@ -4,7 +4,7 @@
 #include"DrawApple.h"
 
 
-int gPlayerImg[5]; // ”wŒi‰æ‘œ
+int gPlayerImg[6]; // ”wŒi‰æ‘œ
 float ax, ay, ar;
 
 float mx0, mx1, my0, my1;
@@ -54,7 +54,6 @@ int Player::LoadPlayerImg(void)
  *************************************/
 void Player::PlayerControl(int oldkey,int gamemode)
 {
-
 	// ƒvƒŒƒCƒ„[‚Ì¶‰EˆÚ“®
 	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
 	{
