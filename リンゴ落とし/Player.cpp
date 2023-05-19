@@ -76,95 +76,95 @@ void PlayerInit(void)
 /*************************************
  * プレイヤーの移動
  *************************************/
-void PlayerControl(int gamemode)
-{
-	LoadImg();
-
-	// プレイヤーの左右移動
-	if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
-	{
-		// 左移動
-		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
-		{
-			RL = 0;
-			PlayerRan(RL);
-
-			gPlayer.x -= gPlayer.speed + 2;
-			MoveRanx = gPlayer.x;
-		}
-
-		// 歩く：左スティックを左に傾ける
-		else if (InputControl::GetKey(PAD_INPUT_LEFT))
-		{
-
-			RL = 0;
-			PlayerWalk(RL);
-			gPlayer.x -= gPlayer.speed;
-			Movex = gPlayer.x;
-			
-		}
-
-
-		// 右移動
-		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
-		{
-			RL = 3;
-			PlayerRan(RL);
-
-			gPlayer.x += gPlayer.speed + 2;
-			MoveRanx = gPlayer.x;
-
-		}
-		// 歩く：左スティックを右に傾ける
-		else if (InputControl::GetKey(PAD_INPUT_RIGHT))
-		{
-			
-
-			RL = 3;
-
-			PlayerWalk(RL);
-			gPlayer.x += gPlayer.speed;
-			Movex = gPlayer.x;
-			
-		}
-
-	}
-	// プレイヤーの静止
-	else
-	{
-	// プレイヤー仮表示(白)
-	DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
-	}
-
-	// 画面をはみ出さないようにする
-	// 右
-	if (gPlayer.x > 950)
-	{
-		gPlayer.x = 950;
-	}
-	// 左
-	if (gPlayer.x < 0)
-	{
-		gPlayer.x = 0;
-	}
-
-	// プレイヤーとリンゴの当たり判定 
-	HitPlayer();
-
-
-	DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
-	DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
-	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
-	DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
-	DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
-
-	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
-	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
-	DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
-	//DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
-}
+//void PlayerControl(int gamemode)
+//{
+//	LoadImg();
+//
+//	// プレイヤーの左右移動
+//	if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
+//	{
+//		// 左移動
+//		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+//		if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
+//		{
+//			RL = 0;
+//			PlayerRan(RL);
+//
+//			gPlayer.x -= gPlayer.speed + 2;
+//			MoveRanx = gPlayer.x;
+//		}
+//
+//		// 歩く：左スティックを左に傾ける
+//		else if (InputControl::GetKey(PAD_INPUT_LEFT))
+//		{
+//
+//			RL = 0;
+//			PlayerWalk(RL);
+//			gPlayer.x -= gPlayer.speed;
+//			Movex = gPlayer.x;
+//			
+//		}
+//
+//
+//		// 右移動
+//		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+//		if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
+//		{
+//			RL = 3;
+//			PlayerRan(RL);
+//
+//			gPlayer.x += gPlayer.speed + 2;
+//			MoveRanx = gPlayer.x;
+//
+//		}
+//		// 歩く：左スティックを右に傾ける
+//		else if (InputControl::GetKey(PAD_INPUT_RIGHT))
+//		{
+//			
+//
+//			RL = 3;
+//
+//			PlayerWalk(RL);
+//			gPlayer.x += gPlayer.speed;
+//			Movex = gPlayer.x;
+//			
+//		}
+//
+//	}
+//	// プレイヤーの静止
+//	else
+//	{
+//	// プレイヤー仮表示(白)
+//	DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+//	}
+//
+//	// 画面をはみ出さないようにする
+//	// 右
+//	if (gPlayer.x > 950)
+//	{
+//		gPlayer.x = 950;
+//	}
+//	// 左
+//	if (gPlayer.x < 0)
+//	{
+//		gPlayer.x = 0;
+//	}
+//
+//	// プレイヤーとリンゴの当たり判定 
+//	HitPlayer();
+//
+//
+//	DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
+//	DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
+//	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
+//	DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
+//	DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
+//
+//	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
+//	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
+//	DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
+//	//DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
+//}
 
 // リンゴの座標を変数sx,sy,srに格納
 void GetApple(float ax0, float ay0, float ar0)
