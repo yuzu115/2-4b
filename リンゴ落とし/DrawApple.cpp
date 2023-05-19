@@ -7,6 +7,10 @@ int gRandApple;
 
 //リンゴの変数
 Apple::APPLE_DATE gApple[APPLE_MAX];
+Apple::APPLE_DATE gNewApple[APPLE_MAX];
+Apple::APPLE_DATE gNextApple[APPLE_MAX];
+
+
 
 //ステータス格納変数
 Apple::APPLE_DATE gAppleState[APPLE_TYPE];
@@ -18,6 +22,15 @@ Apple::Apple()
 	gAppleState[2] = gApple_Gl;
 	gAppleState[3] = gApple_Po;
 
+	gAppledata.flg = FALSE;		//フラグ
+	gAppledata.type = 0;		//種類
+	gAppledata.img = 0;		//画像表示用
+	gAppledata.x = 0;
+	gAppledata.y = 0;
+	gAppledata.r = 0;		//座標、半径
+	gAppledata.speed = 0;		//落下速度
+	gAppledata.score = 0;		//スコア加算
+	gAppledata.size = 0;		//当たり判定の倍率
 	
 	gRandApple = 0;
 
@@ -48,6 +61,8 @@ void Apple::DrawApple(void){
 
 	Player p;
 
+	//生成関数の読み込み
+	Apple::CreateApple();
 
 	for (int i = 0; i < APPLE_MAX; i++){
 
@@ -76,10 +91,6 @@ void Apple::DrawApple(void){
 
 		}	
 	}
-
-	//生成関数の読み込み
-	Apple::CreateApple();
-
 }
 
 /**
@@ -89,12 +100,15 @@ int Apple::CreateApple()
 {
 	for (int i = 0; i < APPLE_MAX; i++) {
 		if (gApple[i].flg == FALSE) {
-			gApple[i].type = RandApple();				//
-			gApple[i] = gAppleState[gApple[i].type];	//ステータスの格納
-			gApple[i].img = gAppleImg[gApple[i].type];
-			gApple[i].x = GetRand(7) * 125 + 50;
-			gApple[i].flg = TRUE;
-			return TRUE;	//成功
+
+			//ステータスの格納
+			gApple[i] = gNewApple[i];
+			gNewApple[i] = gNextApple[i] = gAppleState[RandApple()];
+
+				gApple[i].img = gAppleImg[gApple[i].type];
+				gApple[i].x = GetRand(7) * 125 + 50;
+				gApple[i].flg = TRUE;
+				return TRUE;	//成功
 		}
 	}
 	return FALSE;	//失敗

@@ -148,11 +148,6 @@ int Player::HitPlayer(void)
 	// リンゴとプレイヤーが当たっているか判定
 	int flg = 0;
 
-	DrawBox(mx0, my0, mx1,my1, 0x000000, TRUE);
-
-
-	DrawCircle(ax, ay, ar, 0xffffff, TRUE);
-
 	// 1:円の中心が長方形から見て上・中・下の位置にある場合
 	if ((mx0 < ax && ax < mx1) && (my0 - ar < ay && ay < my1 + ar))
 	{
@@ -164,13 +159,13 @@ int Player::HitPlayer(void)
 		flg = 2;
 	}
 	// 3:円の中心が長方形から見て斜め上下の位置にある場合
-	if (Pythagorean(mx0, my0, ax, ay) < ar * ar || Pythagorean(mx1, my0, ax, ay) < ar *ar ||
+	if (Pythagorean(mx0, my0, ax, ay) < ar * ar || Pythagorean(mx1, my0, ax, ay) < ar * ar ||
 		Pythagorean(mx0, my1, ax, ay) < ar * ar || Pythagorean(mx1, my1, ax, ay) < ar * ar)
 	{
 		flg = 3;
 	}
 
-    // 上の1～３のどれか一つが当てはまったら当たっている
+	// 上の1～３のどれか一つが当てはまったら当たっている
 	if (flg == 1 || flg == 2 || flg == 3)
 	{
 		// 当たっていたらリンゴの色を白に
@@ -178,8 +173,5 @@ int Player::HitPlayer(void)
 		flg = 4;
 		return TRUE;
 	}
-	if (flg == 4)
-	{
-		DrawCircle(ax, ay, ar, 0xffffff, TRUE);
-	}
+	return FALSE;
 }
