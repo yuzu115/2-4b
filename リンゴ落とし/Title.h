@@ -10,7 +10,7 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode);		// タイトル画面描画
+//void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode);		// タイトル画面描画
 int LoadTitleImages(void);		// タイトル画像読込
 
 class TITLE
@@ -27,5 +27,8 @@ public:
 	void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode);		// タイトル画面描画
 	//int LoadTitleImages(void);		// タイトル画像読込
 };
+
+
+void DrawTitle(int& GameMode);		// タイトル画面描画
 
 #endif // !TITLE_H__

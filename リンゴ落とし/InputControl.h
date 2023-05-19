@@ -10,7 +10,7 @@ private:
 	static int now_key;
 	static int old_key;
 
-	static int Button_flg;				// “ü—Í‚ª‚ ‚é‚©
+	//static int Button_flg;				// “ü—Í‚ª‚ ‚é‚©
 	static XINPUT_STATE input;
 
 //public:
