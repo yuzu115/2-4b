@@ -22,8 +22,6 @@ int GameMode = 0;
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
 
-//ta
-
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
