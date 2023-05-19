@@ -11,12 +11,14 @@
 #include"Player.h"
 #include"InputControl.h"
 #include "GameMain.h"
+#include "Pause.h"
 
 /******************************************************
 *変数宣言
 *******************************************************/
 XINPUT_STATE input;
 int Button_flg = FALSE;
+int Pause_flg = FALSE;
 int GameMode = 0;
 
 //ランキングデータの変数宣言
@@ -69,13 +71,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		
 		InputControl::Update();
 
+
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				//GameMain(GameMode);
 				break;
 			case MAIN:
-				GameMain(GameMode);
+				GameMain(GameMode,input,Button_flg,Pause_flg);
+
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理

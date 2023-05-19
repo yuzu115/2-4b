@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
+#include"Pause.h"
 
 /******************************************
 * ’è”‚ÌéŒ¾
@@ -53,7 +54,7 @@ int AppleSet(void)
 /**
 * ƒŠƒ“ƒS‚Ì•`‰æ
 */
-void DrawApple(void){
+void DrawApple(int& Pause_flg){
 
 
 	for (int i = 0; i < APPLE_MAX; i++){
@@ -61,7 +62,15 @@ void DrawApple(void){
 		// ƒŠƒ“ƒS‚Ì•\¦
 		if (gApple[i].flg == TRUE) {
 			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);
-			gApple[i].y +=  gApple[i].speed;
+
+
+			if (Pause_flg == 0) {
+				gApple[i].y += gApple[i].speed;
+			}
+			else
+			{
+				gApple[i].y -= gApple[i].speed;
+			}
 
 
 			//gApple‚ÌyÀ•W‚ª1000ˆÈ‰º‚É‚È‚Á‚½‚Æ‚«Á‹
