@@ -9,12 +9,17 @@ int EndImg;					// エンド画像
 int EndWaitTime = 0;			// 待ち時間
 int PosY;					// スクロール時のＹ座標
 
-END::END() {
+END::END()
+{
 	EndImg = 0;
 	EndWaitTime = 0;
 	PosY = 0;
 }
 
+END::~END()
+{
+
+}
 
 void END::DrawEnd(int& GameMode, int& Count)
 {

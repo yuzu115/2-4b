@@ -24,6 +24,7 @@ private:
 
 public:
 	RESULT();													// コンストラクタ
+	~RESULT();													// デストラクタ
 	void DrawResult(RankingData Ranking[], int& GameMode);		// リザルト画面描画
 	//int LoadResultImages(void);									// リザルト画像読込
 };

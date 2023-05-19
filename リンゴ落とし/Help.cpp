@@ -6,8 +6,14 @@
 *****************************************/
 int HelpImg;				// ƒwƒ‹ƒv‰æ‘œ
 
-HELP::HELP() {
+HELP::HELP()
+{
 	HelpImg = 0;
+}
+
+HELP::~HELP()
+{
+
 }
 
 void HELP::DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)

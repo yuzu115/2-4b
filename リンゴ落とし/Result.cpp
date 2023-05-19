@@ -9,10 +9,16 @@ int g_Score = 0;						// 現在のスコア
 
 int ResultWaitTime = 0;					// 待ち時間
 
-RESULT::RESULT() {
+RESULT::RESULT()
+{
 	ResultBackImg = 0;					// 背景画像
 	g_Score = 0;						// 現在のスコア
 	ResultWaitTime = 0;					// 待ち時間
+}
+
+RESULT::~RESULT()
+{
+
 }
 
 void RESULT::DrawResult(RankingData Ranking[], int& GameMode)

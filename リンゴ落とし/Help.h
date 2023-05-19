@@ -18,7 +18,8 @@ private:
 	int HelpImg;				// ヘルプ画像
 
 public:
-	HELP();
+	HELP();								// コンストラクタ
+	~HELP();							// デストラクタ
 	void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ヘルプ画面描画
 	//int LoadHelpImages(void);			// ヘルプ画像読込
 };

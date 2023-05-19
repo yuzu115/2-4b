@@ -21,7 +21,8 @@ private:
 	int PosY;					// スクロール時のＹ座標
 
 public:
-	END();											// コンストラクタ			
+	END();											// コンストラクタ	
+	~END();											// デストラクタ
 	void DrawEnd(int& GameMode, int& Count);		// エンド画面描画
 	//int LoadEndImages(void);						// エンド画像読込
 
