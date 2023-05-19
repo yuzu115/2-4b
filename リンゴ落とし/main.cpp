@@ -10,6 +10,7 @@
 #include"FPS.h"
 #include"Player.h"
 #include"InputControl.h"
+#include "GameInit.h"
 
 /******************************************************
 *変数宣言
@@ -62,8 +63,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
+			case INIT:
+				GameInit(GameMode);							// ゲーム初期化
+				break;
 			case MAIN:
-				PlayerInit();								// プレイヤー初期化
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				DrawApple();
 				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
@@ -84,9 +87,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				break;
 		}
 		DrawFormatString(0, 16, 0x00000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
-
-		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-		//DrawApple();
 		
 		//今出てるFPSの表示
 		display_fps();
@@ -94,13 +94,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//fpsの計測
 		Keisoku_fps();
 		
-		// プレイヤー操作
-		//PlayerControl(GameMode);
-		
 		PlayerFlashing(Count,on,off);
-
-		//PlayerImg();
-		//PlayerControl(GameMode);
 
 		if (Count > 120)Count = 0;
 		
