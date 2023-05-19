@@ -23,7 +23,7 @@ private:
 public:
 	END();											// コンストラクタ			
 	void DrawEnd(int& GameMode, int& Count);		// エンド画面描画
-	int LoadEndImages(void);						// エンド画像読込
+	//int LoadEndImages(void);						// エンド画像読込
 
 };
 

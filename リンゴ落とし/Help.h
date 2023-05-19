@@ -13,4 +13,14 @@
 void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ƒwƒ‹ƒv‰æ–Ê•`‰æ
 int LoadHelpImages(void);			// ƒwƒ‹ƒv‰æ‘œ“Ç
 
+class HELP {
+private:
+	int HelpImg;				// ƒwƒ‹ƒv‰æ‘œ
+
+public:
+	HELP();
+	void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ƒwƒ‹ƒv‰æ–Ê•`‰æ
+	//int LoadHelpImages(void);			// ƒwƒ‹ƒv‰æ‘œ“Ç
+};
+
 #endif // ! HELP_H__
