@@ -40,7 +40,7 @@ float ax, ay, ar;
 //int off, on=0;
 //int gPlayerImg[];
 int gStopImg;
-int gWalkImg[6];
+int gWalkImg[4];
 int gRanImg[6];
 int Movex = 0;	//動いた位置
 int OPx = 0;	//元の位置
@@ -48,8 +48,8 @@ int MoveRanx = 0;
 int OPxRan = 0;
 //int Sc[3]={10,35,50};
 
-int Img;	//条件に達するまでの少しの間同じ画像を表示し続ける用
-int wImg;		//walkImgの画像どれ表示するかの表示
+int Img=0;	//条件に達するまでの少しの間同じ画像を表示し続ける用
+int wImg=0;		//walkImgの画像どれ表示するかの表示
 
 int RL = 0;	//左か右か判別する変数
 int onceFlg = 1;//判別を押されてから一度だけやる為のフラグ
@@ -123,7 +123,7 @@ void PlayerControl(int gamemode)
 		{
 			
 
-			RL = 3;
+			RL = 2;
 
 			PlayerWalk(RL);
 			gPlayer.x += gPlayer.speed;
@@ -136,10 +136,10 @@ void PlayerControl(int gamemode)
 	else
 	{
 	// プレイヤー仮表示(白)
-	DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+	//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
 
 	//プレイヤー止まってる画像表示
-	DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gStopImg, TRUE);
+	DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gStopImg, TRUE);
 	}
 
 	// 画面をはみ出さないようにする
@@ -275,28 +275,25 @@ int PlayerFlashing(int& Count,int& on,int& off) {
 void PlayerWalk(int wImg) {
 
 	if (abs(Movex - OPx) > 50) {
+		//一瞬画像が表示されなくなる時間ができるので表示
+		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
 		//OPxが動かなくならないように
 		OPx = Movex-10;
 	}
 	else {
-
 	//歩く動き
 	switch (abs(Movex - OPx)) {
-	case 10:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg], TRUE);
+	case 20:
+		DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gWalkImg[wImg], TRUE);
 		Img = wImg;
 		break;
-	case 35:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg + 1], TRUE);
-		Img = wImg + 1;
-		break;
 	case 50:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg + 2], TRUE);
-		Img = wImg + 2;
+		DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gWalkImg[wImg + 1], TRUE);
+		Img = wImg + 1;
 		OPx = gPlayer.x;
 		break;
 	default:
-		DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
+		DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
 
 	}
 
@@ -318,20 +315,20 @@ void PlayerRan(int rImg)
 		//走る動き
 		switch (abs(MoveRanx - OPxRan)) {
 		case 21:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
+			DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
 			Img = rImg;
 			break;
 		case 35:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
+			DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
 			Img = rImg + 1;
 			break;
 		case 56:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
+			DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
 			Img = rImg + 2;
 			OPxRan = gPlayer.x;
 			break;
 		default:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[Img], TRUE);
+			DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gRanImg[Img], TRUE);
 		}
 
 		//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg+1], TRUE);
@@ -348,8 +345,8 @@ int LoadImg(void) {
 	*画像一つの縦サイズ
 	*画像を格納する配列
 	*/
-	if (LoadDivGraph("images/BearWalk.png", 6, 3, 2, 32, 32, gWalkImg) == -1)return -1;
-	if (LoadDivGraph("images/PLRan.png", 6, 3, 2, 32, 32, gRanImg) == -1)return -1;
+	if (LoadDivGraph("images/BearWalk.png", 4, 2, 2, 32, 32, gWalkImg) == -1)return -1;
+	if (LoadDivGraph("images/BearRan.png", 6, 3, 2, 32, 32, gRanImg) == -1)return -1;
 	if ((gStopImg = LoadGraph("images/kuma.png")) == -1) return -1;
 	return 0;
 }
