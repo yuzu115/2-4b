@@ -31,7 +31,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ÉvÉåÉCÉÑÅ[èâä˙âª
 	PlayerInit();
-	GameMode = PAUSE;
+	GameMode = UISCORE;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -65,9 +65,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		case PAUSE:
 			pause(g_OldKey, GameMode);
 			break;
-		case TIME:
+		/*case TIME:
 	        Time(GameMode);
-			break;
+			break;*/
 		case MAIN:
 			DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 		case UISCORE:
