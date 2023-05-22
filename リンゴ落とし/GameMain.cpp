@@ -4,26 +4,52 @@
 #include "Pause.h"
 
 //変数宣言
-//int Pause_flg = 0;//flg 0押されてない時 flg 1押されてる時
 int RC=60;
+int gNumImg[10];
+int aR,aG,aY;
 
-void DrawUI(int& FC) {
+
+void DrawUI(int& GameMode,int& FC) {
 	
-	DrawBox(950+114, 0, 1280, 720, 0x00000, TRUE);
+	DrawBox(950+114, 0, 1280, 720, 0xfff8dc, TRUE);
 
 	if (FC == 28) {
 		RC -= 1;
 	}
 
 	if (RC == 0) {
-		RC = 60;
-		DrawBox(950 + 114, 0, 1280, 720, 0xffffff, TRUE);
+		//60秒たったらリザルト画面へ移動
+		GameMode = 6;
 	}
 
+	//DrawGraph(posx, 30, gNumberImg[tempScore % 10], TRUE);
 
 	DrawFormatString(1200, 120, 0xffffff, "RC:%d", RC);
 	DrawFormatString(130, 140, 0x000000, "FC:%d", FC);
 
+	//Time表示
+	SetFontSize(52);
+	DrawString(1070, 0, "TIME", 0x000000);
+	SetFontSize(32);
+	DrawString(1070, 60, "残り", 0x000000);
+	//DrawBox(1090, 110, 1280, 240, 0xfff8dc, TRUE);
+	DrawExtendGraph(1090, 90, 1190, 220, gNumImg[RC / 10], TRUE);
+	DrawExtendGraph(1180, 90, 1280, 220, gNumImg[RC % 10], TRUE);
+
+	//スコア仮表示
+	SetFontSize(52);
+	DrawString(1070, 240, "Score", 0x000000);
+	DrawString(1110, 295, "000000", 0x000000);
+
+	//リンゴ取った個数仮表示
+	SetFontSize(42);
+	DrawString(1070, 355, "獲得\n   りんご", 0x000000);
+	//赤リンゴ
+	DrawExtendGraph(1070, 430, 1160, 520, aR, TRUE);
+	DrawString(1150, 475, " ×00", 0x000000);
+	//真ん中に表示かシタの方に表示かどっちか
+	DrawExtendGraph(1070, 530, 1160, 620, aG, TRUE);
+	DrawExtendGraph(1070, 630, 1160, 720, aY, TRUE);
 }
 
 void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg){
@@ -67,4 +93,12 @@ void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg){
 		DrawFormatString(0, 120, 0x000000, "Pause_flg:%d", Pause_flg);
 		DrawFormatString(0, 140, 0x000000, "b_flg:%d", Button_flg);
 		//DrawUI(int& FC);
+}
+
+int LoadNumImg() {
+
+	if (LoadDivGraph("images/Numbers.png", 10, 10, 1, 104, 152, gNumImg) == -1)return -1;
+	aR = LoadGraph("images/RedApple.png");
+	aG = LoadGraph("images/GreenApple.png");
+	aY = LoadGraph("images/GoldApple.png");
 }

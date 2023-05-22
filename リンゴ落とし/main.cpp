@@ -78,7 +78,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				//DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				//GameMain(GameMode);
 				GameMain(GameMode, input, Button_flg, Pause_flg);
-				DrawUI(RoopCount);
+				DrawUI(GameMode,RoopCount);
 				break;
 			case MAIN:
 				//GameMain(GameMode,input,Button_flg,Pause_flg);
@@ -143,6 +143,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 int LoadImages() {
 	if(LoadTitleImages()==-1) return -1;
 	if (LoadImg() == -1)return -1;
+	if (LoadNumImg() == -1)return -1;
 	//LoadImg();
 	return 0;
 }
