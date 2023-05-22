@@ -434,3 +434,89 @@ void PlayerXControl(XINPUT_STATE input, int& Button_flg)
 	DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
 	//DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
 }
+
+/*************************************
+ * プレイヤーの移動（XInputStick）
+ *************************************/
+void PlayerXIControl(XINPUT_STATE input, int& Button_flg)
+{
+	LoadImg();
+
+	// プレイヤーの左右移動（左スティック）
+	if (input.ThumbLX < 128 || input.ThumbLX > 128)
+	{
+		// 左移動
+		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+		if (input.ThumbLX < -20000)
+		{
+			RL = 0;
+			PlayerRan(RL);
+
+			gPlayer.x -= gPlayer.speed + 2;
+			MoveRanx = gPlayer.x;
+		}
+
+		// 歩く：左スティックを左に傾ける
+		else if (input.ThumbLX < 128)
+		{
+			RL = 0;
+			PlayerWalk(RL);
+			gPlayer.x -= gPlayer.speed;
+			Movex = gPlayer.x;
+		}
+
+		// 右移動
+		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+		if (input.ThumbLX > 20000)
+		{
+			RL = 3;
+			PlayerRan(RL);
+
+			gPlayer.x += gPlayer.speed + 2;
+			MoveRanx = gPlayer.x;
+		}
+		// 歩く：左スティックを右に傾ける
+		else if (input.ThumbLX > 128)
+		{
+			RL = 3;
+
+			PlayerWalk(RL);
+			gPlayer.x += gPlayer.speed;
+			Movex = gPlayer.x;
+		}
+
+	}
+	// プレイヤーの静止
+	else
+	{
+		// プレイヤー仮表示(白)
+		DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+	}
+
+	// 画面をはみ出さないようにする
+	// 右
+	if (gPlayer.x > 950)
+	{
+		gPlayer.x = 950;
+	}
+	// 左
+	if (gPlayer.x < 0)
+	{
+		gPlayer.x = 0;
+	}
+
+	// プレイヤーとリンゴの当たり判定 
+	HitPlayer();
+
+
+	DrawFormatString(390, 30, 0x000000, "Movex=%d", Movex);
+	DrawFormatString(390, 50, 0x000000, "OPx=%d", OPx);
+	DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d", abs(Movex - OPx));
+	DrawFormatString(390, 90, 0x000000, "onceFlg=%d", onceFlg);
+	DrawFormatString(390, 110, 0x000000, "RL=%d", RL);
+
+	DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
+	DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
+	DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
+	//DrawFormatString(390, 190, 0x000000, "Move-12-OPRan=%d", abs(MoveRanx-12 - OPxRan));
+}

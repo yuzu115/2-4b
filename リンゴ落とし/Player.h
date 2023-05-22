@@ -16,5 +16,6 @@ void PlayerRan(int rImg);
 int LoadImg(void);
 
 void PlayerXControl(XINPUT_STATE input, int& Button_flg);     // プレイヤー制御(XInput)
+void PlayerXIControl(XINPUT_STATE input, int& Button_flg);     // プレイヤー制御(XInput)
 
 #endif

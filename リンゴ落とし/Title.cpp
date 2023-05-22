@@ -17,7 +17,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
 	LoadTitleImages();		// タイトル画像読込
 
-	// メニューカーソル移動処理
+	// 左スティックでメニューカーソル移動処理
 	if (input.ThumbLY < 128 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 		if (++menuNo > 3) menuNo = 0;
