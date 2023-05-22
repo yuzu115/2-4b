@@ -41,7 +41,7 @@ int InputControl::GetKeyDown(int key)
 }
 
 
-int InputControl::GetStick()
+int InputControl::GetUpStick()
 {
 	if (input.ThumbLY > 128 && Button_flg == FALSE)
 	{
@@ -55,9 +55,37 @@ int InputControl::GetStick()
 	return FALSE;
 }
 
+int InputControl::GetDownStick()
+{
+	if (input.ThumbLY < 128 && Button_flg == FALSE)
+	{
+		Button_flg = TRUE;
+
+		DrawFormatString(50, 100, 0x000000, "Button_flg = %d", Button_flg);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+int InputControl::GetButton()
+{
+	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE)
+	{
+		Button_flg = TRUE;
+
+		DrawFormatString(50, 100, 0x000000, "Button_flg = %d", Button_flg);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 void InputControl::ChangeFlg()
 {
-	if (input.ThumbLY == 128)
+	if (input.ThumbLY == 128 && input.Buttons[XINPUT_BUTTON_A] == 0)
 	{
 		Button_flg = FALSE;
 

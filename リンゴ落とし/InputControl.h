@@ -13,9 +13,6 @@ private:
 	static int Button_flg;				// 入力があるか
 	static XINPUT_STATE input;
 
-//public:
-//	XINPUT_STATE input;
-
 public:
 	InputControl()
 	{
@@ -29,7 +26,10 @@ public:
 	static int GetKey(int key);
 	static int GetKeyDown(int key);
 
-	static int GetStick();				// 左スティック
+
+	static int GetUpStick();				// 左スティック（上）
+	static int GetDownStick();				// 左スティック（下）
+	static int GetButton();				// ボタン
 	static void ChangeFlg();
 	static void DrawFlg();
 };

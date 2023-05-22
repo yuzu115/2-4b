@@ -91,19 +91,21 @@ void DrawTitle(int& GameMode)
 	DrawGraph(0, 0, TitleImg, FALSE);
 
 	// カーソルを上に移動
-	if (InputControl::GetStick())
+	if (InputControl::GetUpStick())
 	{
 		if (--menuNo < 0) menuNo = 3;
 	}
 	InputControl::ChangeFlg();
 
-	InputControl::DrawFlg();
+	// カーソルを下に移動
+	if (InputControl::GetDownStick())
+	{
 
-	//// カーソルを下に移動
-	//if (InputControl::GetStick())
-	//{
-	//	if (--menuNo < 0) menuNo = 3;
-	//}
+		if (++menuNo > 3) menuNo = 0;
+	}
+	InputControl::ChangeFlg();
+
+	InputControl::DrawFlg();
 
 	//// メニューカーソル移動処理
 	//if (input.ThumbLY < 128 && Button_flg == FALSE) {
@@ -118,27 +120,27 @@ void DrawTitle(int& GameMode)
 	//	Button_flg = FALSE;
 	//}
 
-	//// Aボタンでメニュー選択
-	//if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
-	//	Button_flg = TRUE;
+	// Aボタンでメニュー選択
+	if (InputControl::GetButton()) {
 
-	//	switch (menuNo) {
-	//	case 0:
-	//		GameMode = 1;			// INIT
-	//		//GameMode = 6;			// RESULT
-	//		break;
-	//	case 1:
-	//		GameMode = 3;			// RANKING
-	//		break;
-	//	case 2:
-	//		GameMode = 4;			// HELP
-	//		break;
-	// 	case 3:
-	//		GameMode = 7;			// END
-	//		break;
-	//	}
-	//}
-	
+		switch (menuNo) {
+		case 0:
+			GameMode = 1;			// INIT
+			//GameMode = 6;			// RESULT
+			break;
+		case 1:
+			GameMode = 3;			// RANKING
+			break;
+		case 2:
+			GameMode = 4;			// HELP
+			break;
+	 	case 3:
+			GameMode = 7;			// END
+			break;
+		}
+	}
+	//InputControl::ChangeFlg();
+
 	// タイトル画像の表示
 	//DrawGraph(0, 0, TitleImg, FALSE);
 
