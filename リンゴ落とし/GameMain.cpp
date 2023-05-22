@@ -5,9 +5,28 @@
 
 //変数宣言
 //int Pause_flg = 0;//flg 0押されてない時 flg 1押されてる時
+int RC=60;
+
+void DrawUI(int& FC) {
+	
+	DrawBox(950+114, 0, 1280, 720, 0x00000, TRUE);
+
+	if (FC == 28) {
+		RC -= 1;
+	}
+
+	if (RC == 0) {
+		RC = 60;
+		DrawBox(950 + 114, 0, 1280, 720, 0xffffff, TRUE);
+	}
 
 
-void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg) {
+	DrawFormatString(1200, 120, 0xffffff, "RC:%d", RC);
+	DrawFormatString(130, 140, 0x000000, "FC:%d", FC);
+
+}
+
+void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg){
 	//PlayerInit();								// プレイヤー初期化
 	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	DrawApple(Pause_flg);
@@ -26,6 +45,7 @@ void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg) 
 			Pause_flg = 0;
 		}*/
 		
+	//ポーズ処理
 		if (input.Buttons[XINPUT_BUTTON_START] == 1&& Button_flg == TRUE) {
 			Button_flg = FALSE;
 
@@ -46,5 +66,5 @@ void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg) 
 
 		DrawFormatString(0, 120, 0x000000, "Pause_flg:%d", Pause_flg);
 		DrawFormatString(0, 140, 0x000000, "b_flg:%d", Button_flg);
-
+		//DrawUI(int& FC);
 }

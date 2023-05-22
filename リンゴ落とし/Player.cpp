@@ -79,7 +79,6 @@ void PlayerInit(void)
  *************************************/
 void PlayerControl(int gamemode,int& Pause_flg)
 {
-	//LoadImg();
 	if (Pause_flg == 0) {
 		// プレイヤーの左右移動
 		if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
@@ -173,7 +172,7 @@ void PlayerControl(int gamemode,int& Pause_flg)
 	//DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
 	//DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
 	//DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
-	DrawFormatString(390, 190, 0x000000, "Playerx=%d", gPlayer.x);
+	DrawFormatString(390, 190, 0x000000, "Playerx=%f", gPlayer.x);
 }
 
 // リンゴの座標を変数sx,sy,srに格納

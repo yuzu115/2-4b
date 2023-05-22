@@ -24,9 +24,10 @@ int GameMode = 0;
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
 
-
-
 int LoadImages();
+
+//Count変数宣言
+int RoopCount = 0;
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -77,6 +78,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				//DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				//GameMain(GameMode);
 				GameMain(GameMode, input, Button_flg, Pause_flg);
+				DrawUI(RoopCount);
 				break;
 			case MAIN:
 				//GameMain(GameMode,input,Button_flg,Pause_flg);
@@ -111,6 +113,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//PlayerControl(GameMode);
 
 		if (Count == 121)Count = 0;
+		if (RoopCount == 28)RoopCount = 0;
 		
 
 		//fpsの計測
@@ -124,6 +127,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//fps固定処理
 		wait_fanc();
 
+		RoopCount++;
 			Count++;
 			off++;
 			on ++;

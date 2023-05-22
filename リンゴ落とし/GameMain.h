@@ -1,2 +1,4 @@
 #pragma once
 void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg);
+
+void DrawUI(int& FC);
