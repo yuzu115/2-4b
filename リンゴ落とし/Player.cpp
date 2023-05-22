@@ -438,7 +438,7 @@ void PlayerXControl(XINPUT_STATE input, int& Button_flg)
 /*************************************
  * プレイヤーの移動（XInputStick）
  *************************************/
-void PlayerXIControl(XINPUT_STATE input, int& Button_flg)
+void PlayerXIControl(XINPUT_STATE input)
 {
 	LoadImg();
 
@@ -446,8 +446,8 @@ void PlayerXIControl(XINPUT_STATE input, int& Button_flg)
 	if (input.ThumbLX < 128 || input.ThumbLX > 128)
 	{
 		// 左移動
-		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (input.ThumbLX < -20000)
+		// ダッシュ：左スティックを左に傾ける
+		if (input.ThumbLX < -150000)
 		{
 			RL = 0;
 			PlayerRan(RL);
@@ -466,8 +466,8 @@ void PlayerXIControl(XINPUT_STATE input, int& Button_flg)
 		}
 
 		// 右移動
-		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (input.ThumbLX > 20000)
+		// ダッシュ：左スティックを右に傾ける
+		if (input.ThumbLX > 15000)
 		{
 			RL = 3;
 			PlayerRan(RL);

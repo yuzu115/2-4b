@@ -69,7 +69,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawApple();
 				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
 				//PlayerXControl(input, Button_flg);						// プレイヤー操作(XInput)
-				PlayerXIControl(input, Button_flg);						// プレイヤー操作(XInput)
+				PlayerXIControl(input);						// プレイヤー操作(XInput)
 				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 				break;
 			case RANKING:

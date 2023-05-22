@@ -44,39 +44,6 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 }
 
 /****************************************
-* フレームの経過
-*****************************************/
-//int Progress(int& Count,int& on,int& off) {
-//
-//	if (Count <= 120) {
-//
-//		//120秒たつまで、20f感覚で点滅
-//		if (on == 20) {
-//			off = 0;
-//
-//			DrawBox(0, 0, 40, 40, 0x000000, TRUE);
-//			// プレイヤー仮表示(赤)
-//			//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-//
-//			return off;
-//
-//		}
-//
-//		if (off == 20) {
-//			on = 0;
-//			DrawBox(0, 0, 40, 40, 0xff0000, FALSE);
-//
-//			//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x000000, TRUE);
-//
-//			return on;
-//		}
-//
-//	}
-//	
-//}
-
-
-/****************************************
 * リザルト画像読込
 *****************************************/
 int LoadResultImages(void)

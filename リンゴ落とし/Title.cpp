@@ -59,13 +59,6 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 
 	// カーソル（赤リンゴ）を縮小描画
 	DrawExtendGraph(790, 305 + posY, 880, 395 + posY, AppleCursorImg, TRUE);
-	
-	//// メニューカーソル（三角形）の表示
-	//posY = menuNo * 100;
-	//DrawTriangle(810, 325 + posY, 840, 345 + posY, 810, 365 + posY, 0xff0000, TRUE);
-
-	//DrawFormatString(0, 0, 0xffffff, "menuNo %d", menuNo);
-
 }
 
 /****************************************

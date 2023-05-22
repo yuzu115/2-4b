@@ -38,12 +38,6 @@ void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int
 			Ranking[i].no, Ranking[i].name, Ranking[i].score);
 	}
 
-	//SetFontSize(100);
-	//DrawFormatString(400, 50, 0x000000, "ランキング");
-
-	//SetFontSize(30);
-	//DrawFormatString(570, 650, 0x000000, "A：タイトル");
-
 }
 
 /***********************************************
