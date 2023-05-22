@@ -1,8 +1,7 @@
 #pragma once
 #ifndef TIME_H_
 #define TIME_H_
-
-void GameInit(void); //タイムの初期化
-void Main(void);     //タイムメイン
-
+//関数のプロトタイプ宣言
+void TimeInit(void);
+void Time(int gamemode);
 #endif // !TIME_H_
