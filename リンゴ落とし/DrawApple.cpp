@@ -69,7 +69,9 @@ void DrawApple(int& Pause_flg){
 			}
 			else
 			{
-				gApple[i].y -= gApple[i].speed;
+				gApple[i].y = gApple[i].y;
+				SetFontSize(20);
+				DrawFormatString(490,350, 0x000000, "É|Å[ÉYíÜ", gApple[i].speed);
 			}
 
 

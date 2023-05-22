@@ -77,70 +77,76 @@ void PlayerInit(void)
 /*************************************
  * プレイヤーの移動
  *************************************/
-void PlayerControl(int gamemode)
+void PlayerControl(int gamemode,int& Pause_flg)
 {
 	//LoadImg();
-
-	// プレイヤーの左右移動
-	if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
-	{
-		// 左移動
-		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
+	if (Pause_flg == 0) {
+		// プレイヤーの左右移動
+		if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
 		{
-			RL = 0;
-			PlayerRan(RL);
+			// 左移動
+			// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+			if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
+			{
+				RL = 0;
+				PlayerRan(RL);
+				gPlayer.x -= gPlayer.speed + 2;
+				MoveRanx = gPlayer.x;
+			}
 
-			gPlayer.x -= gPlayer.speed + 2;
-			MoveRanx = gPlayer.x;
+			// 歩く：左スティックを左に傾ける
+			else if (InputControl::GetKey(PAD_INPUT_LEFT))
+			{
+
+				RL = 0;
+				PlayerWalk(RL);
+				gPlayer.x -= gPlayer.speed;
+				Movex = gPlayer.x;
+
+			}
+
+
+			// 右移動
+			// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+			if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
+			{
+				RL = 3;
+				PlayerRan(RL);
+
+				gPlayer.x += gPlayer.speed + 2;
+				MoveRanx = gPlayer.x;
+
+			}
+			// 歩く：左スティックを右に傾ける
+			else if (InputControl::GetKey(PAD_INPUT_RIGHT))
+			{
+
+
+				RL = 2;
+
+				PlayerWalk(RL);
+				gPlayer.x += gPlayer.speed;
+				Movex = gPlayer.x;
+
+			}
+
 		}
-
-		// 歩く：左スティックを左に傾ける
-		else if (InputControl::GetKey(PAD_INPUT_LEFT))
+		// プレイヤーの静止
+		else
 		{
+			// プレイヤー仮表示(白)
+			//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
 
-			RL = 0;
-			PlayerWalk(RL);
-			gPlayer.x -= gPlayer.speed;
-			Movex = gPlayer.x;
-			
+			//プレイヤー止まってる画像表示
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
 		}
-
-
-		// 右移動
-		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
-		{
-			RL = 3;
-			PlayerRan(RL);
-
-			gPlayer.x += gPlayer.speed + 2;
-			MoveRanx = gPlayer.x;
-
-		}
-		// 歩く：左スティックを右に傾ける
-		else if (InputControl::GetKey(PAD_INPUT_RIGHT))
-		{
-			
-
-			RL = 2;
-
-			PlayerWalk(RL);
-			gPlayer.x += gPlayer.speed;
-			Movex = gPlayer.x;
-			
-		}
-
 	}
-	// プレイヤーの静止
 	else
 	{
-	// プレイヤー仮表示(白)
-	//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
-
-	//プレイヤー止まってる画像表示
-	DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gStopImg, TRUE);
+		//Pauseの時の画像
+		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
 	}
+
 
 	// 画面をはみ出さないようにする
 	// 右
@@ -212,7 +218,7 @@ void HitPlayer(void)
 	// プレイヤーの当たり判定表示
 	//DrawBox(mx0, my0, mx1, my1, 0x000000, TRUE);
 	// リンゴの当たり判定表示
-	DrawCircle(ax, ay, ar, 0x000000, TRUE);
+	//DrawCircle(ax, ay, ar, 0x000000, TRUE);
 
 	// 1:円の中心が長方形から見て上・中・下の位置にある場合
 	if ((mx0 < ax && ax < mx1) && (my0 - ar < ay && ay < my1 + ar))

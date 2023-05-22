@@ -74,11 +74,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				//DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				//GameMain(GameMode);
+				GameMain(GameMode, input, Button_flg, Pause_flg);
 				break;
 			case MAIN:
-				GameMain(GameMode,input,Button_flg,Pause_flg);
+				//GameMain(GameMode,input,Button_flg,Pause_flg);
 
 				break;
 			case RANKING:
