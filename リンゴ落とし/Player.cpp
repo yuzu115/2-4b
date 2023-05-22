@@ -447,7 +447,7 @@ void PlayerXIControl(XINPUT_STATE input)
 	{
 		// 左移動
 		// ダッシュ：左スティックを左に傾ける
-		if (input.ThumbLX < -150000)
+		if (input.ThumbLX < -25000)
 		{
 			RL = 0;
 			PlayerRan(RL);
@@ -457,7 +457,7 @@ void PlayerXIControl(XINPUT_STATE input)
 		}
 
 		// 歩く：左スティックを左に傾ける
-		else if (input.ThumbLX < 128)
+		else if (input.ThumbLX < 128 && input.ThumbLX > -25000)
 		{
 			RL = 0;
 			PlayerWalk(RL);
@@ -467,7 +467,7 @@ void PlayerXIControl(XINPUT_STATE input)
 
 		// 右移動
 		// ダッシュ：左スティックを右に傾ける
-		if (input.ThumbLX > 15000)
+		if (input.ThumbLX > 25000)
 		{
 			RL = 3;
 			PlayerRan(RL);
