@@ -78,7 +78,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				//DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				//GameMain(GameMode);
 				GameMain(GameMode, input, Button_flg, Pause_flg);
-				DrawUI(GameMode,RoopCount);
+				DrawUI(GameMode,RoopCount, Pause_flg);
 				break;
 			case MAIN:
 				//GameMain(GameMode,input,Button_flg,Pause_flg);
