@@ -2,6 +2,7 @@
 #include"DrawApple.h"
 #include"Player.h"
 #include"Pause.h"
+#include"math.h"
 
 /******************************************
 * 定数の宣言
@@ -24,6 +25,7 @@ struct AppleDate {
 
 //リンゴの変数
 struct AppleDate gApple[APPLE_MAX];
+struct AppleDate gApple2[APPLE_MAX];
 
 //各リンゴのデータ
 struct AppleDate gApple_Rd = {TRUE,0,0,0,-40,45,1,100,0xff0000};	//赤
@@ -37,6 +39,7 @@ struct AppleDate gAppleState[APPLE_TYPE];
 //乱数格納変数
 int gRandApple;
 
+int a3, b3, c3;
 
 /**
 * リンゴのデータ格納
@@ -61,8 +64,7 @@ void DrawApple(int& Pause_flg){
 		
 		// リンゴの表示
 		if (gApple[i].flg == TRUE) {
-			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);
-
+			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);			
 
 			if (Pause_flg == 0) {
 				gApple[i].y += gApple[i].speed;
@@ -85,6 +87,7 @@ void DrawApple(int& Pause_flg){
 			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
 			DrawFormatString(0, 80, 0x000000, "type:%d", gApple[i].type);
 
+			DrawFormatString(520, 400, 0x000000, "%d", c3);
 
 		}
 
@@ -110,12 +113,32 @@ int CreateApple()
 
 	for (int i = 0; i < APPLE_MAX; i++) {
 		if (gApple[i].flg == FALSE) {
-			gApple[i] = gAppleState[gApple[i].type];	//ステータスの格納
-			gApple[i].type = RandApple();				//
+
+		
+
+			gApple[i] = gAppleState[RandApple() ];	//ステータスの格納				//
 			gApple[i].img = gApple[i].color;
 			gApple[i].x = GetRand(7) * 125 + 50;
 			gApple[i].speed = gApple[i].speed;
 			gApple[i].flg = TRUE;
+
+			for (int j = 0; j < APPLE_MAX; j++)
+			{
+
+			}
+
+			if (gApple[i].type == gApple2[i].type) {
+
+				a3 = gApple[i].x - gApple2[i].x;
+				b3 = gApple[i].y - gApple2[i].y;
+				c3 = sqrt(a3 * a3 + b3 * b3);
+
+				if (c3 <= gApple[i].r) {
+					DrawString(490, 390, "aaaaaa", 0x000000);
+				}
+
+			}
+
 			return TRUE;
 		}
 	}

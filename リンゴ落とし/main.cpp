@@ -57,6 +57,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	PlayerInit();
 
 
+	CreateApple();
+	CreateApple();
+
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
@@ -69,6 +72,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
 		ClearDrawScreen();                 //画面を初期化
+
 		
 		InputControl::Update();
 
@@ -128,6 +132,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		wait_fanc();
 
 		RoopCount++;
+
 			Count++;
 			off++;
 			on ++;
