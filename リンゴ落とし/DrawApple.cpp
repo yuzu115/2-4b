@@ -40,6 +40,12 @@ struct AppleDate gAppleState[APPLE_TYPE];
 int gRandApple;
 
 int a3, b3, c3;
+int Aflg = 0;
+
+int apx[APPLE_MAX];
+int apy[APPLE_MAX];
+int apt[APPLE_MAX];
+int apr[APPLE_MAX];
 
 /**
 * リンゴのデータ格納
@@ -87,7 +93,18 @@ void DrawApple(int& Pause_flg){
 			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
 			DrawFormatString(0, 80, 0x000000, "type:%d", gApple[i].type);
 
-			DrawFormatString(520, 400, 0x000000, "%d", c3);
+			DrawFormatString(0, 200, 0x000000, "apr:%d", apr[i]);
+			DrawFormatString(0, 220, 0x000000, "apt:%d", apt[i]);
+
+			DrawFormatString(520, 400, 0x000000, "ｃ３＝%d", c3);
+
+			if (Aflg == 1) {
+				DrawString(490, 300, "かぶってる", 0x000000);
+				Aflg = 0;
+			}
+			else {
+				//DrawString(490, 300, "かぶってなし", 0x000000);
+			}
 
 		}
 
@@ -116,32 +133,81 @@ int CreateApple()
 
 		
 
-			gApple[i] = gAppleState[RandApple() ];	//ステータスの格納				//
+			gApple[i] = gAppleState[RandApple()];	//ステータスの格納
+
 			gApple[i].img = gApple[i].color;
 			gApple[i].x = GetRand(7) * 125 + 50;
 			gApple[i].speed = gApple[i].speed;
 			gApple[i].flg = TRUE;
 
-			for (int j = 0; j < APPLE_MAX; j++)
-			{
+			//a3 = gApple[i].x - gApple2[i].x;
+			//b3 = gApple[i].y - gApple2[i].y;
+			//c3 = sqrt(a3 * a3 + b3 * b3);
 
-			}
 
-			if (gApple[i].type == gApple2[i].type) {
+			///*if (c3 <= gApple[i].r) {
+			//	DrawString(490, 390, "aaaaaa", 0x000000);
+			//}*/
+			//if (gApple[i].type == gApple2[i].type) {
 
-				a3 = gApple[i].x - gApple2[i].x;
-				b3 = gApple[i].y - gApple2[i].y;
-				c3 = sqrt(a3 * a3 + b3 * b3);
+			//	if (gApple[i].x == gApple2[i].x && c3 <= gApple[i].r+10) {
+			//		DrawString(490, 390, "aaaaaa", 0x000000);
+			//		Aflg = 1;
+			//	}
 
-				if (c3 <= gApple[i].r) {
-					DrawString(490, 390, "aaaaaa", 0x000000);
+			//}
+			apx[i] = gApple[i].x;
+			apy[i] = gApple[i].y;
+			apt[i] = gApple[i].type;
+			apr[i] = gApple[i].r;
+
+
+			for (int j = 1; j < i; j++) {
+				if (apt[i] == apt[j]) {
+
+					DrawString(490, 370, "iiiiiii", 0x000000);
+					a3 = apx[j] - apx[i];
+					b3 = apy[j] - apy[i];
+					c3 = sqrt(a3 * a3 + b3 * b3);
+
+					//被ってた場合typeを変更する気持ち
+					if (apx[i] == apx[j] && c3 <= apr[j]) {
+						if (gApple[i].type == 3) {
+							gApple[i].type = 2;
+						}
+						else if(gApple[i].type<3) {
+							gApple[i].type += 1;
+						}
+						DrawString(490, 390, "aaaaaa", 0x000000);
+						Aflg = 1;
+					}
 				}
-
 			}
-
 			return TRUE;
 		}
 	}
+
+	//for (int i = 0; i < APPLE_MAX; i++) {
+	//	if (gApple[i].flg == FALSE) {
+
+	//		//for (int j = 1; j < i; j++) {
+	//		//	if (apt[i] == apt[j]) {
+
+	//		//		DrawString(490, 370, "iiiiiii", 0x000000);
+	//		//		a3 = apx[i] - apx[j];
+	//		//		b3 = apy[i] - apy[j];
+	//		//		c3 = sqrt(a3 * a3 + b3 * b3);
+	//		//		if (apx[i] == apx[j] && c3 <= apr[j]) {
+	//		//			gApple[j].r += 5;
+	//		//			DrawString(490, 390, "aaaaaa", 0x000000);
+	//		//			Aflg = 1;
+	//		//		}
+	//		//	}
+	//		//}
+	//	}
+	//}
+	
+
 	return FALSE;
 }  
 
