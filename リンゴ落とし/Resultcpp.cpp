@@ -5,7 +5,7 @@
 *　変数の宣言
 *****************************************/
 int ResultBackImg;					// 背景画像
-int g_Score = 0;						// 現在のスコア
+//int g_Score = 0;						// 現在のスコア
 
 int ResultWaitTime = 0;					// 待ち時間
 
@@ -19,16 +19,16 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	// ReadRanking(Ranking);			//ランキングデータの読込
 
 	//タイムの加算処理(180f以上経過後)＆画面遷移
-	if (++ResultWaitTime > 180) {
-		// スコアがランキングの最下位の値以上
-		if (Ranking[RANK_MAX - 1].score >= g_Score) {
-			GameMode = 5;				// INPUTNAME
-		}
-		else {
-			GameMode = 3;				// RANKING
-		}
+	//if (++ResultWaitTime > 180) {
+	//	// スコアがランキングの最下位の値以上
+	//	if (Ranking[RANK_MAX - 1].score >= g_Score) {
+	//		GameMode = 5;				// INPUTNAME
+	//	}
+	//	else {
+	//		GameMode = 3;				// RANKING
+	//	}
 
-	}
+	//}
 
 		
 	// リザルト画像の表示

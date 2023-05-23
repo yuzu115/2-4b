@@ -12,7 +12,7 @@ int PosY;					// スクロール時のＹ座標
 /****************************************
 * エンド画面描画（エンドロール）
 *****************************************/
-void DrawEnd(int& GameMode,int& Count)
+void DrawEnd(int& GameMode)
 {
 	LoadEndImages();				// エンド画像読込
 
@@ -25,7 +25,7 @@ void DrawEnd(int& GameMode,int& Count)
 	if (++EndWaitTime < 250) PosY = 250 - EndWaitTime;
 
 	SetFontSize(50);
-	DrawFormatString(10, 100, 0x000000, "Count%4d", Count);
+	//DrawFormatString(10, 100, 0x000000, "Count%4d", Count);
 	DrawFormatString(10, 150, 0x000000, "WaitTime%4d", EndWaitTime);
 		
 	SetFontSize(40);

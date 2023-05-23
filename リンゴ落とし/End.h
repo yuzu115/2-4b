@@ -10,7 +10,7 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-void DrawEnd(int& GameMode, int& Count);		// エンド画面描画
+void DrawEnd(int& GameMode);		// エンド画面描画
 int LoadEndImages(void);			// エンド画像読込
 
 #endif // !END_H__

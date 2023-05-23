@@ -69,7 +69,7 @@ int LoadTitleImages(void)
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/title.png")) == -1) return -1;
 	// カーソル（赤リンゴ）画像
-	if ((AppleCursorImg = LoadGraph("images/redapple.png")) == -1) return -1;
+	if ((AppleCursorImg = LoadGraph("images/apple.png")) == -1) return -1;
 
 	return 0;
 }
