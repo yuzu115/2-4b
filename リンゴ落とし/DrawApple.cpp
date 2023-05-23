@@ -5,12 +5,22 @@
 int gAppleImg[APPLE_TYPE];
 int gRandApple;
 
+int Score;
+int Count;
+
+//テスト変数
+Apple::APPLE_DATA gNewApple[APPLE_MAX];
+
 //リンゴの変数
-Apple::APPLE_DATE gApple[APPLE_MAX];
+Apple::APPLE_DATA gApple[APPLE_MAX];
 
 //ステータス格納変数
-Apple::APPLE_DATE gAppleState[APPLE_TYPE];
+Apple::APPLE_DATA gAppleState[APPLE_TYPE];
 
+
+/*
+* コンストラクタ
+*/
 Apple::Apple()
 {
 	gAppleState[0] = gApple_Rd;
@@ -22,11 +32,14 @@ Apple::Apple()
 	gRandApple = 0;
 
 }
-
+/*
+* デストラクタ
+*/
 Apple::~Apple()
 {
 
 }
+
 /*
 * リンゴのデータ格納
 */
@@ -53,8 +66,13 @@ void Apple::DrawApple(void){
 
 		// リンゴの表示
 		if (gApple[i].flg == TRUE) {
+
+			DrawCircle(gApple[i].x,0, gApple[i].r, 0xffffff, TRUE);
+
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
 			gApple[i].y +=  gApple[i].speed * 2;
+			
+			
 			p.GetApple(&gApple[i]);
 
 			//gAppleのy座標が1000以下になったとき消去
@@ -65,13 +83,15 @@ void Apple::DrawApple(void){
 			//当たったら消える処理にしたい
 			if (p.HitPlayer() == TRUE) {
 				gApple[i].flg = FALSE;
+				Score += gApple[i].score;
+				Count++;
 			}
 			
 			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
-			DrawFormatString(0, 20, 0x000000, "A:%d",gApple[i]);
+			DrawFormatString(0, 20, 0x000000, "Score:%d",Score);
 			DrawFormatString(0, 40, 0x000000, "r:%d", gApple[i].r);
 			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
-			DrawFormatString(0, 80, 0x000000, "type:%d", gApple[i].type);
+			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
 
 
 		}	
@@ -89,11 +109,12 @@ int Apple::CreateApple()
 {
 	for (int i = 0; i < APPLE_MAX; i++) {
 		if (gApple[i].flg == FALSE) {
-			gApple[i].type = RandApple();				//
-			gApple[i] = gAppleState[gApple[i].type];	//ステータスの格納
+			gApple[i] = gAppleState[RandApple()];	//ステータスの格納
 			gApple[i].img = gAppleImg[gApple[i].type];
 			gApple[i].x = GetRand(7) * 125 + 50;
 			gApple[i].flg = TRUE;
+			
+
 			return TRUE;	//成功
 		}
 	}

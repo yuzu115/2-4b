@@ -7,7 +7,7 @@
 class Apple
 {
 public:
-	struct APPLE_DATE {
+	struct APPLE_DATA {
 		int flg;		//フラグ
 		int type;		//種類
 		int img;		//画像表示用
@@ -30,8 +30,8 @@ public:
 
 private:
 	//各リンゴのデータ
-	APPLE_DATE gApple_Rd = { TRUE,0,0,0,-40,45,1,100,1.1f };	//赤
-	APPLE_DATE gApple_Bl = { TRUE,1,0,0,-40,45,2,200,1.1f }; //青
-	APPLE_DATE gApple_Gl = { TRUE,2,0,0,-40,45,3.5f,500,1.1f }; //金
-	APPLE_DATE gApple_Po = { TRUE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
+	APPLE_DATA gApple_Rd = { FALSE,0,0,0,-40,45,1,100,1.1f };	//赤
+	APPLE_DATA gApple_Bl = { FALSE,1,0,0,-40,45,2,200,1.1f }; //青
+	APPLE_DATA gApple_Gl = { FALSE,2,0,0,-40,45,3.5f,500,1.1f }; //金
+	APPLE_DATA gApple_Po = { FALSE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 };
