@@ -457,7 +457,8 @@ void PlayerXIControl(XINPUT_STATE input)
 		}
 
 		// 歩く：左スティックを左に傾ける
-		else if (input.ThumbLX < 128 && input.ThumbLX > -25000)
+		// スティックをはじいたとき、値が戻らないため-1700を設定している
+		else if (input.ThumbLX < -1700 && input.ThumbLX > -25000)
 		{
 			RL = 0;
 			PlayerWalk(RL);
@@ -476,7 +477,8 @@ void PlayerXIControl(XINPUT_STATE input)
 			MoveRanx = gPlayer.x;
 		}
 		// 歩く：左スティックを右に傾ける
-		else if (input.ThumbLX > 128)
+		// スティックをはじいたとき、値が戻らないため1700を設定している
+		else if (input.ThumbLX > 1700)
 		{
 			RL = 3;
 
