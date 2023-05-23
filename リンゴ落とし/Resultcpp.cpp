@@ -1,6 +1,5 @@
 #include "DxLib.h"
 #include "Result.h"
-#include "Ranking.h"
 
 /****************************************
 *@•Ï”‚ÌéŒ¾
