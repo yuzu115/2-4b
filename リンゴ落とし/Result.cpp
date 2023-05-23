@@ -5,7 +5,7 @@
 *　変数の宣言
 *****************************************/
 int ResultBackImg;					// 背景画像
-int g_Score = 0;						// 現在のスコア
+int g_Score = 100;						// 現在のスコア
 
 int ResultWaitTime = 0;					// 待ち時間
 
@@ -85,6 +85,8 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	DrawFormatString(400, 380, 0x000000, "金リンゴ：%3d\n");
 	DrawFormatString(400, 420, 0x000000, "毒リンゴ：%3d\n");
 	DrawFormatString(400, 460, 0x000000, "スコア　：%3d\n");
+
+	DrawFormatString(10, 150, 0x000000, "WaitTime%4d", ResultWaitTime);
 
 }
 
