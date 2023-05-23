@@ -71,5 +71,4 @@ int LoadTitleImages(void)
 	// カーソル（赤リンゴ）画像
 	if ((AppleCursorImg = LoadGraph("images/redapple.png")) == -1) return -1;
 
-	return 0;
 }

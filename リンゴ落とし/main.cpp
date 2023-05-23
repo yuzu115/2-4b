@@ -11,6 +11,7 @@
 #include"Player.h"
 #include"InputControl.h"
 #include "GameInit.h"
+#include"Keyboard.h"
 
 /******************************************************
 *変数宣言
@@ -33,6 +34,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
+
+	Player p;
+	Apple app;
+
+	app.AppleSet();
+	p.LoadPlayerImg();
 
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
@@ -68,6 +75,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				DrawApple();
 				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
+				p.PlayerControl(g_OldKey, GameMode);
 				//PlayerXControl(input, Button_flg);						// プレイヤー操作(XInput)
 				PlayerXIControl(input);						// プレイヤー操作(XInput)
 				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
@@ -92,8 +100,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		//fpsの計測
 		Keisoku_fps();
-		
-		PlayerFlashing(Count,on,off);
+
+		//プレイヤー操作
+		//p.PlayerControl(g_OldKey, GameMode);
+
+		if (GameMode == INPUTNAME)
+		{
+			DrawKeyboard();
+		}
 
 		if (Count > 120)Count = 0;
 		
