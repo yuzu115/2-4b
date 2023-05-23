@@ -153,4 +153,7 @@ int Apple::RandApple()
 	}
 }
 
-
+int GetScore()
+{
+	return Score;
+}

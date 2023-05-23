@@ -28,6 +28,7 @@ public:
 	void DrawApple(void);
 	int RandApple(void);
 
+
 private:
 	//各リンゴのデータ
 	APPLE_DATA gApple_Rd = { FALSE,0,0,0,-40,45,1,100,1.1f };	//赤
@@ -35,3 +36,6 @@ private:
 	APPLE_DATA gApple_Gl = { FALSE,2,0,0,-40,45,3.5f,500,1.1f }; //金
 	APPLE_DATA gApple_Po = { FALSE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 };
+
+int GetScore(void);
+

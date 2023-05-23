@@ -97,7 +97,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
 		DrawFormatString(100, 100, 0x00ffff, "GameMode = %d",GameMode);
 
-
+		if (input.Buttons[XINPUT_BUTTON_B] == 1)
+		{
+			GameMode = 6;
+		}
 		//app.DrawApple();
 	
 		//ç°èoÇƒÇÈFPSÇÃï\é¶

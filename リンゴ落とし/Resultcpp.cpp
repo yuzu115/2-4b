@@ -19,16 +19,16 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	// ReadRanking(Ranking);			//ランキングデータの読込
 
 	//タイムの加算処理(180f以上経過後)＆画面遷移
-	//if (++ResultWaitTime > 180) {
-	//	// スコアがランキングの最下位の値以上
-	//	if (Ranking[RANK_MAX - 1].score >= g_Score) {
-	//		GameMode = 5;				// INPUTNAME
-	//	}
-	//	else {
-	//		GameMode = 3;				// RANKING
-	//	}
+	if (++ResultWaitTime > 180) {
+		// スコアがランキングの最下位の値以上
+		if (Ranking[RANK_MAX - 1].score <= GetScore()) {
+			GameMode = 5;				// INPUTNAME
+		}
+		else {
+			GameMode = 3;				// RANKING
+		}
 
-	//}
+	}
 
 		
 	// リザルト画像の表示
@@ -39,7 +39,7 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	DrawFormatString(400, 340, 0x000000, "青リンゴ：%3d\n");
 	DrawFormatString(400, 380, 0x000000, "金リンゴ：%3d\n");
 	DrawFormatString(400, 420, 0x000000, "毒リンゴ：%3d\n");
-	DrawFormatString(400, 460, 0x000000, "スコア　：%3d\n");
+	DrawFormatString(400, 460, 0x000000, "スコア　：%3d\n",GetScore());
 
 }
 
