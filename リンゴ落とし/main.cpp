@@ -89,7 +89,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawResult(Ranking,GameMode);		//ƒŠƒUƒ‹ƒg‰æ–Ê
 				break;
 		}
-		DrawFormatString(0, 16, 0x00000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
+		DrawFormatString(0, 16, 0xff000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
+		DrawFormatString(100, 160, 0xffffff, "GameMode = %d",GameMode);
 
 
 		//app.DrawApple();

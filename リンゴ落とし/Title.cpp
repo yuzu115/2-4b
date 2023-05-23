@@ -46,7 +46,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 			GameMode = 4;			// HELP
 			break;
 	 	case 3:
-			GameMode = 7;			// END
+			GameMode = 9;			// END
 			break;
 		}
 	}

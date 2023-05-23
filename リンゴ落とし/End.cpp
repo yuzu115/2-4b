@@ -32,6 +32,8 @@ void DrawEnd(int& GameMode)
 	DrawFormatString(100, 310 + PosY, 0x000000, "‘fÞ—˜—p");
 	DrawFormatString(100, 370 + PosY, 0x000000, "@BGM@@@ @‚w‚w‚w‚w");
 	DrawFormatString(100, 410 + PosY, 0x000000, "@SE@@@@@‚w‚w‚w‚w‚w‚w‚w‚w");
+	
+	DrawFormatString(100, 100, 0xffffff, "ƒGƒ“ƒh");
 
 	//ƒ^ƒCƒ€‚Ì‰ÁŽZˆ—•300fŒo‰ßŒãI—¹(‰¼)
 	if (EndWaitTime >= 300)
