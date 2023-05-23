@@ -1,11 +1,11 @@
 #include "DxLib.h"
 #include "Result.h"
+#include "DrawApple.h"
 
 /****************************************
 *　変数の宣言
 *****************************************/
 int ResultBackImg;					// 背景画像
-//int g_Score = 0;						// 現在のスコア
 
 int ResultWaitTime = 0;					// 待ち時間
 
