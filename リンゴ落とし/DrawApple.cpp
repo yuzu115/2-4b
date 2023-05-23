@@ -6,7 +6,7 @@ int gAppleImg[APPLE_TYPE];
 int gRandApple;
 
 int Score;
-int ACount;
+int Count;
 
 //ÉeÉXÉgïœêî
 Apple::APPLE_DATA gNewApple[APPLE_MAX];
@@ -84,14 +84,14 @@ void Apple::DrawApple(void){
 			if (p.HitPlayer() == TRUE) {
 				gApple[i].flg = FALSE;
 				Score += gApple[i].score;
-				ACount++;
+				Count++;
 			}
 			
 			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
 			DrawFormatString(0, 20, 0x000000, "Score:%d",Score);
 			DrawFormatString(0, 40, 0x000000, "r:%d", gApple[i].r);
 			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
-			DrawFormatString(0, 80, 0x000000, "ACount:%d", ACount);
+			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
 
 
 		}	
