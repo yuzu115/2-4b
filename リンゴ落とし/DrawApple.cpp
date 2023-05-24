@@ -8,6 +8,11 @@ int gRandApple;
 int Score;
 int Count;
 
+int Count_R;
+int Count_B;
+int Count_Go;
+int Count_Po;
+
 //ÉäÉìÉSÇÃïœêî
 Apple::APPLE_DATA gApple[APPLE_MAX];
 
@@ -84,13 +89,21 @@ void Apple::DrawApple(void){
 			//ìñÇΩÇ¡ÇΩÇÁè¡Ç¶ÇÈèàóùÇ…ÇµÇΩÇ¢
 			if (p.HitPlayer() == TRUE) {
 				gApple[i].flg = FALSE;
+
 				Score += gApple[i].score;
-				Count++;
+
+				if (gApple[i].type == 0)	Count_R++;
+				if (gApple[i].type == 1) 	Count_B++;
+				if (gApple[i].type == 2) 	Count_Go++;
+				if (gApple[i].type == 3)	Count_Po++;
+
 			}
 			
 			DrawFormatString(0, 0, 0x000000, "Score:%d",Score);
-			DrawFormatString(0, 20, 0x000000, "Count:%d", Count);
-
+			DrawFormatString(0, 20, 0x000000, "Red:%d", Count_R);
+			DrawFormatString(0, 40, 0x000000, "Blue:%d", Count_B);
+			DrawFormatString(0, 60, 0x000000, "Gold:%d", Count_Go);
+			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
 
 		}	
 	}	
