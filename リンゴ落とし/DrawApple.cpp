@@ -8,9 +8,6 @@ int gRandApple;
 int Score;
 int Count;
 
-//テスト変数
-Apple::APPLE_DATA gNewApple[APPLE_MAX];
-
 //リンゴの変数
 Apple::APPLE_DATA gApple[APPLE_MAX];
 
@@ -23,6 +20,7 @@ Apple::APPLE_DATA gAppleState[APPLE_TYPE];
 */
 Apple::Apple()
 {
+	
 	gAppleState[0] = gApple_Rd;
 	gAppleState[1] = gApple_Bl;
 	gAppleState[2] = gApple_Gl;
@@ -59,20 +57,23 @@ int Apple::AppleSet(void)
 */
 void Apple::DrawApple(void){
 
-	Player p;
+	Player p;	
 
+	//生成関数の読み込み
+	Apple::CreateApple();
 
 	for (int i = 0; i < APPLE_MAX; i++){
 
 		// リンゴの表示
 		if (gApple[i].flg == TRUE) {
 
-			DrawCircle(gApple[i].x,0, gApple[i].r, 0xffffff, TRUE);
+			
 
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
-			gApple[i].y +=  gApple[i].speed * 2;
-			
-			
+			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
+			gApple[i].y +=  gApple[i].speed ;
+	
+
 			p.GetApple(&gApple[i]);
 
 			//gAppleのy座標が1000以下になったとき消去
@@ -87,19 +88,12 @@ void Apple::DrawApple(void){
 				Count++;
 			}
 			
-			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
-			DrawFormatString(0, 20, 0x000000, "Score:%d",Score);
-			DrawFormatString(0, 40, 0x000000, "r:%d", gApple[i].r);
-			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
-			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
+			DrawFormatString(0, 0, 0x000000, "Score:%d",Score);
+			DrawFormatString(0, 20, 0x000000, "Count:%d", Count);
 
 
 		}	
-	}
-
-	//生成関数の読み込み
-	Apple::CreateApple();
-
+	}	
 }
 
 /**
@@ -111,11 +105,26 @@ int Apple::CreateApple()
 		if (gApple[i].flg == FALSE) {
 			gApple[i] = gAppleState[RandApple()];	//ステータスの格納
 			gApple[i].img = gAppleImg[gApple[i].type];
-			gApple[i].x = GetRand(7) * 125 + 50;
-			gApple[i].flg = TRUE;
-			
+			gApple[i].x = GetRand(6) * 125 + 50;
 
+			for (int j = 0; j < APPLE_MAX; j++)
+			{
+				if (i == j)continue;
+				
+				if (gApple[i].x == gApple[j].x && gApple[i].type == gApple[i].type)
+				{
+					if (gApple[i].y < gApple[j].r * 2) {
+						gApple[i].y -= 100;
+					}
+					
+				}
+
+			}
+
+			gApple[i].flg = TRUE;			
+			
 			return TRUE;	//成功
+
 		}
 	}
 	return FALSE;	//失敗
@@ -152,5 +161,3 @@ int Apple::RandApple()
 		}
 	}
 }
-
-

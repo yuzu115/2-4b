@@ -27,6 +27,7 @@ public:
 	int AppleSet(void);
 	void DrawApple(void);
 	int RandApple(void);
+	void AppleHit(APPLE_DATA* a);
 
 private:
 	//各リンゴのデータ
