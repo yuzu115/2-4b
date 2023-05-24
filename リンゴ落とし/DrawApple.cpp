@@ -3,63 +3,65 @@
 #include"Player.h"
 #include"Pause.h"
 #include"math.h"
+#include"Resalt.h"
 
-/******************************************
-* 定数の宣言
-******************************************/
-const int APPLE_MAX = 10;	//リンゴの最大生成数
-const int APPLE_TYPE=4;		//リンゴの種類
-
-/******************************************
-* 構造体の宣言
-******************************************/
-struct AppleDate {
-	int flg;		//フラグ
-	int type;		//種類
-	int img;		//画像表示用
-	float x, y, r;	//座標、半径
-	float speed;		//落下速度
-	int score;		//スコア加算
-	int color;		//色(仮)
-};
-
-//リンゴの変数
-struct AppleDate gApple[APPLE_MAX];
-struct AppleDate gApple2[APPLE_MAX];
-
-//各リンゴのデータ
-struct AppleDate gApple_Rd = {TRUE,0,0,0,-40,45,1,100,0xff0000};	//赤
-struct AppleDate gApple_Br = {TRUE,1,0,0,-40,45,2,200,0x00ff00}; //青
-struct AppleDate gApple_Gl = {TRUE,2,0,0,-40,45,3.5f,500,0xffff00}; //金
-struct AppleDate gApple_Po = {TRUE,3,0,0,-40,45,0.5f,-750,0xff00ff}; //毒
-
-//ステータス格納変数
-struct AppleDate gAppleState[APPLE_TYPE];
-
-//乱数格納変数
+int gAppleImg[APPLE_TYPE];
 int gRandApple;
 
-int a3, b3;
-float c3;
-float numi[APPLE_MAX];
-int y;
-int Aflg = 0;
-int InitA = 0;
+int Score;
+int Count;
 
-int apx[APPLE_MAX];
-int apy[APPLE_MAX];
-int apt[APPLE_MAX];
-int apr[APPLE_MAX];
+int Count_R;
+int Count_B;
+int Count_Go;
+int Count_Po;
 
-/**
-* リンゴのデータ格納
+
+//リンゴの変数
+Apple::APPLE_DATA gApple[APPLE_MAX];
+
+//ステータス格納変数
+Apple::APPLE_DATA gAppleState[APPLE_TYPE];
+
+
+/*
+* コンストラクタ
 */
-int AppleSet(void)
+Apple::Apple()
 {
+	
 	gAppleState[0] = gApple_Rd;
-	gAppleState[1] = gApple_Br;
+	gAppleState[1] = gApple_Bl;
 	gAppleState[2] = gApple_Gl;
 	gAppleState[3] = gApple_Po;
+
+	
+	gRandApple = 0;
+
+	gScore.r = 0;
+	gScore.b = 0;
+	gScore.g = 0;
+	gScore.p = 0;
+
+}
+/*
+* デストラクタ
+*/
+Apple::~Apple()
+{
+
+}
+
+/*
+* リンゴのデータ格納
+*/
+int Apple::AppleSet(void)
+{
+	
+	if ((gAppleImg[0] = LoadGraph("images/Apple_Red.png")) == -1)return -1;
+	if ((gAppleImg[1] = LoadGraph("images/Apple_Blue.png")) == -1)return -1;
+	if ((gAppleImg[2] = LoadGraph("images/Apple_Gold.png")) == -1)return -1;
+	if((gAppleImg[3] = LoadGraph("images/Apple_Poison.png")) == -1)return -1;
 
 	return 0;
 }
@@ -67,154 +69,99 @@ int AppleSet(void)
 /**
 * リンゴの描画
 */
-void DrawApple(int& Pause_flg){
+void Apple::DrawApple(void){
 
+	Player p;	
+	Apple ap;
+
+	//生成関数の読み込み
+	Apple::CreateApple();
 
 	for (int i = 0; i < APPLE_MAX; i++){
-		
+
 		// リンゴの表示
 		if (gApple[i].flg == TRUE) {
-			DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, gApple[i].img, TRUE);			
 
-			if (Pause_flg == 0) {
-				gApple[i].y += gApple[i].speed;
-			}
-			else
-			{
-				gApple[i].y = gApple[i].y;
-				SetFontSize(20);
-				DrawFormatString(490,350, 0x000000, "ポーズ中", gApple[i].speed);
-			}
+			
 
+			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
+			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
+			gApple[i].y +=  gApple[i].speed ;
+	
+
+			p.GetApple(&gApple[i]);
+			GetAppScore(&gScore);
 
 			//gAppleのy座標が1000以下になったとき消去
 			if (gApple[i].y > 1000) {
 				gApple[i].flg = FALSE;
 			}
-			DrawFormatString(0, 0, 0x000000, "speed:%f", gApple[i].speed);
-			DrawFormatString(0, 20, 0x000000, "y:%d", gApple[i].y);
-			DrawFormatString(0, 40, 0x000000, "r:%d", gApple[i].r);
-			DrawFormatString(0, 60, 0x000000, "flg:%d", gApple[i].flg);
-			DrawFormatString(0, 80, 0x000000, "type:%d", gApple[i].type);
 
-			DrawFormatString(0, 200, 0x000000, "apr:%d", apr[i]);
-			DrawFormatString(0, 220, 0x000000, "apt:%d", apt[i]);
-			DrawFormatString(520, 400, 0x000000, "ｃ３＝%d", c3);
+			//当たったら消える処理にしたい
+			if (p.HitPlayer() == TRUE) {
+				gApple[i].flg = FALSE;
+
+				Score += gApple[i].score;
+
+
+				if (gApple[i].type == 0)	gScore.r++;
+				if (gApple[i].type == 1) 	gScore.b++;
+				if (gApple[i].type == 2) 	gScore.g++;
+				if (gApple[i].type == 3)	gScore.p++;
+
+			}
 
 			
+			
+			DrawFormatString(0, 0, 0x000000, "Score:%d",Score);
+			DrawFormatString(0, 20, 0x000000, "Red:%d", gScore.r);
+			DrawFormatString(0, 40, 0x000000, "Blue:%d", gScore.b);
+			DrawFormatString(0, 60, 0x000000, "Gold:%d", gScore.g);
+			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
 
-
-
-		}
-
-		// リンゴの座標を引数として渡す
-		GetApple(gApple[i].x,gApple[i].y,gApple[i].r);
-		// プレイヤーとの当たり判定
-		HitPlayer();
-	}
-
-	//生成関数の読み込み
-	CreateApple();
-
-
-	DrawFormatString(520, 420, 0x000000, "numi1＝%d", numi[0]);
-	DrawFormatString(520, 440, 0x000000, "2＝%d", numi[1]);
-	DrawFormatString(520, 460, 0x000000, "3＝%d", numi[2]);
-	DrawFormatString(520, 480, 0x000000, "4＝%d", numi[3]);
-
+		}	
+	}	
 }
-
 
 /**
 * リンゴの生成
 **/
-int CreateApple()
+int Apple::CreateApple()
 {
-	//ステータスの読み込み
-	AppleSet();
-
 	for (int i = 0; i < APPLE_MAX; i++) {
 
 		if (gApple[i].flg == FALSE) {
-
-		
-
 			gApple[i] = gAppleState[RandApple()];	//ステータスの格納
-
-			gApple[i].img = gApple[i].color;
+			gApple[i].img = gAppleImg[gApple[i].type];
 			gApple[i].x = GetRand(6) * 125 + 50;
 
-		
-
-			gApple[i].speed = gApple[i].speed;
-			gApple[i].flg = TRUE;
-
-
-
-			if (InitA == 0) {
-				InitA = 1;
-				apx[i] = gApple[i].x;
-				apy[i] = gApple[i].y;
-				apt[i] = gApple[i].type;
-				apr[i] = gApple[i].r;
-			}
-
-			for (int j = 0; j < i; j++) {
-				if (gApple[i].type == apt[j]) {
-
-					//DrawString(490, 370, "iiiiiii", 0x000000);
-					a3 = apx[j] - gApple[i].x;
-					b3 = apy[j] - gApple[i].y;
-					c3 = sqrt(a3 * a3 + b3 * b3);
+			for (int j = 0; j < APPLE_MAX; j++)
+			{
+				if (i == j)continue;
+				
+				if (gApple[i].x == gApple[j].x && gApple[i].type == gApple[i].type)
+				{
+					if (gApple[i].y < gApple[j].r * 2) {
+						gApple[i].y -= 100;
+					}
 					
-					//被ってた場合typeを変更する気持ち
-					if (gApple[i].x == apx[j] && c3 <= gApple[i].r+apr[j] && b3<= gApple[i].r + apr[j]) {
-
-						//gAppleの中の使ってる値に別の値が入ってきてしまうから変わっちゃう説
-						/*gApple[i].img = 0x000000;
-						gApple[j].img = 0x00ffff;*/
-						numi[i] = i;
-
-						DrawString(490, 390, "aaaaaa", 0x000000);
-						Aflg = 1;
-					}
 				}
-			}
-			
-			if (Aflg == 1) {
-				Aflg = 0;
-				for (int i = 0; i < APPLE_MAX; i++) {
-					if (numi[i] == 0) {
 
-					}
-					else {
-						gApple[i].x += 10;
-						gApple[i].img = 0x00ffff;
-					}
-					numi[i] = 0;
-				}
 			}
 
-			DrawFormatString(0, 240, 0x000000, "x:%d", gApple[0].x);
-			apx[i] = gApple[i].x;
-			apy[i] = gApple[i].y;
-			apt[i] = gApple[i].type;
-			apr[i] = gApple[i].r;
-
+			gApple[i].flg = TRUE;			
 			
-			return TRUE;
+			return TRUE;	//成功
+
 		}
 	}
-
-	
-
-	return FALSE;
+	return FALSE;	//失敗
 }  
 
 /**
 * リンゴの出現率
 */
-int RandApple()
+int Apple::RandApple()
 {
 	gRandApple = GetRand(100);	//0～100までの乱数を取得
 
@@ -243,4 +190,7 @@ int RandApple()
 	}
 }
 
-
+int Apple::GetScore()
+{
+	return Score;
+}

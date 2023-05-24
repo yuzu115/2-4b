@@ -2,11 +2,14 @@
 #include "Player.h"
 #include "DrawApple.h"
 #include "Pause.h"
+#include "GameMain.h"
+
 
 //ïœêîêÈåæ
 int RC=60;
 int gNumImg[10];
 int aR,aG,aY;
+int gBackImg;
 
 
 void DrawUI(int& GameMode,int& FC, int& Pause_flg) {
@@ -27,7 +30,7 @@ void DrawUI(int& GameMode,int& FC, int& Pause_flg) {
 
 	}
 	else
-	{
+{
 
 	}
 
@@ -98,6 +101,14 @@ void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg){
 		DrawFormatString(0, 140, 0x000000, "b_flg:%d", Button_flg);
 		//DrawUI(int& FC);
 }
+/*****************
+*ÉQÅ[ÉÄÉÅÉCÉì    *
+*****************/
+int LoadBackImg(void)
+{
+	if ((gBackImg = LoadGraph("images/title2.png")) == -1)return -1;
+	return 0;
+}
 
 int LoadNumImg() {
 
@@ -105,4 +116,12 @@ int LoadNumImg() {
 	aR = LoadGraph("images/RedApple.png");
 	aG = LoadGraph("images/GreenApple.png");
 	aY = LoadGraph("images/GoldApple.png");
+}
+/*****************
+*âºï\é¶          *
+*****************/
+void DrawBack(void)
+{
+	LoadBackImg();
+	DrawExtendGraph(0, 0, 1000, 720, gBackImg, TRUE);
 }

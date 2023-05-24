@@ -12,6 +12,7 @@
 #include"InputControl.h"
 #include "GameMain.h"
 #include "Pause.h"
+#include"Keyboard.h"
 
 /******************************************************
 *変数宣言
@@ -44,6 +45,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	Player p;
+	Apple app;
+
+	app.AppleSet();
+	p.LoadPlayerImg();
+
+	//ScreenFlipを実行しても垂直同期信号を待たない
+		//SetWaitVSyncFlag(FALSE);
 	//画像読込
 	/*各関数で読み込むと時間が掛かってFPSが大幅に遅れる為、
 	ゲームループが始まる前にあらかじめ画像、サウンドなどを読み込む関数を作り
@@ -56,13 +65,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//// プレイヤー初期化
 	PlayerInit();
 
-
-	//CreateApple();
-
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
-	
+		ClearDrawScreen();                 //画面を初期化
+
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
 		//入力キー取得
@@ -70,11 +77,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
-		ClearDrawScreen();                 //画面を初期化
-
-		
 		InputControl::Update();
-
 
 		switch (GameMode) {
 			case TITLE:
@@ -83,7 +86,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				GameMain(GameMode, input, Button_flg, Pause_flg);
 				DrawUI(GameMode,RoopCount, Pause_flg);
 				break;
+			//case INIT:
+			//	GameInit(GameMode);							// ゲーム初期化
+			//	break;
 			case MAIN:
+				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+				app.DrawApple();
+				p.PlayerControl(g_OldKey, GameMode);
+
+				//DrawApple();
+				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
+				//PlayerXControl(input, Button_flg);						// プレイヤー操作(XInput)
+				//PlayerXIControl(input);						// プレイヤー操作(XInput)
+				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 				//GameMain(GameMode,input,Button_flg,Pause_flg);
 
 				break;
@@ -94,26 +109,36 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
 				break;
 			case END:
-				DrawEnd(GameMode, Count);			//エンド画面描画処理
+				DrawEnd(GameMode);			//エンド画面描画処理
 				break;
 			case RESULT:
 				DrawResult(Ranking,GameMode);		//リザルト画面
 				break;
 		}
+		DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
+		DrawFormatString(100, 100, 0x00ffff, "GameMode = %d",GameMode);
 
+		if (input.Buttons[XINPUT_BUTTON_B] == 1)
+		{
+			GameMode = 6;
+		}
+		//app.DrawApple();
+	
+		//今出てるFPSの表示
+		display_fps();
 
-		DrawFormatString(50, 60, 0xffffff, "GameMode %d", GameMode);
-		//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-		//DrawApple();
+		//fpsの計測
+		Keisoku_fps();
 
-
-		// プレイヤー操作
-		//PlayerControl(GameMode);
+		//プレイヤー操作
+		//p.PlayerControl(g_OldKey, GameMode);
 		
 		//PlayerFlashing(Count,on,off);
 
-		//PlayerImg();
-		//PlayerControl(GameMode);
+		if (GameMode == INPUTNAME)
+		{
+			DrawKeyboard();
+		}
 
 		if (Count == 121)Count = 0;
 		if (RoopCount == 28)RoopCount = 0;
