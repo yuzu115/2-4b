@@ -18,12 +18,12 @@ void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int
 
 	ReadRanking(Ranking);		//ランキングデータの読込
 
-	if (input.Buttons[12] == 0) {
+	if (input.Buttons[XINPUT_BUTTON_A] == 0) {
 		Button_flg = FALSE;
 	}
 
 	// Aボタンでスタート画面に戻る
-	if (input.Buttons[12] == 1 && Button_flg == FALSE) {
+	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
 		GameMode = 0;		// TITLE
 	}
@@ -37,12 +37,6 @@ void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int
 		DrawFormatString(260, 180 + i * 85, 0x000000, "%2d %-10s %10d",
 			Ranking[i].no, Ranking[i].name, Ranking[i].score);
 	}
-
-	//SetFontSize(100);
-	//DrawFormatString(400, 50, 0x000000, "ランキング");
-
-	//SetFontSize(30);
-	//DrawFormatString(570, 650, 0x000000, "A：タイトル");
 
 }
 
