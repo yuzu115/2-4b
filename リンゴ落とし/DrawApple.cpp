@@ -67,7 +67,7 @@ int Apple::AppleSet(void)
 /**
 * ƒŠƒ“ƒS‚Ì•`‰æ
 */
-void Apple::DrawApple(void){
+void Apple::DrawApple(int& Pause_flg){
 
 	Player p;	
 	Apple ap;

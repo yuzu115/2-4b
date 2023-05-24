@@ -211,7 +211,7 @@ int Player::HitPlayer(void)
 /*************************************
  * プレイヤーの移動(XInput)
  *************************************/
-void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
+void Player::PlayerXControl(XINPUT_STATE input, int& button_flg,int& Pause_flg)
 {
 
 	// プレイヤーの左右移動

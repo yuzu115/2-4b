@@ -32,7 +32,7 @@ public:
 	//ƒŠƒ“ƒS‚Ì¶¬
 	int CreateApple(void);
 	int AppleSet(void);
-	void DrawApple(void);
+	void DrawApple(int& Pause_flg);
 	int RandApple(void);
 	void AppleHit(APPLE_DATA* a);
 

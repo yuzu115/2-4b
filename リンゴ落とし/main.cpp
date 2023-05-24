@@ -11,6 +11,7 @@
 #include"Player.h"
 #include"InputControl.h"
 #include"Keyboard.h"
+#include "GameMain.h"
 
 /******************************************************
 *変数宣言
@@ -18,6 +19,7 @@
 XINPUT_STATE input;
 int Button_flg = FALSE;
 int GameMode = 0;
+int Pause_flg=0;
 
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
@@ -71,15 +73,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			//	GameInit(GameMode);							// ゲーム初期化
 			//	break;
 			case MAIN:
+				/*
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				app.DrawApple();
-				p.PlayerXControl(input,Button_flg);
+				p.PlayerXControl(input,Button_flg);*/
 
-				//DrawApple();
-				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
-				//PlayerXControl(input, Button_flg);						// プレイヤー操作(XInput)
-				//PlayerXIControl(input);						// プレイヤー操作(XInput)
-				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
+				GameMain(GameMode,input,Button_flg,Pause_flg);
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理

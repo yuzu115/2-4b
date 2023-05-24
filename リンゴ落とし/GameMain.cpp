@@ -4,7 +4,8 @@
 #include "Pause.h"
 
 //変数宣言
-int RC = 60;
+int RoopC = 60;
+int FC = 0;
 int gNumImg[10];
 int aR, aG, aY;
 
@@ -22,7 +23,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 			//	RC -= 1;
 		}
 
-		if (RC == 0) {
+		if (RoopC == 0) {
 			//60秒たったらリザルト画面へ移動
 		//	GameMode = 6;
 		}
@@ -36,7 +37,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 	//DrawGraph(posx, 30, gNumberImg[tempScore % 10], TRUE);
 
-	DrawFormatString(1200, 120, 0xffffff, "RC:%d", RC);
+	DrawFormatString(1200, 120, 0xffffff, "RC:%d", RoopC);
 	DrawFormatString(130, 140, 0x000000, "FC:%d", FC);
 
 	//Time表示
@@ -45,8 +46,8 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 	SetFontSize(32);
 	DrawString(1070, 60, "残り", 0x000000);
 	//DrawBox(1090, 110, 1280, 240, 0xfff8dc, TRUE);
-	DrawExtendGraph(1090, 90, 1190, 220, gNumImg[RC / 10], TRUE);
-	DrawExtendGraph(1180, 90, 1280, 220, gNumImg[RC % 10], TRUE);
+	DrawExtendGraph(1090, 90, 1190, 220, gNumImg[RoopC / 10], TRUE);
+	DrawExtendGraph(1180, 90, 1280, 220, gNumImg[RoopC % 10], TRUE);
 
 	//スコア仮表示
 	SetFontSize(52);
@@ -70,10 +71,12 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 }
 
 void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg) {
+
+	DrawUI(GameMode, FC, Pause_flg);
 	//PlayerInit();								// プレイヤー初期化
 	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	app.DrawApple(Pause_flg);
-	p.PlayerXControl(input,GameMode, Pause_flg);					// プレイヤー操作
+	p.PlayerXControl(input, Button_flg, Pause_flg);					// プレイヤー操作
 	//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 
 
@@ -99,6 +102,7 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 	DrawFormatString(0, 120, 0x000000, "Pause_flg:%d", Pause_flg);
 	DrawFormatString(0, 140, 0x000000, "b_flg:%d", Button_flg);
 	//DrawUI(int& FC);
+	FC += 1;
 }
 
 int LoadNumImg() {
