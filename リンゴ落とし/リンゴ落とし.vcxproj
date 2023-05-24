@@ -22,6 +22,7 @@
     <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="fps.cpp" />
+    <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="GameInit.cpp" />
     <ClCompile Include="inputControl.cpp" />
