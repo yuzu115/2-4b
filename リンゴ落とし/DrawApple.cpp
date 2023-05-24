@@ -1,7 +1,6 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
-#include"Pause.h"
 #include"math.h"
 
 /******************************************

@@ -11,7 +11,6 @@
 #include"Player.h"
 #include"InputControl.h"
 #include "GameMain.h"
-#include "Pause.h"
 
 /******************************************************
 *•Ï”éŒ¾

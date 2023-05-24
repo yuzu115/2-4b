@@ -1,7 +1,6 @@
 #include "DxLib.h"
 #include "Player.h"
 #include "DrawApple.h"
-#include "Pause.h"
 
 //•Ï”éŒ¾
 int RC=60;
@@ -24,10 +23,6 @@ void DrawUI(int& GameMode,int& FC, int& Pause_flg) {
 			//60•b‚½‚Á‚½‚çƒŠƒUƒ‹ƒg‰æ–Ê‚ÖˆÚ“®
 		//	GameMode = 6;
 		}
-
-	}
-	else
-	{
 
 	}
 
