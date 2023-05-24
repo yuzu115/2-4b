@@ -163,15 +163,6 @@ void PlayerControl(int gamemode,int& Pause_flg)
 	HitPlayer();
 
 
-	//DrawFormatString(390, 30, 0x000000, "Movex=%d",Movex);
-	//DrawFormatString(390, 50, 0x000000, "OPx=%d",OPx);
-	//DrawFormatString(390, 70, 0x000000, "Movex-OPx=%d",abs(Movex-OPx));	
-	//DrawFormatString(390, 90, 0x000000, "onceFlg=%d",onceFlg);
-	//DrawFormatString(390, 110, 0x000000, "RL=%d",RL);
-
-	//DrawFormatString(390, 130, 0x000000, "MoveRanx=%d", MoveRanx);
-	//DrawFormatString(390, 150, 0x000000, "OPxRan=%d", OPxRan);
-	//DrawFormatString(390, 170, 0x000000, "MoveRanx-OPxRan=%d", abs(MoveRanx - OPxRan));
 	DrawFormatString(390, 190, 0x000000, "Playerx=%f", gPlayer.x);
 }
 
