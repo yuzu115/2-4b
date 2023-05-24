@@ -34,6 +34,8 @@ public:
 	int HitPlayer(void);                          // リンゴとプレイヤーの当たり判定
 	float Pythagorean(float px, float py, float ax, float ay);  // ピタゴラスの定理の計算
 	int LoadPlayerImg(void);       // 画像読込
+
+	void PlayerXControl(XINPUT_STATE input, int& button_flg);     // プレイヤー制御（XInput）
 	int PlayerFlashing(int& Count, int& on, int& off);	//プレイヤー点滅処理
 	void PlayerWalk(int wImg);		//歩く画像切り替え処理
 	void PlayerRan(int rImg);		//走る画像切り替え処理
