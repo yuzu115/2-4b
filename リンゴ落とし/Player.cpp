@@ -49,77 +49,77 @@ int Player::LoadPlayerImg(void)
 	return 0;
 }
 
-/*************************************
- * プレイヤーの移動
- *************************************/
-void Player::PlayerControl(int oldkey,int gamemode)
-{
-
-	// プレイヤーの左右移動
-	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
-	{
-		// 左移動
-		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
-		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed + 2;
-		}
-		// 歩く：左スティックを左に傾ける
-		else if (oldkey & PAD_INPUT_LEFT)
-		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed;
-		}
-
-		// 右移動
-		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
-		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed + 2;
-			
-		}
-		// 歩く：左スティックを右に傾ける
-		else if (oldkey & PAD_INPUT_RIGHT)
-		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed;
-			
-		}
-
-
-	}
-	// プレイヤーの静止
-	else
-	{
-	// プレイヤー仮表示(白)
-		DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
-	}
-
-	// 画面をはみ出さないようにする
-	// 右
-	if (gPlayer.x > 950)
-	{
-		gPlayer.x = 950;
-	}
-	// 左
-	if (gPlayer.x < -20)
-	{
-		gPlayer.x = -20;
-	}
-
-	mx0 = gPlayer.x;
-	mx1 = mx0 + gPlayer.w;
-	my0 = gPlayer.y;
-	my1 = SCREEN_HEIGHT;
-
-	HitPlayer();
-}
+///*************************************
+// * プレイヤーの移動
+// *************************************/
+//void Player::PlayerControl(int oldkey,int gamemode)
+//{
+//
+//	// プレイヤーの左右移動
+//	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
+//	{
+//		// 左移動
+//		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+//		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
+//		{
+//			// プレイヤー仮表示(赤)
+//			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+//			gPlayer.x -= gPlayer.speed + 2;
+//		}
+//		// 歩く：左スティックを左に傾ける
+//		else if (oldkey & PAD_INPUT_LEFT)
+//		{
+//			// プレイヤー仮表示(水色)
+//			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+//			gPlayer.x -= gPlayer.speed;
+//		}
+//
+//		// 右移動
+//		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+//		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
+//		{
+//			// プレイヤー仮表示(赤)
+//			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+//			gPlayer.x += gPlayer.speed + 2;
+//			
+//		}
+//		// 歩く：左スティックを右に傾ける
+//		else if (oldkey & PAD_INPUT_RIGHT)
+//		{
+//			// プレイヤー仮表示(水色)
+//			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+//			gPlayer.x += gPlayer.speed;
+//			
+//		}
+//
+//
+//	}
+//	// プレイヤーの静止
+//	else
+//	{
+//	// プレイヤー仮表示(白)
+//		DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+//	}
+//
+//	// 画面をはみ出さないようにする
+//	// 右
+//	if (gPlayer.x > 950)
+//	{
+//		gPlayer.x = 950;
+//	}
+//	// 左
+//	if (gPlayer.x < -20)
+//	{
+//		gPlayer.x = -20;
+//	}
+//
+//	mx0 = gPlayer.x;
+//	mx1 = mx0 + gPlayer.w;
+//	my0 = gPlayer.y;
+//	my1 = SCREEN_HEIGHT;
+//
+//	HitPlayer();
+//}
 
 
 // 二乗+二乗の計算
