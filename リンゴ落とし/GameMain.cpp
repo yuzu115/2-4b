@@ -3,7 +3,8 @@
 #include "DrawApple.h"
 #include "Pause.h"
 #include "GameMain.h"
-
+Player p;
+Apple app;
 
 //変数宣言
 int RC=60;
@@ -73,8 +74,10 @@ void DrawUI(int& GameMode,int& FC, int& Pause_flg) {
 void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg){
 	//PlayerInit();								// プレイヤー初期化
 	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-	DrawApple(Pause_flg);
-	PlayerControl(GameMode,Pause_flg);					// プレイヤー操作
+
+	app.DrawApple(Pause_flg);
+	p.PlayerControl(input, GameMode, Pause_flg);
+
 	//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 
 		

@@ -29,6 +29,7 @@ int LoadImages();
 
 //Count変数宣言
 int RoopCount = 0;
+int Count = 0;
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -62,8 +63,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//ループ前にFPS計測を初期化
 	Reset_fps();
 
-	//// プレイヤー初期化
-	PlayerInit();
 
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
@@ -91,16 +90,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			//	break;
 			case MAIN:
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-				app.DrawApple();
-				p.PlayerControl(g_OldKey, GameMode);
-
-				//DrawApple();
-				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
-				//PlayerXControl(input, Button_flg);						// プレイヤー操作(XInput)
-				//PlayerXIControl(input);						// プレイヤー操作(XInput)
-				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
-				//GameMain(GameMode,input,Button_flg,Pause_flg);
-
+			
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理

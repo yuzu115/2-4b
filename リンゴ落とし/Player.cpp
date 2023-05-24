@@ -2,7 +2,7 @@
 #include <math.h>
 #include"Player.h"
 #include"DrawApple.h"
-
+#include "InputControl.h"
 
 int gPlayerImg[5]; // 背景画像
 float ax, ay, ar;
@@ -16,17 +16,17 @@ int RFlg = 0;
 /******************************************
  * 変数の宣言
  ******************************************/
-// リンゴの座標
-float ax, ay, ar;
-//int off, on=0;
-//int gPlayerImg[];
+//// リンゴの座標
+//float ax, ay, ar;
+int off, on=0;
 int gWalkImg[6];
 int gRanImg[6];
+int gStopImg;
 int Movex = 0;	//動いた位置
 int OPx = 0;	//元の位置
 int MoveRanx = 0;
 int OPxRan = 0;
-//int Sc[3]={10,35,50};
+int Sc[3]={10,35,50};
 
 int Img;	//条件に達するまでの少しの間同じ画像を表示し続ける用
 int wImg;		//walkImgの画像どれ表示するかの表示
@@ -57,147 +57,163 @@ Player::~Player()
 
 int Player::LoadPlayerImg(void)
 {
-	// プレイヤー(右向きに走る)画像の読込
-	if ((gPlayerImg[0] = LoadGraph("images/プレイヤー１.png")) == -1) return -1;
-	// プレイヤー(左向きに走る)画像の読込
-	if ((gPlayerImg[1] = LoadGraph("images/RunL.png")) == -1) return -1;
-	// プレイヤー(右向きに歩く)画像の読込
-	if ((gPlayerImg[2] = LoadGraph("images/プレイヤー２.png")) == -1) return -1;
-	// プレイヤー(左向きに歩く)画像の読込
-	if ((gPlayerImg[3] = LoadGraph("images/WalkL.png")) == -1) return -1;
-	// プレイヤー(静止)画像の読込
-	if ((gPlayerImg[4] = LoadGraph("images/プレイヤー３.png")) == -1) return -1;
+	//// プレイヤー(右向きに走る)画像の読込
+	//if ((gPlayerImg[0] = LoadGraph("images/プレイヤー１.png")) == -1) return -1;
+	//// プレイヤー(左向きに走る)画像の読込
+	//if ((gPlayerImg[1] = LoadGraph("images/RunL.png")) == -1) return -1;
+	//// プレイヤー(右向きに歩く)画像の読込
+	//if ((gPlayerImg[2] = LoadGraph("images/プレイヤー２.png")) == -1) return -1;
+	//// プレイヤー(左向きに歩く)画像の読込
+	//if ((gPlayerImg[3] = LoadGraph("images/WalkL.png")) == -1) return -1;
+	//// プレイヤー(静止)画像の読込
+	//if ((gPlayerImg[4] = LoadGraph("images/プレイヤー３.png")) == -1) return -1;
 
+	//画像分割読み込み
+/*以下LoadDivGraphの引数の内容
+*ファイル名
+*画像の数
+*横方向の画像の数
+*縦方向の画像の数
+*画像一つの横サイズ
+*画像一つの縦サイズ
+*画像を格納する配列
+*/
+	if (LoadDivGraph("images/BearWalk.png", 4, 2, 2, 32, 32, gWalkImg) == -1)return -1;
+	if (LoadDivGraph("images/BearRan.png", 6, 3, 2, 32, 32, gRanImg) == -1)return -1;
+	if ((gStopImg = LoadGraph("images/kuma.png")) == -1) return -1;
 	return 0;
+
 }
 
 /*************************************
  * プレイヤーの移動
  *************************************/
-void Player::PlayerControl(int oldkey,int gamemode)
+void Player::PlayerControl(XINPUT_STATE input, int gamemode,int Pause_flg)
 {
 
 	// プレイヤーの左右移動
-	if (oldkey & PAD_INPUT_LEFT || oldkey & PAD_INPUT_RIGHT)
+	if (input & PAD_INPUT_LEFT || input & PAD_INPUT_RIGHT)
 	{
 		// 左移動
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (oldkey & PAD_INPUT_LEFT && oldkey & PAD_INPUT_1)
+		if (input & PAD_INPUT_LEFT && input & PAD_INPUT_1)
 		{
 			// プレイヤー仮表示(赤)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 			gPlayer.x -= gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
-		else if (oldkey & PAD_INPUT_LEFT)
+		else if (input & PAD_INPUT_LEFT)
 		{
 			// プレイヤー仮表示(水色)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 			gPlayer.x -= gPlayer.speed;
 		}
-	if (Pause_flg == 0) {
-		// プレイヤーの左右移動
-		if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
-		{
-			// 左移動
-			// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-			if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
+		if (Pause_flg == 0) {
+			// プレイヤーの左右移動
+			if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
 			{
-				RL = 0;
-				PlayerRan(RL);
-				gPlayer.x -= gPlayer.speed + 2;
-				MoveRanx = gPlayer.x;
-			}
+				// 左移動
+				// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+				if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
+				{
+					RL = 0;
+					PlayerRan(RL);
+					gPlayer.x -= gPlayer.speed + 2;
+					MoveRanx = gPlayer.x;
+				}
 
-			// 歩く：左スティックを左に傾ける
-			else if (InputControl::GetKey(PAD_INPUT_LEFT))
+				// 歩く：左スティックを左に傾ける
+				else if (InputControl::GetKey(PAD_INPUT_LEFT))
+				{
+
+					RL = 0;
+					PlayerWalk(RL);
+					gPlayer.x -= gPlayer.speed;
+					Movex = gPlayer.x;
+
+				}
+
+				// 右移動
+				// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+				if (input & PAD_INPUT_RIGHT && input & PAD_INPUT_1)
+				{
+					// プレイヤー仮表示(赤)
+					DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+					gPlayer.x += gPlayer.speed + 2;
+
+				}
+				// 歩く：左スティックを右に傾ける
+				else if (oldkey & PAD_INPUT_RIGHT)
+				{
+					// プレイヤー仮表示(水色)
+					DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+					gPlayer.x += gPlayer.speed;
+
+				}
+
+				// 右移動
+				// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+				if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
+				{
+					RL = 3;
+					PlayerRan(RL);
+
+					gPlayer.x += gPlayer.speed + 2;
+					MoveRanx = gPlayer.x;
+
+				}
+				// 歩く：左スティックを右に傾ける
+				else if (InputControl::GetKey(PAD_INPUT_RIGHT))
+				{
+
+
+					RL = 2;
+
+					PlayerWalk(RL);
+					gPlayer.x += gPlayer.speed;
+					Movex = gPlayer.x;
+
+				}
+
+			}
+			// プレイヤーの静止
+			else
 			{
+				// プレイヤー仮表示(白)
+				//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
 
-				RL = 0;
-				PlayerWalk(RL);
-				gPlayer.x -= gPlayer.speed;
-				Movex = gPlayer.x;
-
+				//プレイヤー止まってる画像表示
+				DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
 			}
-
-		// 右移動
-		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (oldkey & PAD_INPUT_RIGHT && oldkey & PAD_INPUT_1)
-		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed + 2;
-			
 		}
-		// 歩く：左スティックを右に傾ける
-		else if (oldkey & PAD_INPUT_RIGHT)
-		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed;
-			
-		}
-
-			// 右移動
-			// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-			if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
-			{
-				RL = 3;
-				PlayerRan(RL);
-
-				gPlayer.x += gPlayer.speed + 2;
-				MoveRanx = gPlayer.x;
-
-			}
-			// 歩く：左スティックを右に傾ける
-			else if (InputControl::GetKey(PAD_INPUT_RIGHT))
-			{
-
-
-				RL = 2;
-
-				PlayerWalk(RL);
-				gPlayer.x += gPlayer.speed;
-				Movex = gPlayer.x;
-
-			}
-
-		}
-		// プレイヤーの静止
 		else
 		{
-			// プレイヤー仮表示(白)
-			//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
-
-			//プレイヤー止まってる画像表示
+			//Pauseの時の画像
 			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
 		}
-	}
-	else
-	{
-		//Pauseの時の画像
-		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
-	}
 
 
-	// 画面をはみ出さないようにする
-	// 右
-	if (gPlayer.x > 950)
-	{
-		gPlayer.x = 950;
-	}
-	// 左
-	if (gPlayer.x < -20)
-	{
-		gPlayer.x = -20;
+		// 画面をはみ出さないようにする
+		// 右
+		if (gPlayer.x > 950)
+		{
+			gPlayer.x = 950;
+		}
+		// 左
+		if (gPlayer.x < -20)
+		{
+			gPlayer.x = -20;
+		}
+
+		mx0 = gPlayer.x;
+		mx1 = mx0 + gPlayer.w;
+		my0 = gPlayer.y;
+		my1 = SCREEN_HEIGHT;
+
+		HitPlayer();
 	}
 
-	mx0 = gPlayer.x;
-	mx1 = mx0 + gPlayer.w;
-	my0 = gPlayer.y;
-	my1 = SCREEN_HEIGHT;
-
-	HitPlayer();
 }
 
 
@@ -260,7 +276,7 @@ int Player::HitPlayer(void)
 
 
 //画像を点滅できるようにする
-int PlayerFlashing(int& Count,int& on,int& off) {
+int Player:: PlayerFlashing(int& Count, int& on, int& off) {
 
 	if (Count <= 120) {
 
@@ -291,7 +307,7 @@ int PlayerFlashing(int& Count,int& on,int& off) {
 }
 
 //Playerの歩く動き
-void PlayerWalk(int wImg) {
+void Player::PlayerWalk(int wImg) {
 
 	if (abs(Movex - OPx) > 50) {
 		//一瞬画像が表示されなくなる時間ができるので表示
@@ -322,7 +338,7 @@ void PlayerWalk(int wImg) {
 }
 
 //Playerの走る動き
-void PlayerRan(int rImg)
+void Player::PlayerRan(int rImg)
 {
 	if (abs(MoveRanx - OPxRan) > 56) {
 		/*OPxが動かなくならないように
@@ -351,22 +367,4 @@ void PlayerRan(int rImg)
 		}
 
 		//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg+1], TRUE);
-}
-
-int LoadImg(void) {
-	//画像分割読み込み
-	/*以下LoadDivGraphの引数の内容
-	*ファイル名
-	*画像の数
-	*横方向の画像の数
-	*縦方向の画像の数
-	*画像一つの横サイズ
-	*画像一つの縦サイズ
-	*画像を格納する配列
-	*/
-	if (LoadDivGraph("images/BearWalk.png", 4, 2, 2, 32, 32, gWalkImg) == -1)return -1;
-	if (LoadDivGraph("images/BearRan.png", 6, 3, 2, 32, 32, gRanImg) == -1)return -1;
-	if ((gStopImg = LoadGraph("images/kuma.png")) == -1) return -1;
-	return 0;
-	return FALSE;
 }

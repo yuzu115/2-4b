@@ -27,22 +27,15 @@ public:
 /******************************************
  * 関数のプロトタイプ宣言
  ******************************************/
-void PlayerInit(void);                            // プレイヤー初期化
-void PlayerControl(int gamemode,int& Pause_flg);     // プレイヤー制御
-void GetApple(float ax0, float ay0, float ar0);         // リンゴの座標を変数に格納
-void HitPlayer(void);                            // リンゴとプレイヤーの当たり判定
-float Pythagorean(float px, float py, float ax, float ay);  // ピタゴラスの定理の計算
-int PlayerFlashing(int& Count,int& on,int& off);
-void PlayerWalk(int wImg);
-void PlayerRan(int rImg);
-int LoadImg(void);
-
 	Player();
 	~Player();                  
-	void PlayerControl(int oldkey, int gamemode);     // プレイヤー制御
+	void PlayerControl(XINPUT_STATE input, int gamemode,int Pause_flg);     // プレイヤー制御
 	void GetApple(Apple::APPLE_DATA* a);
 	int HitPlayer(void);                          // リンゴとプレイヤーの当たり判定
 	float Pythagorean(float px, float py, float ax, float ay);  // ピタゴラスの定理の計算
 	int LoadPlayerImg(void);       // 画像読込
+	int PlayerFlashing(int& Count, int& on, int& off);	//プレイヤー点滅処理
+	void PlayerWalk(int wImg);		//歩く画像切り替え処理
+	void PlayerRan(int rImg);		//走る画像切り替え処理
 };
 
