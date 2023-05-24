@@ -31,7 +31,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 	if (Pause_flg == 0) {
 
-		if (FC == 28) {
+		if (FC >= 28) {
 			RoopC -= 1;
 			FC = 0;
 		}
@@ -40,9 +40,6 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 			//60秒たったらリザルト画面へ移動
 			GameMode = 6;
 		}
-
-	}
-	else {
 
 	}
 
@@ -84,7 +81,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg) {
 
-	//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	DrawUI(GameMode, FC, Pause_flg);
 	//PlayerInit();								// プレイヤー初期化
 	app.DrawApple(Pause_flg);
@@ -113,6 +110,7 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 
 	DrawFormatString(0, 120, 0x000000, "Pause_flg:%d", Pause_flg);
 	DrawFormatString(0, 140, 0x000000, "b_flg:%d", Button_flg);
+	DrawFormatString(300, 160, 0x000000, "FC:%d", FC);
 	//DrawUI(int& FC);
 	FC += 1;
 }

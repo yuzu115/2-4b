@@ -214,7 +214,7 @@ int Player::HitPlayer(void)
 void Player::PlayerXControl(XINPUT_STATE input, int& button_flg,int& Pause_flg)
 {
 
-if (Pause_flg) {
+if (Pause_flg==0) {
 		// プレイヤーの左右移動
 		// スティックをはじいたとき、値が戻らないため-1700と1700を設定している
 		if (input.ThumbLX < -1700 || input.ThumbLX > 1700)

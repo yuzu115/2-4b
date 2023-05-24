@@ -85,7 +85,15 @@ void Apple::DrawApple(int& Pause_flg){
 
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
 			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
-			gApple[i].y +=  gApple[i].speed ;
+			if (Pause_flg == 0) {
+				gApple[i].y += gApple[i].speed;
+			}
+			else
+			{
+				gApple[i].y = gApple[i].y;
+				SetFontSize(20);
+				DrawFormatString(490, 350, 0x000000, "É|Å[ÉYíÜ", gApple[i].speed);
+			}
 	
 
 			p.GetApple(&gApple[i]);
