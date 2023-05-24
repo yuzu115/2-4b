@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
+#include"Resalt.h"
 
 int gAppleImg[APPLE_TYPE];
 int gRandApple;
@@ -12,6 +13,7 @@ int Count_R;
 int Count_B;
 int Count_Go;
 int Count_Po;
+
 
 //ƒŠƒ“ƒS‚Ì•Ï”
 Apple::APPLE_DATA gApple[APPLE_MAX];
@@ -33,6 +35,11 @@ Apple::Apple()
 
 	
 	gRandApple = 0;
+
+	gScore.r = 0;
+	gScore.b = 0;
+	gScore.g = 0;
+	gScore.p = 0;
 
 }
 /*
@@ -63,6 +70,7 @@ int Apple::AppleSet(void)
 void Apple::DrawApple(void){
 
 	Player p;	
+	Apple ap;
 
 	//¶¬ŠÖ”‚Ì“Ç‚Ýž‚Ý
 	Apple::CreateApple();
@@ -80,6 +88,7 @@ void Apple::DrawApple(void){
 	
 
 			p.GetApple(&gApple[i]);
+			GetAppScore(&gScore);
 
 			//gApple‚ÌyÀ•W‚ª1000ˆÈ‰º‚É‚È‚Á‚½‚Æ‚«Á‹Ž
 			if (gApple[i].y > 1000) {
@@ -92,17 +101,20 @@ void Apple::DrawApple(void){
 
 				Score += gApple[i].score;
 
-				if (gApple[i].type == 0)	Count_R++;
-				if (gApple[i].type == 1) 	Count_B++;
-				if (gApple[i].type == 2) 	Count_Go++;
-				if (gApple[i].type == 3)	Count_Po++;
+
+				if (gApple[i].type == 0)	gScore.r++;
+				if (gApple[i].type == 1) 	gScore.b++;
+				if (gApple[i].type == 2) 	gScore.g++;
+				if (gApple[i].type == 3)	gScore.p++;
 
 			}
+
+			
 			
 			DrawFormatString(0, 0, 0x000000, "Score:%d",Score);
-			DrawFormatString(0, 20, 0x000000, "Red:%d", Count_R);
-			DrawFormatString(0, 40, 0x000000, "Blue:%d", Count_B);
-			DrawFormatString(0, 60, 0x000000, "Gold:%d", Count_Go);
+			DrawFormatString(0, 20, 0x000000, "Red:%d", gScore.r);
+			DrawFormatString(0, 40, 0x000000, "Blue:%d", gScore.b);
+			DrawFormatString(0, 60, 0x000000, "Gold:%d", gScore.g);
 			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
 
 		}	
@@ -175,7 +187,7 @@ int Apple::RandApple()
 	}
 }
 
-int GetScore()
+int Apple::GetScore()
 {
 	return Score;
 }

@@ -9,11 +9,26 @@ int ResultBackImg;					// 背景画像
 
 int ResultWaitTime = 0;					// 待ち時間
 
+int RS;
+int BS;
+int GS;
+int PS;
+
+void GetAppScore(Apple::AppScore* as)
+{
+	RS = as->r;
+	BS = as->b;
+	GS = as->g;
+	PS = as->p;
+}
+
 /****************************************
 * リザルト画面描画
 *****************************************/
 void DrawResult(RankingData Ranking[], int& GameMode)
 {
+	Apple app;
+
 	LoadResultImages();					// リザルト画像読込
 
 	// ReadRanking(Ranking);			//ランキングデータの読込
@@ -21,7 +36,7 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	if (++ResultWaitTime > 180) {
 		// スコアがランキングの最下位の値以上
-		if (Ranking[RANK_MAX - 1].score <= GetScore()) {
+		if (Ranking[RANK_MAX - 1].score <= app.GetScore()) {
 			GameMode = 5;				// INPUTNAME
 		}
 		else {
@@ -35,11 +50,11 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	DrawGraph(0, 0, ResultBackImg, FALSE);
 
 	SetFontSize(30);
-	DrawFormatString(400, 300, 0x000000, "赤リンゴ：%3d\n");
-	DrawFormatString(400, 340, 0x000000, "青リンゴ：%3d\n");
-	DrawFormatString(400, 380, 0x000000, "金リンゴ：%3d\n");
-	DrawFormatString(400, 420, 0x000000, "毒リンゴ：%3d\n");
-	DrawFormatString(400, 460, 0x000000, "スコア　：%3d\n",GetScore());
+	DrawFormatString(400, 300, 0x000000, "赤リンゴ：%3d\n",RS);
+	DrawFormatString(400, 340, 0x000000, "青リンゴ：%3d\n",BS);
+	DrawFormatString(400, 380, 0x000000, "金リンゴ：%3d\n",GS);
+	DrawFormatString(400, 420, 0x000000, "毒リンゴ：%3d\n",PS);
+	DrawFormatString(400, 460, 0x000000, "スコア　：%3d\n",app.GetScore());
 
 }
 

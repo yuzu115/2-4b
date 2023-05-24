@@ -17,6 +17,13 @@ public:
 		float size;		//当たり判定の倍率
 	};
 
+	typedef struct AppScore
+	{
+		int r, b, g, p;
+	}AppScore;
+
+	AppScore gScore;
+
 	/******************************************
 	* 関数のプロトタイプ宣言
 	 ******************************************/
@@ -29,6 +36,7 @@ public:
 	int RandApple(void);
 	void AppleHit(APPLE_DATA* a);
 
+	int GetScore(void);					// スコアを返す関数
 
 private:
 	//各リンゴのデータ
@@ -37,6 +45,3 @@ private:
 	APPLE_DATA gApple_Gl = { FALSE,2,0,0,-40,45,3.5f,500,1.1f }; //金
 	APPLE_DATA gApple_Po = { FALSE,3,0,0,-40,45,0.5f,-750,0.9f }; //毒
 };
-
-int GetScore(void);
-
