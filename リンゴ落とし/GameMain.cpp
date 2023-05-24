@@ -16,7 +16,7 @@ void DrawUI(int& GameMode,int& FC, int& Pause_flg) {
 	if (Pause_flg == 0) {
 
 		if (FC == 28) {
-		//	RC -= 1;
+		RC -= 1;
 		}
 
 		if (RC == 0) {
