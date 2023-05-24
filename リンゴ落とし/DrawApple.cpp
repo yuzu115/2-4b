@@ -39,8 +39,12 @@ struct AppleDate gAppleState[APPLE_TYPE];
 //乱数格納変数
 int gRandApple;
 
-int a3, b3, c3;
+int a3, b3;
+float c3;
+float numi[APPLE_MAX];
+int y;
 int Aflg = 0;
+int InitA = 0;
 
 int apx[APPLE_MAX];
 int apy[APPLE_MAX];
@@ -95,16 +99,11 @@ void DrawApple(int& Pause_flg){
 
 			DrawFormatString(0, 200, 0x000000, "apr:%d", apr[i]);
 			DrawFormatString(0, 220, 0x000000, "apt:%d", apt[i]);
-
 			DrawFormatString(520, 400, 0x000000, "ｃ３＝%d", c3);
 
-			if (Aflg == 1) {
-				DrawString(490, 300, "かぶってる", 0x000000);
-				Aflg = 0;
-			}
-			else {
-				//DrawString(490, 300, "かぶってなし", 0x000000);
-			}
+			
+
+
 
 		}
 
@@ -116,6 +115,12 @@ void DrawApple(int& Pause_flg){
 
 	//生成関数の読み込み
 	CreateApple();
+
+
+	DrawFormatString(520, 420, 0x000000, "numi1＝%d", numi[0]);
+	DrawFormatString(520, 440, 0x000000, "2＝%d", numi[1]);
+	DrawFormatString(520, 460, 0x000000, "3＝%d", numi[2]);
+	DrawFormatString(520, 480, 0x000000, "4＝%d", numi[3]);
 
 }
 
@@ -129,6 +134,7 @@ int CreateApple()
 	AppleSet();
 
 	for (int i = 0; i < APPLE_MAX; i++) {
+
 		if (gApple[i].flg == FALSE) {
 
 		
@@ -136,53 +142,67 @@ int CreateApple()
 			gApple[i] = gAppleState[RandApple()];	//ステータスの格納
 
 			gApple[i].img = gApple[i].color;
-			gApple[i].x = GetRand(7) * 125 + 50;
+			gApple[i].x = GetRand(6) * 125 + 50;
+
+		
+
 			gApple[i].speed = gApple[i].speed;
 			gApple[i].flg = TRUE;
 
-			//a3 = gApple[i].x - gApple2[i].x;
-			//b3 = gApple[i].y - gApple2[i].y;
-			//c3 = sqrt(a3 * a3 + b3 * b3);
 
 
-			///*if (c3 <= gApple[i].r) {
-			//	DrawString(490, 390, "aaaaaa", 0x000000);
-			//}*/
-			//if (gApple[i].type == gApple2[i].type) {
+			if (InitA == 0) {
+				InitA = 1;
+				apx[i] = gApple[i].x;
+				apy[i] = gApple[i].y;
+				apt[i] = gApple[i].type;
+				apr[i] = gApple[i].r;
+			}
 
-			//	if (gApple[i].x == gApple2[i].x && c3 <= gApple[i].r+10) {
-			//		DrawString(490, 390, "aaaaaa", 0x000000);
-			//		Aflg = 1;
-			//	}
+			for (int j = 0; j < i; j++) {
+				if (gApple[i].type == apt[j]) {
 
-			//}
-			apx[i] = gApple[i].x;
-			apy[i] = gApple[i].y;
-			apt[i] = gApple[i].type;
-			apr[i] = gApple[i].r;
-
-
-			for (int j = 1; j < i; j++) {
-				if (apt[i] == apt[j]) {
-
-					DrawString(490, 370, "iiiiiii", 0x000000);
-					a3 = apx[j] - apx[i];
-					b3 = apy[j] - apy[i];
+					//DrawString(490, 370, "iiiiiii", 0x000000);
+					a3 = apx[j] - gApple[i].x;
+					b3 = apy[j] - gApple[i].y;
 					c3 = sqrt(a3 * a3 + b3 * b3);
-
+					
 					//被ってた場合typeを変更する気持ち
-					if (apx[i] == apx[j] && c3 <= apr[j]) {
-						if (gApple[i].type == 3) {
-							gApple[i].type = 2;
-						}
-						else if(gApple[i].type<3) {
-							gApple[i].type += 1;
-						}
+					if (gApple[i].x == apx[j] && c3 <= gApple[i].r+apr[j] && b3<= gApple[i].r + apr[j]) {
+
+						//gAppleの中の使ってる値に別の値が入ってきてしまうから変わっちゃう説
+						/*gApple[i].img = 0x000000;
+						gApple[j].img = 0x00ffff;*/
+						numi[i] = i;
+
 						DrawString(490, 390, "aaaaaa", 0x000000);
 						Aflg = 1;
 					}
 				}
 			}
+			
+			if (Aflg == 1) {
+				Aflg = 0;
+				for (int i = 0; i < APPLE_MAX; i++) {
+					if (numi[i] == 0) {
+
+					}
+					else {
+						gApple[0].x += 10;
+						gApple[0].img = 0x00ffff;
+					}
+					numi[i] = 0;
+				}
+			}
+
+			DrawFormatString(0, 240, 0x000000, "x:%d", gApple[0].x);
+			WaitTimer(100);
+			apx[i] = gApple[i].x;
+			apy[i] = gApple[i].y;
+			apt[i] = gApple[i].type;
+			apr[i] = gApple[i].r;
+
+			
 			return TRUE;
 		}
 	}
