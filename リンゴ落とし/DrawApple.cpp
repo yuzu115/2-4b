@@ -9,7 +9,7 @@ int gAppleImg[APPLE_TYPE];
 int gRandApple;
 
 int Score;
-int Count;
+int DCount;
 
 int Count_R;
 int Count_B;
@@ -117,7 +117,7 @@ void Apple::DrawApple(int& Pause_flg){
 			DrawFormatString(0, 20, 0x000000, "Red:%d", gScore.r);
 			DrawFormatString(0, 40, 0x000000, "Blue:%d", gScore.b);
 			DrawFormatString(0, 60, 0x000000, "Gold:%d", gScore.g);
-			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
+			DrawFormatString(0, 80, 0x000000, "Count:%d", DCount);
 
 		}	
 	}	

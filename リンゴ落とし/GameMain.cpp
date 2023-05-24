@@ -3,14 +3,13 @@
 #include "DrawApple.h"
 #include "Pause.h"
 #include "GameMain.h"
-Player p;
-Apple app;
+
 
 //変数宣言
 int RC=60;
 int gNumImg[10];
 int aR,aG,aY;
-int gBackImg;
+int GMBackImg;
 
 
 void DrawUI(int& GameMode,int& FC, int& Pause_flg) {
@@ -72,11 +71,14 @@ void DrawUI(int& GameMode,int& FC, int& Pause_flg) {
 }
 
 void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg){
+
+	Apple app;
+	Player p;
 	//PlayerInit();								// プレイヤー初期化
 	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 
 	app.DrawApple(Pause_flg);
-	p.PlayerControl(input, GameMode, Pause_flg);
+	p.PlayerXControl(input, GameMode, Pause_flg);
 
 	//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 
@@ -107,9 +109,10 @@ void GameMain(int& GameMode,XINPUT_STATE input, int& Button_flg,int& Pause_flg){
 /*****************
 *ゲームメイン    *
 *****************/
+
 int LoadBackImg(void)
 {
-	if ((gBackImg = LoadGraph("images/title2.png")) == -1)return -1;
+	if ((GMBackImg = LoadGraph("images/title2.png")) == -1)return -1;
 	return 0;
 }
 
@@ -120,11 +123,12 @@ int LoadNumImg() {
 	aG = LoadGraph("images/GreenApple.png");
 	aY = LoadGraph("images/GoldApple.png");
 }
+
 /*****************
 *仮表示          *
 *****************/
 void DrawBack(void)
 {
 	LoadBackImg();
-	DrawExtendGraph(0, 0, 1000, 720, gBackImg, TRUE);
+	DrawExtendGraph(0, 0, 1000, 720, GMBackImg, TRUE);
 }

@@ -49,4 +49,4 @@ int g_Score;      //ÉXÉRÉA
 
 
 //int Count=0;
-int on, off = 0;
+//int on, off = 0;

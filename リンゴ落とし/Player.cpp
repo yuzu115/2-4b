@@ -18,15 +18,16 @@ int RFlg = 0;
  ******************************************/
 //// リンゴの座標
 //float ax, ay, ar;
-int off, on=0;
+//int Ploff, Plon=0;
 int gWalkImg[6];
 int gRanImg[6];
 int gStopImg;
-int Movex = 0;	//動いた位置
-int OPx = 0;	//元の位置
-int MoveRanx = 0;
-int OPxRan = 0;
+float Movex = 0;	//動いた位置
+float OPx = 0;	//元の位置
+float MoveRanx = 0;
+float OPxRan = 0;
 int Sc[3]={10,35,50};
+int bs;
 
 int Img;	//条件に達するまでの少しの間同じ画像を表示し続ける用
 int wImg;		//walkImgの画像どれ表示するかの表示
@@ -87,135 +88,135 @@ int Player::LoadPlayerImg(void)
 
 /*************************************
  * プレイヤーの移動
- *************************************/
-void Player::PlayerControl(XINPUT_STATE input, int gamemode,int Pause_flg)
-{
-
-	// プレイヤーの左右移動
-	if (input & PAD_INPUT_LEFT || input & PAD_INPUT_RIGHT)
-	{
-		// 左移動
-		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (input & PAD_INPUT_LEFT && input & PAD_INPUT_1)
-		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed + 2;
-		}
-		// 歩く：左スティックを左に傾ける
-		else if (input & PAD_INPUT_LEFT)
-		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed;
-		}
-		if (Pause_flg == 0) {
-			// プレイヤーの左右移動
-			if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
-			{
-				// 左移動
-				// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-				if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
-				{
-					RL = 0;
-					PlayerRan(RL);
-					gPlayer.x -= gPlayer.speed + 2;
-					MoveRanx = gPlayer.x;
-				}
-
-				// 歩く：左スティックを左に傾ける
-				else if (InputControl::GetKey(PAD_INPUT_LEFT))
-				{
-
-					RL = 0;
-					PlayerWalk(RL);
-					gPlayer.x -= gPlayer.speed;
-					Movex = gPlayer.x;
-
-				}
-
-				// 右移動
-				// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-				if (input & PAD_INPUT_RIGHT && input & PAD_INPUT_1)
-				{
-					// プレイヤー仮表示(赤)
-					DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-					gPlayer.x += gPlayer.speed + 2;
-
-				}
-				// 歩く：左スティックを右に傾ける
-				else if (oldkey & PAD_INPUT_RIGHT)
-				{
-					// プレイヤー仮表示(水色)
-					DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-					gPlayer.x += gPlayer.speed;
-
-				}
-
-				// 右移動
-				// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-				if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
-				{
-					RL = 3;
-					PlayerRan(RL);
-
-					gPlayer.x += gPlayer.speed + 2;
-					MoveRanx = gPlayer.x;
-
-				}
-				// 歩く：左スティックを右に傾ける
-				else if (InputControl::GetKey(PAD_INPUT_RIGHT))
-				{
-
-
-					RL = 2;
-
-					PlayerWalk(RL);
-					gPlayer.x += gPlayer.speed;
-					Movex = gPlayer.x;
-
-				}
-
-			}
-			// プレイヤーの静止
-			else
-			{
-				// プレイヤー仮表示(白)
-				//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
-
-				//プレイヤー止まってる画像表示
-				DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
-			}
-		}
-		else
-		{
-			//Pauseの時の画像
-			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
-		}
-
-
-		// 画面をはみ出さないようにする
-		// 右
-		if (gPlayer.x > 950)
-		{
-			gPlayer.x = 950;
-		}
-		// 左
-		if (gPlayer.x < -20)
-		{
-			gPlayer.x = -20;
-		}
-
-		mx0 = gPlayer.x;
-		mx1 = mx0 + gPlayer.w;
-		my0 = gPlayer.y;
-		my1 = SCREEN_HEIGHT;
-
-		HitPlayer();
-	}
-
-}
-
+// *************************************/
+//void Player::PlayerControl(XINPUT_STATE input, int gamemode,int Pause_flg)
+//{
+//
+//	// プレイヤーの左右移動
+//	if (input & PAD_INPUT_LEFT || input & PAD_INPUT_RIGHT)
+//	{
+//		// 左移動
+//		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+//		if (input & PAD_INPUT_LEFT && input & PAD_INPUT_1)
+//		{
+//			// プレイヤー仮表示(赤)
+//			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+//			gPlayer.x -= gPlayer.speed + 2;
+//		}
+//		// 歩く：左スティックを左に傾ける
+//		else if (input & PAD_INPUT_LEFT)
+//		{
+//			// プレイヤー仮表示(水色)
+//			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+//			gPlayer.x -= gPlayer.speed;
+//		}
+//		if (Pause_flg == 0) {
+//			// プレイヤーの左右移動
+//			if (InputControl::GetKey(PAD_INPUT_LEFT) || InputControl::GetKey(PAD_INPUT_RIGHT))
+//			{
+//				// 左移動
+//				// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+//				if (InputControl::GetKey(PAD_INPUT_LEFT) && InputControl::GetKey(PAD_INPUT_1))
+//				{
+//					RL = 0;
+//					PlayerRan(RL);
+//					gPlayer.x -= gPlayer.speed + 2;
+//					MoveRanx = gPlayer.x;
+//				}
+//
+//				// 歩く：左スティックを左に傾ける
+//				else if (InputControl::GetKey(PAD_INPUT_LEFT))
+//				{
+//
+//					RL = 0;
+//					PlayerWalk(RL);
+//					gPlayer.x -= gPlayer.speed;
+//					Movex = gPlayer.x;
+//
+//				}
+//
+//				// 右移動
+//				// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+//				if (input & PAD_INPUT_RIGHT && input & PAD_INPUT_1)
+//				{
+//					// プレイヤー仮表示(赤)
+//					DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+//					gPlayer.x += gPlayer.speed + 2;
+//
+//				}
+//				// 歩く：左スティックを右に傾ける
+//				else if (oldkey & PAD_INPUT_RIGHT)
+//				{
+//					// プレイヤー仮表示(水色)
+//					DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+//					gPlayer.x += gPlayer.speed;
+//
+//				}
+//
+//				// 右移動
+//				// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+//				if (InputControl::GetKey(PAD_INPUT_RIGHT) && InputControl::GetKey(PAD_INPUT_1))
+//				{
+//					RL = 3;
+//					PlayerRan(RL);
+//
+//					gPlayer.x += gPlayer.speed + 2;
+//					MoveRanx = gPlayer.x;
+//
+//				}
+//				// 歩く：左スティックを右に傾ける
+//				else if (InputControl::GetKey(PAD_INPUT_RIGHT))
+//				{
+//
+//
+//					RL = 2;
+//
+//					PlayerWalk(RL);
+//					gPlayer.x += gPlayer.speed;
+//					Movex = gPlayer.x;
+//
+//				}
+//
+//			}
+//			// プレイヤーの静止
+//			else
+//			{
+//				// プレイヤー仮表示(白)
+//				//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+//
+//				//プレイヤー止まってる画像表示
+//				DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
+//			}
+//		}
+//		else
+//		{
+//			//Pauseの時の画像
+//			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
+//		}
+//
+//
+//		// 画面をはみ出さないようにする
+//		// 右
+//		if (gPlayer.x > 950)
+//		{
+//			gPlayer.x = 950;
+//		}
+//		// 左
+//		if (gPlayer.x < -20)
+//		{
+//			gPlayer.x = -20;
+//		}
+//
+//		mx0 = gPlayer.x;
+//		mx1 = mx0 + gPlayer.w;
+//		my0 = gPlayer.y;
+//		my1 = SCREEN_HEIGHT;
+//
+//		HitPlayer();
+//	}
+//
+//}
+//
 
 // 二乗+二乗の計算
 float Player::Pythagorean(float px, float py, float ax, float ay)
@@ -278,54 +279,63 @@ int Player::HitPlayer(void)
 /*************************************
  * プレイヤーの移動(XInput)
  *************************************/
-void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
+void Player::PlayerXControl(XINPUT_STATE input, int& button_flg,int& Pause_flg)
 {
 
-	// プレイヤーの左右移動
-	if (input.ThumbLX < 128 || input.ThumbLX > 128)
-	{
-		// 左移動
-		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (input.ThumbLX < 128 && input.Buttons[XINPUT_BUTTON_A] == 1)
+		// プレイヤーの左右移動
+		if (input.ThumbLX < 128 || input.ThumbLX > 128)
 		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed + 2;
+
+			// 左移動
+			// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+			if (input.ThumbLX < 128 && input.Buttons[XINPUT_BUTTON_A] == 1)
+			{
+				RL = 0;
+				PlayerRan(RL);
+				gPlayer.x -= gPlayer.speed + 2;
+				MoveRanx = gPlayer.x;
+
+
+			}
+			// 歩く：左スティックを左に傾ける
+			else if (input.ThumbLX < 128)
+			{
+				RL = 0;
+				PlayerWalk(RL);
+				gPlayer.x -= gPlayer.speed;
+				Movex = gPlayer.x;
+			}
+
+			// 右移動
+			// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+			if (input.ThumbLX > 128 && input.Buttons[XINPUT_BUTTON_A] == 1)
+			{
+
+				RL = 3;
+				PlayerRan(RL);
+				gPlayer.x += gPlayer.speed + 2;
+				MoveRanx = gPlayer.x;
+				
+
+			}
+			// 歩く：左スティックを右に傾ける
+			else if (input.ThumbLX > 128)
+			{
+				RL = 2;
+				PlayerWalk(RL);
+				gPlayer.x += gPlayer.speed;
+				Movex = gPlayer.x;
+
+			}
 		}
-		// 歩く：左スティックを左に傾ける
-		else if (input.ThumbLX < 128)
+		else
 		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-			gPlayer.x -= gPlayer.speed;
-		}
-
-		// 右移動
-		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (input.ThumbLX > 128 && input.Buttons[XINPUT_BUTTON_A] == 1)
-		{
-			// プレイヤー仮表示(赤)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed + 2;
-
-		}
-		// 歩く：左スティックを右に傾ける
-		else if (input.ThumbLX > 128)
-		{
-			// プレイヤー仮表示(水色)
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-			gPlayer.x += gPlayer.speed;
+			//プレイヤー止まってる画像表示
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
 
 		}
 
-
-	}
-	// プレイヤーの静止
-	else
-	{
-		// プレイヤー仮表示(白)
-		DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
-	}
+	
 
 	// 画面をはみ出さないようにする
 	// 右
@@ -346,7 +356,7 @@ void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
 
 	HitPlayer();
 }
-}
+
 
 
 //画像を点滅できるようにする
@@ -383,46 +393,50 @@ int Player:: PlayerFlashing(int& Count, int& on, int& off) {
 //Playerの歩く動き
 void Player::PlayerWalk(int wImg) {
 
-	if (abs(Movex - OPx) > 50) {
+	if (fabs(Movex - OPx) > 50) {
 		//一瞬画像が表示されなくなる時間ができるので表示
 		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
 		//OPxが動かなくならないように
 		OPx = Movex-10;
 	}
-	else {
-	//歩く動き
-	switch (abs(Movex - OPx)) {
-	case 20:
-		DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gWalkImg[wImg], TRUE);
-		Img = wImg;
-		break;
-	case 50:
-		DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gWalkImg[wImg + 1], TRUE);
-		Img = wImg + 1;
-		OPx = gPlayer.x;
-		break;
-	default:
-		DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
 
-	}
+	bs = (int)fabs(MoveRanx - OPxRan);
+		//歩く動き
+		switch (bs) {
+		case 20:
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gWalkImg[wImg], TRUE);
+			Img = wImg;
+			break;
+		case 50:
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gWalkImg[wImg + 1], TRUE);
+			Img = wImg + 1;
+			OPx = gPlayer.x;
+			break;
+		default:
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
 
-}
-
+		}
 	
 }
+
 
 //Playerの走る動き
 void Player::PlayerRan(int rImg)
 {
-	if (abs(MoveRanx - OPxRan) > 56) {
+	if (fabs(MoveRanx - OPxRan) > 56) {
+
+		//一瞬画像が表示されなくなる時間ができるので表示
+		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gWalkImg[rImg], TRUE);
 		/*OPxが動かなくならないように
 		歩く動きからZで切り替えたとき、caseで判定できる数より、
 		MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
 		if文でリセットしている*/
 		OPxRan = MoveRanx;
 	}
+
+	bs = (int)fabs(MoveRanx - OPxRan);
 		//走る動き
-		switch (abs(MoveRanx - OPxRan)) {
+		switch (bs) {
 		case 21:
 			DrawExtendGraph(gPlayer.x-7, gPlayer.y-10, gPlayer.x + gPlayer.w+7, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
 			Img = rImg;

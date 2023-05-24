@@ -30,6 +30,8 @@ int LoadImages();
 //Count変数宣言
 int RoopCount = 0;
 int Count = 0;
+int on = 0;
+int off = 0;
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -80,16 +82,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
-				//DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
-				//GameMain(GameMode);
-				GameMain(GameMode, input, Button_flg, Pause_flg);
-				DrawUI(GameMode,RoopCount, Pause_flg);
+				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+
 				break;
 			//case INIT:
 			//	GameInit(GameMode);							// ゲーム初期化
 			//	break;
 			case MAIN:
-				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+
+				GameMain(GameMode, input, Button_flg, Pause_flg);
+				DrawUI(GameMode, RoopCount, Pause_flg);
+				//DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 			
 				break;
 			case RANKING:
