@@ -188,15 +188,14 @@ int CreateApple()
 
 					}
 					else {
-						gApple[0].x += 10;
-						gApple[0].img = 0x00ffff;
+						gApple[i].x += 10;
+						gApple[i].img = 0x00ffff;
 					}
 					numi[i] = 0;
 				}
 			}
 
 			DrawFormatString(0, 240, 0x000000, "x:%d", gApple[0].x);
-			WaitTimer(100);
 			apx[i] = gApple[i].x;
 			apy[i] = gApple[i].y;
 			apt[i] = gApple[i].type;
@@ -207,25 +206,6 @@ int CreateApple()
 		}
 	}
 
-	//for (int i = 0; i < APPLE_MAX; i++) {
-	//	if (gApple[i].flg == FALSE) {
-
-	//		//for (int j = 1; j < i; j++) {
-	//		//	if (apt[i] == apt[j]) {
-
-	//		//		DrawString(490, 370, "iiiiiii", 0x000000);
-	//		//		a3 = apx[i] - apx[j];
-	//		//		b3 = apy[i] - apy[j];
-	//		//		c3 = sqrt(a3 * a3 + b3 * b3);
-	//		//		if (apx[i] == apx[j] && c3 <= apr[j]) {
-	//		//			gApple[j].r += 5;
-	//		//			DrawString(490, 390, "aaaaaa", 0x000000);
-	//		//			Aflg = 1;
-	//		//		}
-	//		//	}
-	//		//}
-	//	}
-	//}
 	
 
 	return FALSE;
