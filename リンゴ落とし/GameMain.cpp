@@ -31,9 +31,8 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 	if (Pause_flg == 0) {
 
-		if (FC >= 28) {
+		if (FC == 28) {
 			RoopC -= 1;
-			FC = 0;
 		}
 
 		if (RoopC == 0) {
@@ -83,6 +82,11 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 
 	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	DrawUI(GameMode, FC, Pause_flg);
+
+	if (FC == 28) {
+
+		FC = 0;
+	}
 	//PlayerInit();								// プレイヤー初期化
 	app.DrawApple(Pause_flg);
 	p.PlayerXControl(input, Button_flg, Pause_flg);					// プレイヤー操作
