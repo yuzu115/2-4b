@@ -73,7 +73,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			case MAIN:
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				app.DrawApple();
-				p.PlayerControl(g_OldKey, GameMode);
+				p.PlayerXControl(input,Button_flg);
 
 				//DrawApple();
 				//PlayerControl(GameMode);						// ÉvÉåÉCÉÑÅ[ëÄçÏ(joypad)

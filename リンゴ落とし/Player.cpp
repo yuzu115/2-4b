@@ -179,3 +179,75 @@ int Player::HitPlayer(void)
 	}
 	return FALSE;
 }
+
+/*************************************
+ * プレイヤーの移動(XInput)
+ *************************************/
+void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
+{
+
+	// プレイヤーの左右移動
+	if (input.ThumbLX < 128 || input.ThumbLX > 128)
+	{
+		// 左移動
+		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+		if (input.ThumbLX < 128 && input.Buttons[XINPUT_BUTTON_A] == 1)
+		{
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			gPlayer.x -= gPlayer.speed + 2;
+		}
+		// 歩く：左スティックを左に傾ける
+		else if (input.ThumbLX < 128)
+		{
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			gPlayer.x -= gPlayer.speed;
+		}
+
+		// 右移動
+		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+		if (input.ThumbLX > 128 && input.Buttons[XINPUT_BUTTON_A] == 1)
+		{
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			gPlayer.x += gPlayer.speed + 2;
+
+		}
+		// 歩く：左スティックを右に傾ける
+		else if (input.ThumbLX > 128)
+		{
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			gPlayer.x += gPlayer.speed;
+
+		}
+
+
+	}
+	// プレイヤーの静止
+	else
+	{
+		// プレイヤー仮表示(白)
+		DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xffffff, TRUE);
+	}
+
+	// 画面をはみ出さないようにする
+	// 右
+	if (gPlayer.x > 950)
+	{
+		gPlayer.x = 950;
+	}
+	// 左
+	if (gPlayer.x < -20)
+	{
+		gPlayer.x = -20;
+	}
+
+	mx0 = gPlayer.x;
+	mx1 = mx0 + gPlayer.w;
+	my0 = gPlayer.y;
+	my1 = SCREEN_HEIGHT;
+
+	HitPlayer();
+}
