@@ -38,6 +38,7 @@
     <ClInclude Include="DrawApple.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="GameInit.h" />
+    <ClInclude Include="GameMain.h" />
     <ClInclude Include="infomation.h" />
     <ClInclude Include="InputControl.h" />
     <ClInclude Include="Keyboard.h" />

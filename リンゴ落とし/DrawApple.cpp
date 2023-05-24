@@ -2,6 +2,7 @@
 #include"DrawApple.h"
 #include"Player.h"
 #include"Resalt.h"
+#include "GameMain.h"
 
 int gAppleImg[APPLE_TYPE];
 int gRandApple;
@@ -89,6 +90,7 @@ void Apple::DrawApple(int& Pause_flg){
 
 			p.GetApple(&gApple[i]);
 			GetAppScore(&gScore);
+			GetAppCount(&gScore);
 
 			//gApple‚ÌyÀ•W‚ª1000ˆÈ‰º‚É‚È‚Á‚½‚Æ‚«Á‹Ž
 			if (gApple[i].y > 1000) {
