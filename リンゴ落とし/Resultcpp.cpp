@@ -49,12 +49,12 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	// リザルト画像の表示
 	DrawGraph(0, 0, ResultBackImg, FALSE);
 
-	SetFontSize(30);
-	DrawFormatString(400, 300, 0x000000, "赤リンゴ：%3d\n",RS);
-	DrawFormatString(400, 340, 0x000000, "青リンゴ：%3d\n",BS);
-	DrawFormatString(400, 380, 0x000000, "金リンゴ：%3d\n",GS);
-	DrawFormatString(400, 420, 0x000000, "毒リンゴ：%3d\n",PS);
-	DrawFormatString(400, 460, 0x000000, "スコア　：%3d\n",app.GetScore());
+	SetFontSize(50);
+	DrawFormatString(410, 180, 0x000000, "赤リンゴ : %3d コ\n",RS);
+	DrawFormatString(410, 240, 0x000000, "青リンゴ : %3d コ\n",BS);
+	DrawFormatString(410, 300, 0x000000, "金リンゴ : %3d コ\n",GS);
+	DrawFormatString(410, 360, 0x000000, "毒リンゴ : %3d コ\n",PS);
+	DrawFormatString(410, 500, 0x000000, "スコア   : %5d\n",app.GetScore());
 
 }
 
@@ -64,7 +64,7 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 int LoadResultImages(void)
 {
 	// 背景画面の読込
-	if ((ResultBackImg = LoadGraph("images/Back.png")) == -1) return -1;
+	if ((ResultBackImg = LoadGraph("images/result.png")) == -1) return -1;
 
 	return 0;
 }
