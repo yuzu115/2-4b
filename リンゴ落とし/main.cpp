@@ -20,9 +20,12 @@ XINPUT_STATE input;
 int Button_flg = FALSE;
 int GameMode = 0;
 int Pause_flg=0;
+int UsuallyBGM;
+int BGMflg=1;
 
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
+
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -36,13 +39,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	//画像、効果音読込
+	LoadImSE();
+
+
 	Player p;
 	Apple app;
 
-	app.AppleSet();
-	p.LoadPlayerImg();
+	//app.AppleSet();
+	//p.LoadPlayerImg();
 
-	LoadNumImg();
+	//LoadNumImg();
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
 
@@ -56,11 +63,25 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
+
+		if (GameMode == 2) {
+			if (BGMflg == 0) {
+				StopSoundMem(UsuallyBGM);
+			}
+			BGMflg = 1;
+		}
+		else {
+			if (BGMflg == 1) {
+				PlaySoundMem(UsuallyBGM, DX_PLAYTYPE_LOOP);
+			}
+			BGMflg = 0;
+		}
+
 		switch (GameMode) {
 			case TITLE:
+				//GameMain(GameMode, input, Button_flg, Pause_flg);
 
-				GameMain(GameMode, input, Button_flg, Pause_flg);
-	//			DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case MAIN:
 				GameMain(GameMode,input,Button_flg,Pause_flg);
@@ -107,3 +128,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	return 0;
 }
 
+
+int LoadImSE(void) {
+	Player p;
+	Apple app;
+	if ((UsuallyBGM = LoadSoundMem("AppleSound/AppleBGM/スーパーでお買い物.wav")) == -1)return -1;
+	LoadTitle();
+	app.AppleSet();
+	p.LoadPlayerImg();
+	LoadNumImg();
+}

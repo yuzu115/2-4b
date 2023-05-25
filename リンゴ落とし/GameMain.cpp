@@ -12,6 +12,8 @@ int aR, aG, aY;
 int rc;			// ÔƒŠƒ“ƒS‚ÌŠl“¾”
 int bc;			// ÂƒŠƒ“ƒS‚ÌŠl“¾”
 int gc;			// ‹àƒŠƒ“ƒS‚ÌŠl“¾”
+int Mainbgmflg=1;
+int MainBGM;
 
 Player p;
 Apple app;
@@ -37,9 +39,23 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 		if (RoopC == 0) {
 			//60•b‚½‚Á‚½‚çƒŠƒUƒ‹ƒg‰æ–Ê‚ÖˆÚ“®
-			//GameMode = 6;
+			StopSoundMem(MainBGM);
+			GameMode = 6;
 		}
 
+	}
+
+	if (Pause_flg == 1) {
+		StopSoundMem(MainBGM);
+
+		Mainbgmflg = 1;
+	}
+	else {
+		if (Mainbgmflg == 1) {
+
+			PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP,FALSE);
+		}
+		Mainbgmflg = 0;
 	}
 
 
@@ -119,10 +135,13 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 	FC += 1;
 }
 
+
 int LoadNumImg() {
 
 	if (LoadDivGraph("images/Numbers.png", 10, 10, 1, 104, 152, gNumImg) == -1)return -1;
 	aR = LoadGraph("images/RedApple.png");
 	aG = LoadGraph("images/GreenApple.png");
 	aY = LoadGraph("images/GoldApple.png");
+
+	if ((MainBGM = LoadSoundMem("AppleSound/AppleBGM/¡“ú‚àŒ³‹C‚ÉƒIƒ‚ƒeƒiƒV.wav")) == -1)return -1;
 }

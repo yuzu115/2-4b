@@ -107,7 +107,7 @@ void Apple::DrawApple(int& Pause_flg){
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
 			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
 			if (Pause_flg == 0) {
-				gApple[i].y += gApple[i].speed*5;
+				gApple[i].y += gApple[i].speed;
 			}
 			else
 			{
