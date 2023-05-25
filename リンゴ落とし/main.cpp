@@ -35,6 +35,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
 	Title title;
+	Help help;
 	End end;
 	Player p;
 	Apple app;
@@ -42,7 +43,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// 画像読込
 	title.LoadTitleImages();		// タイトル画像読込
 	LoadRankingImages();		// ランキング画像読込
-	LoadHelpImages();					// ヘルプ画像読込
+	help.LoadHelpImages();					// ヘルプ画像読込
 	end.LoadEndImages();				// エンド画像読込
 	LoadResultImages();					// リザルト画像読込
 
@@ -75,7 +76,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
 				break;
 			case HELP:
-				DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
+				help.DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
 				break;
 			case END:
 				end.DrawEnd(GameMode);			//エンド画面描画処理
