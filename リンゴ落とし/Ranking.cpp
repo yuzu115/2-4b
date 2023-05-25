@@ -1,11 +1,14 @@
 #include "DxLib.h"
 #include "Ranking.h"
 #include "Keyboard.h"
+#include"DrawApple.h"
 
 /****************************************
 *　変数の宣言
 *****************************************/
 int RankingImg;			// ランキング画像
+
+int Ranking;
 
 //ランキングデータの変数宣言
 // RankingData Ranking[RANK_MAX];
@@ -15,8 +18,6 @@ int RankingImg;			// ランキング画像
 *****************************************/
 void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode)
 {
-
-	ReadRanking(Ranking);		//ランキングデータの読込
 
 	if (input.Buttons[XINPUT_BUTTON_A] == 0) {
 		Button_flg = FALSE;
@@ -132,10 +133,13 @@ int ReadRanking(RankingData Ranking[])
 ******************************************/
 void InputName(RankingData Ranking[],XINPUT_STATE input,int& GameMode,int& Button_flg)
 {
-
+	Apple app;
+	
 	if (KeyBoard_PushB(input, Ranking[RANK_MAX - 1].name, Button_flg) == 1)
 	{
-		
+		Ranking[RANK_MAX - 1].score = app.GetScore();   // ランキングデータ10番目にスコアを登録
+		SortRanking(Ranking);
+		SaveRanking(Ranking);
 		GameMode = 3;                                // ゲームモードの変更
 	}
 	else //入力完了していない時

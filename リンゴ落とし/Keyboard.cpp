@@ -195,6 +195,7 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 
 	DrawFormatString(0, 0, 0x000000, "Bflg:%d", input.Buttons[XINPUT_BUTTON_B]);
 	DrawFormatString(0, 50, 0x000000, "Key:%d", CURSOR_NOW);
+	DrawFormatString(0, 80, 0x000000, "Pos:%d", input_Pos);
 
 }
 
@@ -225,12 +226,10 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 				//文字配列に入力
 				InputName[input_Pos] = AllStr[movekeyY][movekeyX];
 				
-				++input_Pos;            //入力位置を一つ右に
+				++input_Pos;  //入力位置を一つ右に
 
 				//上限は10文字   （配列の0～9）
 				if (input_Pos > 9) input_Pos = 9;
-
-			
 
 			}
 			else if (CURSOR_NOW == CURSOR_TYPE::CANCEL)                  //「×」キーの上で押された　一文字削除
@@ -251,36 +250,18 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 			}
 			else if (CURSOR_NOW == CURSOR_TYPE::DONE)                  //「OK」キーの上で押された　確定
 			{
-				if (input_Pos >= 0)
+				if (input_Pos > 0)
 				{
-					//一文字も入力されていない場合は確定できない
-					if (InputName[input_Pos] != 0)
-					{
-						//一文字でも入力アリ
+					InputName[input_Pos + 1] = '\0';       //最後の文字の一つ右に'\0'
 
-						InputName[input_Pos + 1] = '\0';       //最後の文字の一つ右に'\0'
-
-						//ランキングに入力内容をセット
-						strcpy_s(name, 11, InputName);
-
-						/*DeleteFontToHandle(key_font);
-						StopSoundMem(KeyboardBGM);*/
-						return 1;   //終了
-					}
-					else
-					{
-						//ダメだよ！　　な効果音
-					}
+					//ランキングに入力内容をセット
+					strcpy_s(name, 11, InputName);
+					return 1;   //終了
 				}
 			}
 		}
 	}
 	
-	if (input.Buttons[XINPUT_BUTTON_B] == 0)
-	{
-		Button_flg = FALSE;
-	}
-
 	return 0;
 }
 
