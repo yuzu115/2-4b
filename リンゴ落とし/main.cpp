@@ -23,12 +23,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	app.AppleSet();
 	p.LoadPlayerImg();
+	LoadInpNameImg();
+
+	KeyBoardInit();
 
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
 
 	//ループ前にFPS計測を初期化
 	Reset_fps();
+
+	GameMode = INPUTNAME;
 
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !(g_KeyFlg & PAD_INPUT_START))
 	{
@@ -37,12 +42,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);    //例のコントローラーの入力も使えます
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
-		ClearDrawScreen();                 //画面を初期化
-
-		DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-
-
-		app.DrawApple();
+		ClearDrawScreen();                 //画面を初期
 	
 		//今出てるFPSの表示
 		display_fps();
@@ -50,14 +50,22 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//fpsの計測
 		Keisoku_fps();
 
-		//プレイヤー操作
-		p.PlayerControl(g_OldKey, GameMode);
-
-		if (GameMode == INPUTNAME)
+		switch (GameMode)
 		{
-			DrawKeyboard();
+		case INPUTNAME:
+			KeyBoard_Draw();
+			KeyBoard_Update(g_NowKey);
+			KeyBoard_PushB(g_NowKey, GameMode);
+			break;
+		case MAIN:
+		    DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
+			app.DrawApple();
+			p.PlayerControl(g_OldKey, GameMode);
+			break;
+		default:
+			break;
 		}
-
+	
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
 

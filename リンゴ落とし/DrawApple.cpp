@@ -102,8 +102,8 @@ int Apple::CreateApple()
 		if (gApple[i].flg == FALSE) {
 
 			//ステータスの格納
-			gApple[i] = gNewApple[i];
 			gNewApple[i] = gNextApple[i] = gAppleState[RandApple()];
+			gApple[i] = gNewApple[i];
 
 				gApple[i].img = gAppleImg[gApple[i].type];
 				gApple[i].x = GetRand(7) * 125 + 50;
