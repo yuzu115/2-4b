@@ -37,7 +37,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 		if (RoopC == 0) {
 			//60•b‚½‚Á‚½‚çƒŠƒUƒ‹ƒg‰æ–Ê‚ÖˆÚ“®
-			GameMode = 6;
+			//GameMode = 6;
 		}
 
 	}
