@@ -34,11 +34,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	Title title;
 	Player p;
 	Apple app;
 
 	// 画像読込
-	LoadTitleImages();		// タイトル画像読込
+	title.LoadTitleImages();		// タイトル画像読込
 	LoadRankingImages();		// ランキング画像読込
 	LoadHelpImages();					// ヘルプ画像読込
 	LoadEndImages();				// エンド画像読込
@@ -62,7 +63,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				title.DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case MAIN:
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
