@@ -14,6 +14,7 @@ int bc;			// ÂƒŠƒ“ƒS‚ÌŠl“¾”
 int gc;			// ‹àƒŠƒ“ƒS‚ÌŠl“¾”
 int Mainbgmflg=1;
 int MainBGM;
+int MainImg;
 
 Player p;
 Apple app;
@@ -28,6 +29,8 @@ void GetAppCount(Apple::AppScore* as)
 void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 
+	// ”wŒi‰æ‘œ‚Ì•\¦
+	DrawGraph(0, 0, MainImg, FALSE);
 
 	DrawBox(950 + 114, 0, 1280, 720, 0xfff8dc, TRUE);
 
@@ -131,6 +134,9 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 
 
 int LoadNumImg() {
+
+	// ”wŒi‰æ‘œ‚Ì“Ç
+	if ((MainImg = LoadGraph("images/back.png")) == -1) return -1;
 
 	if (LoadDivGraph("images/Numbers.png", 10, 10, 1, 104, 152, gNumImg) == -1)return -1;
 	aR = LoadGraph("images/RedApple.png");

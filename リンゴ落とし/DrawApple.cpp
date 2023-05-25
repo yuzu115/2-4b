@@ -11,11 +11,6 @@ int gRandApple;
 int Score;
 int Count;
 
-int Count_R;
-int Count_B;
-int Count_Go;
-int Count_Po;
-
 int a3, b3;
 float c3;
 float numi[APPLE_MAX];
