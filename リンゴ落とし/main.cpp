@@ -17,7 +17,7 @@
 *******************************************************/
 XINPUT_STATE input;
 int Button_flg = FALSE;
-int GameMode = 2;
+int GameMode = 5;
 
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
@@ -47,6 +47,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	ReadRanking(Ranking);		//ランキングデータの読込
 	app.AppleSet();
 	p.LoadPlayerImg();
+
+	LoadKeyBoardSounds();  // 名前入力画面SE読込
+
+	KeyBoardInit();
 
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);

@@ -10,6 +10,11 @@
 int gBackImg; // 背景画像
 int gKeyImg[4];  // キーボード画像
 
+int CancelSE;       // キャンセルSE
+int ClickKeySE;     // クリックSE
+int CursorMoveSE;   // カーソル移動SE
+
+
 //移動量   (キーボード〇番目)
 int movekeyX = 0;
 int movekeyY = 0;
@@ -39,6 +44,14 @@ int LoadInpNameImg(void)
 	if ((gBackImg = LoadGraph("images/背景２.png")) == -1) return -1;
 
 	return 0;
+}
+
+// 音声読み込み
+int LoadKeyBoardSounds()
+{
+	if ((CursorMoveSE = LoadSoundMem("sounds/カーソル移動10.wav")) == -1)return -1;
+	if ((CancelSE = LoadSoundMem("sounds/キャンセル3.wav")) == -1) return -1;
+	if ((ClickKeySE = LoadSoundMem("sounds/決定ボタンを押す12.wav")) == -1) return -1;
 }
 
 // キーボード初期化
@@ -120,9 +133,9 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 		if (CursorControl() == true && CURSOR_NOW != CURSOR_TYPE::DONE)
 		{
 			movekeyX++;     //タイミング調整 + 移動
-			/*ChangeNextPlayVolumeSoundMem(180, CursorMoveKeyboard);
-			PlaySoundMem(CursorMoveKeyboard, DX_PLAYTYPE_BACK);
-			*/
+			ChangeNextPlayVolumeSoundMem(180, CursorMoveSE);
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
+			
 		}
 		if (movekeyX > 12) movekeyX = 0;   //右端以上で左端へ
 
@@ -136,8 +149,8 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 		if (CursorControl() == true)
 		{
 			movekeyX--;     //タイミング調整 + 移動
-			/*ChangeNextPlayVolumeSoundMem(180, CursorMoveKeyboard);
-			PlaySoundMem(CursorMoveKeyboard, DX_PLAYTYPE_BACK);*/
+			ChangeNextPlayVolumeSoundMem(180, CursorMoveSE);
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
 		}
 		if (movekeyX < 0) movekeyX = 12;     //左端以上で右端へ
 
@@ -151,10 +164,9 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 
 		if (CursorControl() == true)
 		{
-			
 			movekeyY--;     //タイミング調整 + 移動
-			/*ChangeNextPlayVolumeSoundMem(180, CursorMoveKeyboard);
-			PlaySoundMem(CursorMoveKeyboard, DX_PLAYTYPE_BACK);*/
+			ChangeNextPlayVolumeSoundMem(180, CursorMoveSE);
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
 		}
 		if (movekeyY <= 0) movekeyY = 0;     //上端でストップ
 
@@ -167,10 +179,9 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 		Button_flg = TRUE;
 		if (CursorControl() == true)
 		{
-			
 			movekeyY++;     //タイミング調整 + 移動
-			/*ChangeNextPlayVolumeSoundMem(180, CursorMoveKeyboard);
-			PlaySoundMem(CursorMoveKeyboard, DX_PLAYTYPE_BACK);*/
+			ChangeNextPlayVolumeSoundMem(180, CursorMoveSE);
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
 		}
 
 		CURSOR_NOW = CURSOR_TYPE::NORMAL;         //現在のキーはノーマル
@@ -192,11 +203,6 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 
 		CURSOR_NOW = CURSOR_TYPE::DONE;           //現在のキーはDONE「OK」
 	}
-
-	DrawFormatString(0, 0, 0x000000, "Bflg:%d", input.Buttons[XINPUT_BUTTON_B]);
-	DrawFormatString(0, 50, 0x000000, "Key:%d", CURSOR_NOW);
-	DrawFormatString(0, 80, 0x000000, "Pos:%d", input_Pos);
-
 }
 
 //カーソルの移動・ボタンの長押しを調整
@@ -218,23 +224,25 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 		//長押しでの連続入力のタイミングを調整（PCのような）
 		if (CursorControl() == true)
 		{
-			// "A～Z","a～z","1～9"の上で押された
-			//PlaySoundMem(ClickKeyboard, DX_PLAYTYPE_BACK);
+			
 			// "A～Z","a～z","1～9"の上で押された
 			if (CURSOR_NOW == CURSOR_TYPE::NORMAL)
 			{
-				//文字配列に入力
-				InputName[input_Pos] = AllStr[movekeyY][movekeyX];
-				
+				PlaySoundMem(ClickKeySE, DX_PLAYTYPE_BACK);
+
 				++input_Pos;  //入力位置を一つ右に
 
 				//上限は10文字   （配列の0～9）
 				if (input_Pos > 9) input_Pos = 9;
 
+				//文字配列に入力
+				InputName[input_Pos] = AllStr[movekeyY][movekeyX];
+
+
 			}
 			else if (CURSOR_NOW == CURSOR_TYPE::CANCEL)                  //「×」キーの上で押された　一文字削除
 			{
-				
+				PlaySoundMem(CancelSE, DX_PLAYTYPE_BACK);
 
 				if (input_Pos >= 0)
 				{
@@ -250,13 +258,20 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 			}
 			else if (CURSOR_NOW == CURSOR_TYPE::DONE)                  //「OK」キーの上で押された　確定
 			{
-				if (input_Pos > 0)
+				
+				if (input_Pos >= 0)
 				{
+					PlaySoundMem(ClickKeySE, DX_PLAYTYPE_BACK);
 					InputName[input_Pos + 1] = '\0';       //最後の文字の一つ右に'\0'
 
 					//ランキングに入力内容をセット
 					strcpy_s(name, 11, InputName);
 					return 1;   //終了
+				}
+				else
+				{
+					//ダメだよ！な効果音
+					PlaySoundMem(CancelSE, DX_PLAYTYPE_BACK);
 				}
 			}
 		}

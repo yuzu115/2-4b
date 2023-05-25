@@ -16,6 +16,8 @@ enum class CURSOR_TYPE
 // ‰æ‘œ“Ç‚İ‚İ
 int LoadInpNameImg(void);
 
+int LoadKeyBoardSounds(void);
+
 //‰Šúˆ—
 void KeyBoardInit();
 
