@@ -35,19 +35,19 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 		Button_flg = TRUE;
 
 		switch (menuNo) {
-		case 0:
-			GameMode = 2;			// MAIN
-			//GameMode = 6;			// RESULT
-			break;
-		case 1:
-			GameMode = 3;			// RANKING
-			break;
-		case 2:
-			GameMode = 4;			// HELP
-			break;
-	 	case 3:
-			GameMode = 9;			// END
-			break;
+			case 0:
+				GameMode = 2;			// MAIN
+				//GameMode = 6;			// RESULT
+				break;
+			case 1:
+				GameMode = 3;			// RANKING
+				break;
+			case 2:
+				GameMode = 4;			// HELP
+				break;
+	 		case 3:
+				GameMode = 9;			// END
+				break;
 		}
 	}
 	

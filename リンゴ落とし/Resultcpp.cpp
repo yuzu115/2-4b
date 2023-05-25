@@ -29,7 +29,6 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 {
 	Apple app;
 
-
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	if (++ResultWaitTime > 180) {
 		// スコアがランキングの最下位の値以上
@@ -39,7 +38,6 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 		else {
 			GameMode = 3;				// RANKING
 		}
-
 	}
 
 	// リザルト画像の表示
@@ -51,7 +49,6 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	DrawFormatString(410, 300, 0x000000, "金リンゴ : %3d コ\n",GC);
 	DrawFormatString(410, 360, 0x000000, "毒リンゴ : %3d コ\n",PC);
 	DrawFormatString(410, 500, 0x000000, "スコア   : %5d\n",app.GetScore());
-
 }
 
 /****************************************
