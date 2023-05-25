@@ -29,7 +29,6 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 {
 	Apple app;
 
-	LoadResultImages();					// リザルト画像読込
 
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	if (++ResultWaitTime > 180) {

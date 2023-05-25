@@ -15,8 +15,6 @@ int posY;				// カーソルのY座標
 *****************************************/
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
-	LoadTitleImages();		// タイトル画像読込
-
 	// 左スティックでメニューカーソル移動処理
 	// スティックをはじいたとき、値が戻らないため-2000と2000を設定している
 	if (input.ThumbLY < -2000 && Button_flg == FALSE) {

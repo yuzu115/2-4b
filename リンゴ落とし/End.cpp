@@ -14,7 +14,6 @@ int PosY;					// スクロール時のＹ座標
 *****************************************/
 void DrawEnd(int& GameMode)
 {
-	LoadEndImages();				// エンド画像読込
 
 	//WaitTime = Count;
 
@@ -38,7 +37,7 @@ void DrawEnd(int& GameMode)
 	//タイムの加算処理＆300f経過後終了(仮)
 	if (EndWaitTime >= 300)
 	{
-		GameMode = 8;				// CLOSE
+		GameMode = 10;				// CLOSE
 	}
 
 }

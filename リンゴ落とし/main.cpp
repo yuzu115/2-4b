@@ -37,6 +37,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	Player p;
 	Apple app;
 
+	// 画像読込
+	LoadTitleImages();		// タイトル画像読込
+	LoadRankingImages();		// ランキング画像読込
+	LoadHelpImages();					// ヘルプ画像読込
+	LoadEndImages();				// エンド画像読込
+	LoadResultImages();					// リザルト画像読込
+
 	app.AppleSet();
 	p.LoadPlayerImg();
 

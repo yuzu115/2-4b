@@ -11,7 +11,6 @@ int HelpImg;				// ƒwƒ‹ƒv‰æ‘œ
 *****************************************/
 void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
-	LoadHelpImages();					// ƒwƒ‹ƒv‰æ‘œ“Ç
 
 	if (input.Buttons[12] == 0) {
 		Button_flg = FALSE;
