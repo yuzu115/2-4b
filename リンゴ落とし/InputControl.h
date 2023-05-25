@@ -28,3 +28,4 @@ public:
 	static int GetKey(int key);
 	static int GetKeyDown(int key);
 };
+

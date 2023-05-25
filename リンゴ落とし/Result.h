@@ -1,5 +1,6 @@
 #pragma once
 #include "Ranking.h"
+#include"DrawApple.h"
 
 #ifndef RESULT_H__
 #define RESULT_H__
@@ -12,7 +13,7 @@
 *　プロトタイプ宣言
 ******************************************/
 void DrawResult(RankingData Ranking[],int& GameMode);		// リザルト画面描画
-//int Progress(int& Count, int& on, int& off);				//フレームの経過
+void GetAppScore(Apple::AppScore* as);
 int LoadResultImages(void);			// リザルト画像読込
 
 

@@ -19,18 +19,18 @@ Title::~Title()
 *****************************************/
 void Title::DrawTitle(XINPUT_STATE input, int& button_flg, int& gameMode)
 {
-	LoadTitleImages();		// タイトル画像読込
-
-	// メニューカーソル移動処理
-	if (input.ThumbLY < 128 && button_flg == FALSE) {
+	// 左スティックでメニューカーソル移動処理
+	// スティックをはじいたとき、値が戻らないため-2000と2000を設定している
+	if (input.ThumbLY < -2000 && button_flg == FALSE) {
 		button_flg = TRUE;
 		if (++menuNo > 3) menuNo = 0;
 	}
-	if (input.ThumbLY > 128 && button_flg == FALSE) {
+	else if (input.ThumbLY > 2000 && button_flg == FALSE) {
 		button_flg = TRUE;
 		if (--menuNo < 0) menuNo = 3;
 	}
-	if (input.ThumbLY == 128 && input.Buttons[XINPUT_BUTTON_A] == 0) {
+	else if(input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
+	{
 		button_flg = FALSE;
 	}
 
@@ -40,7 +40,7 @@ void Title::DrawTitle(XINPUT_STATE input, int& button_flg, int& gameMode)
 
 		switch (menuNo) {
 		case 0:
-			gameMode = 1;			// INIT
+			gameMode = 2;			// MAIN
 			//GameMode = 6;			// RESULT
 			break;
 		case 1:
@@ -50,7 +50,7 @@ void Title::DrawTitle(XINPUT_STATE input, int& button_flg, int& gameMode)
 			gameMode = 4;			// HELP
 			break;
 		case 3:
-			gameMode = 7;			// END
+			gameMode = 9;			// END
 			break;
 		}
 	}
@@ -73,7 +73,7 @@ int Title::LoadTitleImages(void)
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/title.png")) == -1) return -1;
 	// カーソル（赤リンゴ）画像
-	if ((AppleCursorImg = LoadGraph("images/redapple.png")) == -1) return -1;
+	if ((AppleCursorImg = LoadGraph("images/apple.png")) == -1) return -1;
 
 	return 0;
 }

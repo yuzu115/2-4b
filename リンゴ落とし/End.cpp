@@ -49,12 +49,8 @@ void END::DrawEnd(int& GameMode, int& Count)
 /****************************************
 * エンド画面描画（エンドロール）
 *****************************************/
-void DrawEnd(int& GameMode,int& Count)
+void DrawEnd(int& GameMode)
 {
-	LoadEndImages();				// エンド画像読込
-
-	//WaitTime = Count;
-
 	// エンド画像の表示
 	DrawGraph(0, 0, EndImg, FALSE);
 
@@ -62,22 +58,19 @@ void DrawEnd(int& GameMode,int& Count)
 	if (++EndWaitTime < 250) PosY = 250 - EndWaitTime;
 
 	SetFontSize(50);
-	DrawFormatString(10, 100, 0x000000, "Count%4d", Count);
 	DrawFormatString(10, 150, 0x000000, "WaitTime%4d", EndWaitTime);
 		
 	SetFontSize(40);
 	DrawFormatString(100, 310 + PosY, 0x000000, "素材利用");
 	DrawFormatString(100, 370 + PosY, 0x000000, "　BGM　　　 　ＸＸＸＸ");
 	DrawFormatString(100, 410 + PosY, 0x000000, "　SE　　　　　ＸＸＸＸＸＸＸＸ");
-
+	
 	//タイムの加算処理＆300f経過後終了(仮)
 	if (EndWaitTime >= 300)
 	{
-		GameMode = 8;				// CLOSE
+		GameMode = 10;				// CLOSE
 	}
-
 }
-
 
 /****************************************
 * エンド画像読込

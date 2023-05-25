@@ -22,6 +22,7 @@
     <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="fps.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="GameInit.cpp" />
     <ClCompile Include="inputControl.cpp" />
     <ClCompile Include="Help.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="GameInit.h" />
     <ClInclude Include="infomation.h" />
     <ClInclude Include="InputControl.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="PadInput.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -165,6 +167,7 @@
     <ClInclude Include="Help.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
+    <ClInclude Include="Resalt.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
