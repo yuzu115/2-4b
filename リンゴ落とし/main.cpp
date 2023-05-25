@@ -36,8 +36,20 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	Title title;
+	Help help;
+	End end;
+	Result result;
+
 	Player p;
 	Apple app;
+
+	// 画像読込
+	title.LoadTitleImages();			// タイトル画像読込
+	LoadRankingImages();				// ランキング画像読込
+	help.LoadHelpImages();				// ヘルプ画像読込
+	end.LoadEndImages();				// エンド画像読込
+	result.LoadResultImages();			// リザルト画像読込
 
 	app.AppleSet();
 	p.LoadPlayerImg();
@@ -58,6 +70,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
+				title.DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 
 				GameMain(GameMode, input, Button_flg, Pause_flg);
 	//			DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
@@ -69,19 +82,23 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
 				break;
 			case HELP:
-				DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
+				help.DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
 				break;
 			case END:
-				DrawEnd(GameMode);			//エンド画面描画処理
+				end.DrawEnd(GameMode);			//エンド画面描画処理
 				break;
 			case RESULT:
-				DrawResult(Ranking,GameMode);		//リザルト画面
+				result.DrawResult(Ranking,GameMode);		//リザルト画面
 				break;
 		}
 		DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
 		DrawFormatString(100, 100, 0x00ffff, "GameMode = %d",GameMode);
-		
 
+		if (input.Buttons[XINPUT_BUTTON_B] == 1)
+		{
+			GameMode = 6;
+		}
+	
 		//今出てるFPSの表示
 		display_fps();
 

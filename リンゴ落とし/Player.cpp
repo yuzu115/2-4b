@@ -209,61 +209,44 @@ int Player::HitPlayer(void)
 /*************************************
  * プレイヤーの移動(XInput)
  *************************************/
-void Player::PlayerXControl(XINPUT_STATE input, int& button_flg,int& Pause_flg)
+void Player::PlayerXControl(XINPUT_STATE input)
 {
 
-if (Pause_flg==0) {
-		// プレイヤーの左右移動
-		// スティックをはじいたとき、値が戻らないため-1700と1700を設定している
-		if (input.ThumbLX < -1700 || input.ThumbLX > 1700)
+	// プレイヤーの左右移動
+	// スティックをはじいたとき、値が戻らないため-2000と2000を設定している
+	if (input.ThumbLX < -2000 || input.ThumbLX > 2000)
+	{
+		// 左移動
+		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
+		if (input.ThumbLX < -2000 && input.Buttons[XINPUT_BUTTON_A] == 1)
 		{
-			// 左移動
-			// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-			if (input.ThumbLX < -1700 && input.Buttons[XINPUT_BUTTON_A] == 1)
-			{
-				//// プレイヤー仮表示(赤)
-				//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-				//gPlayer.x -= gPlayer.speed + 2;
-				RL = 0;
-				PlayerRan(RL);
-				gPlayer.x -= gPlayer.speed + 2;
-				MoveRanx = gPlayer.x;
-			}
-			// 歩く：左スティックを左に傾ける
-			else if (input.ThumbLX < 1700)
-			{
-				// プレイヤー仮表示(水色)
-				/*DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
-				gPlayer.x -= gPlayer.speed;*/
-				RL = 0;
-				PlayerWalk(RL);
-				gPlayer.x -= gPlayer.speed;
-				Movex = gPlayer.x;
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			gPlayer.x -= gPlayer.speed + 2;
+		}
+		// 歩く：左スティックを左に傾ける
+		else if (input.ThumbLX < -2000)
+		{
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
+			gPlayer.x -= gPlayer.speed;
+		}
 
-			}
+		// 右移動
+		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
+		if (input.ThumbLX > 2000 && input.Buttons[XINPUT_BUTTON_A] == 1)
+		{
+			// プレイヤー仮表示(赤)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			gPlayer.x += gPlayer.speed + 2;
 
-			// 右移動
-			// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-			if (input.ThumbLX > 1700 && input.Buttons[XINPUT_BUTTON_A] == 1)
-			{
-				//// プレイヤー仮表示(赤)
-				//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-				//gPlayer.x += gPlayer.speed + 2;
-				RL = 3;
-				PlayerRan(RL);
-				gPlayer.x += gPlayer.speed + 2;
-				MoveRanx = gPlayer.x;
-			}
-			// 歩く：左スティックを右に傾ける
-			else if (input.ThumbLX > -1700)
-			{
-				//// プレイヤー仮表示(水色)
-				//DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
-				//gPlayer.x += gPlayer.speed;
-				RL = 2;
-				PlayerWalk(RL);
-				gPlayer.x += gPlayer.speed;
-				Movex = gPlayer.x;
+		}
+		// 歩く：左スティックを右に傾ける
+		else if (input.ThumbLX > 2000)
+		{
+			// プレイヤー仮表示(水色)
+			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
+			gPlayer.x += gPlayer.speed;
 
 			}
 

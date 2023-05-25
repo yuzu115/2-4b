@@ -2,6 +2,7 @@
 #include"DrawApple.h"
 #include"Player.h"
 #include"math.h"
+#include"Result.h"
 
 
 int gAppleImg[APPLE_TYPE];
@@ -90,6 +91,8 @@ int Apple::AppleSet(void)
 void Apple::DrawApple(int&Pause_flg){
 
 	Player p;	
+	Apple ap;
+	Result result;
 
 	//¶¬ŠÖ”‚Ì“Ç‚Ýž‚Ý
 	Apple::CreateApple();
@@ -110,6 +113,7 @@ void Apple::DrawApple(int&Pause_flg){
 			gTest[i].y += gTest[i].speed;
 
 			p.GetApple(&gApple[i]);
+			result.GetAppScore(&gScore);
 
 			//gApple‚ÌyÀ•W‚ª1000ˆÈ‰º‚É‚È‚Á‚½‚Æ‚«Á‹Ž
 			if (gApple[i].y > 1000) {

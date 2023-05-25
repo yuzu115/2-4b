@@ -36,5 +36,6 @@ public:
 	//void PlayerXLControl(XINPUT_STATE input, int& Pause_flg);     // プレイヤー制御（XInput）
 	void PlayerRan(int rImg);
 	void PlayerWalk(int Img);
+	void PlayerXControl(XINPUT_STATE input);     // プレイヤー制御（XInput）
 };
 
