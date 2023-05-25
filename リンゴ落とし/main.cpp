@@ -37,12 +37,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	Player p;
 	Apple app;
 	Title title;
+	Help help;
+	End end;
 
 	// 画像読込
-	LoadTitleImages();		// タイトル画像読込
+	title.LoadTitleImages();		// タイトル画像読込
 	LoadRankingImages();		// ランキング画像読込
-	LoadHelpImages();					// ヘルプ画像読込
-	LoadEndImages();				// エンド画像読込
+	help.LoadHelpImages();					// ヘルプ画像読込
+	end.LoadEndImages();				// エンド画像読込
 	LoadResultImages();					// リザルト画像読込
 
 	app.AppleSet();
@@ -61,7 +63,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
-		InputControl::Update();
+		//InputControl::Update();
 
 		switch (GameMode) {
 			case TITLE:
@@ -76,10 +78,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
 				break;
 			case HELP:
-				DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
+				help.DrawHelp(input,Button_flg,GameMode);			//ヘルプ画面描画処理
 				break;
 			case END:
-				DrawEnd(GameMode);			//エンド画面描画処理
+				end.DrawEnd(GameMode);			//エンド画面描画処理
 				break;
 			case RESULT:
 				DrawResult(Ranking,GameMode);		//リザルト画面

@@ -10,18 +10,19 @@
 /*****************************************
 *　プロトタイプ宣言
 ******************************************/
-void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ヘルプ画面描画
-int LoadHelpImages(void);			// ヘルプ画像読込
+//void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ヘルプ画面描画
+//int LoadHelpImages(void);			// ヘルプ画像読込
 
-class HELP {
+class Help
+{
 private:
 	int HelpImg;				// ヘルプ画像
 
 public:
-	HELP();								// コンストラクタ
-	~HELP();							// デストラクタ
+	Help();								// コンストラクタ
+	~Help();							// デストラクタ
 	void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode);		// ヘルプ画面描画
-	//int LoadHelpImages(void);			// ヘルプ画像読込
+	int LoadHelpImages(void);			// ヘルプ画像読込
 };
 
 #endif // ! HELP_H__

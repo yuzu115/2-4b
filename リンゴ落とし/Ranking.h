@@ -39,7 +39,7 @@ int LoadRankingImages(void);						// ランキング画像読込
 //extern RankingData Ranking[RANK_MAX];			// RankingとResultで使用
 //RankingData Ranking[RANK_MAX];			// RankingとResultで使用
 
-class RANKING
+class Ranking
 {
 private:
 
@@ -53,17 +53,15 @@ private:
 	int RankingImg;			// ランキング画像
 
 public:
-	RANKING();										// コンストラクタ
-	~RANKING();										// デストラクタ
+	Ranking();										// コンストラクタ
+	~Ranking();										// デストラクタ
 	void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode);			// ランキング画面描画処理
 	int ReadRanking(RankingData Ranking[]);				// ランキングデータの読込
 
 	void SortRanking(RankingData Ranking[]);			// ランキング並べ替え
 	int SaveRanking(RankingData Ranking[]);				// ランキングデータの保存
 
-	//int LoadRankingImages(void);						// ランキング画像読込
-
-
+	int LoadRankingImages(void);						// ランキング画像読込
 };
 
 #endif // !RANKING_H__

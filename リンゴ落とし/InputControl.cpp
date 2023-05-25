@@ -4,11 +4,17 @@ int InputControl::key_flg;
 int InputControl::now_key;
 int InputControl::old_key;
 
+int InputControl::Button_flg;
+//int InputControl::input;
+
 void InputControl::Update()
 {
 	old_key = now_key;
 	now_key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	key_flg = now_key & ~old_key;
+
+	//GetJoypadXInputState(DX_INPUT_PAD1, &input);			// XInput
+	Button_flg = FALSE;
 }
 
 int InputControl::GetKey(int key)
