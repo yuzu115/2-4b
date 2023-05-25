@@ -3,6 +3,7 @@
 #include"Player.h"
 #include"math.h"
 
+
 int gAppleImg[APPLE_TYPE];
 int gRandApple;
 int Score;
@@ -47,7 +48,11 @@ Apple::APPLE_DATA gAppleState[APPLE_TYPE];
 */
 Apple::Apple()
 {
-
+	gScore.r = 0;
+	gScore.b = 0;
+	gScore.g = 0;
+	gScore.p = 0;
+	
 	gAppleState[0] = gApple_Rd;
 	gAppleState[1] = gApple_Bl;
 	gAppleState[2] = gApple_Gl;
@@ -82,7 +87,7 @@ int Apple::AppleSet(void)
 /**
 * ƒŠƒ“ƒS‚Ì•`‰æ
 */
-void Apple::DrawApple(void){
+void Apple::DrawApple(int&Pause_flg){
 
 	Player p;	
 
@@ -121,11 +126,11 @@ void Apple::DrawApple(void){
 					Score = 0;
 				}
 
-				if (gApple[i].type == 0)	Count_R++;
-				if (gApple[i].type == 1) 	Count_B++;
-				if (gApple[i].type == 2) 	Count_Go++;
+				if (gApple[i].type == 0)	gScore.r++;
+				if (gApple[i].type == 1) 	gScore.b++;
+				if (gApple[i].type == 2) 	gScore.g++;
 				if (gApple[i].type == 3) {
-					Count_Po++;
+					gScore.p++;
 				}
 
 			}
@@ -156,6 +161,19 @@ int Apple::CreateApple()
 
 			for (int j = 0; j < APPLE_MAX; j++) {
 
+				if (gApple[i].type == apt[j]) {
+
+					a3 = apx[j] - gApple[i].x;
+					b3 = apy[j] - gApple[i].y;
+					c3 = sqrt(a3 * a3 + b3 * b3);
+
+					//”í‚Á‚Ä‚½ê‡
+					if (gApple[i].x == apx[j] && c3 <= gApple[i].r + apr[j] + 40) {
+						numi[i] = 1;
+						Aflg = 1;
+					}
+				}
+
 				if (gApple[i].type == apt2[j])
 				{
 
@@ -168,19 +186,6 @@ int Apple::CreateApple()
 					{
 						Aflg = 1;
 						numi2[i] = 1;
-					}
-				}
-
-				if (gApple[i].type == apt[j]) {
-
-					a3 = apx[j] - gApple[i].x;
-					b3 = apy[j] - gApple[i].y;
-					c3 = sqrt(a3 * a3 + b3 * b3);
-
-					//”í‚Á‚Ä‚½ê‡
-					if (gApple[i].x == apx[j] && c3 <= gApple[i].r + apr[j] + 40) {
-						numi[i] = 1;
-						Aflg = 1;
 					}
 				}
 
@@ -260,4 +265,8 @@ int Apple::RandApple()
 			return 3;
 		}
 	}
+}
+
+int Apple::GetScore() {
+	return Score;
 }
