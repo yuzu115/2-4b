@@ -5,6 +5,9 @@
 /************************
 *関数のプロトタイプ宣言 *
 ************************/
-int LoadBackImg(void);
-void DrawBack(void);
+void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg);
+void DrawUI(int& GameMode, int& FC, int& Pause_flg);
+int LoadNumImg(void);
+void GetAppCount(Apple::AppScore* as);
+
 #endif // !GAMEMAIN_H_

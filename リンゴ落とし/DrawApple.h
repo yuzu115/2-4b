@@ -17,6 +17,13 @@ public:
 		float size;		//当たり判定の倍率
 	};
 
+	typedef struct AppScore
+	{
+		int r, b, g, p;
+	}AppScore;
+
+	AppScore gScore;
+
 	/******************************************
 	* 関数のプロトタイプ宣言
 	 ******************************************/
@@ -25,9 +32,11 @@ public:
 	//リンゴの生成
 	int CreateApple(void);
 	int AppleSet(void);
-	void DrawApple(void);
+	void DrawApple(int& Pause_flg);
 	int RandApple(void);
 	void AppleHit(APPLE_DATA* a);
+
+	int GetScore(void);					// スコアを返す関数
 
 private:
 	//各リンゴのデータ
