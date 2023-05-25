@@ -28,6 +28,8 @@ int InitA = 0;
 int AppHitSE;
 int ApoisonSE;
 
+int PoisonHitflg=0;
+
 int apx[APPLE_MAX];
 int apy[APPLE_MAX];
 int apt[APPLE_MAX];
@@ -156,7 +158,9 @@ void Apple::DrawApple(int& Pause_flg){
 				if (gApple[i].type == 3)
 				{
 					PlaySoundMem(ApoisonSE, DX_PLAYTYPE_BACK);
-					p.PlayerFlashing();
+					PoisonHitflg = 1;
+					p.PlayerFlashing(PoisonHitflg);
+
 					gScore.p++;
 				}
 			}

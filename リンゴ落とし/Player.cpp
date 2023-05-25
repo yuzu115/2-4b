@@ -207,7 +207,7 @@ int Player::HitPlayer(void)
 		flg = 4;
 
 		//点滅処理かく
-		
+		//if()
 		return TRUE;
 	}
 	return FALSE;
@@ -377,36 +377,38 @@ void Player::PlayerRan(int rImg)
 
 
 //画像を点滅できるようにする
-int Player::PlayerFlashing(void) {
+int Player::PlayerFlashing(int& Pflg) {
+	if (Pflg == 1) 
+	{
 
-	if (FlashCount <= 120) {
+		if (FlashCount <= 120) {
 
-		//120秒たつまで、20f感覚で点滅
-		if (on == 20) {
-			off = 0;
+			//120秒たつまで、20f感覚で点滅
+			if (on == 20) {
+				off = 0;
 
-			DrawBox(0, 0, 40, 40, 0x000000, TRUE);
-			// プレイヤー仮表示(赤)
-			DrawBox(0, 0,60,60, 0xff0000, TRUE);
+				DrawBox(0, 0, 40, 40, 0x000000, TRUE);
+				// プレイヤー仮表示(赤)
+				DrawBox(0, 0, 60, 60, 0xff0000, TRUE);
 
-			return off;
+				return off;
+
+			}
+
+			if (off == 20) {
+				on = 0;
+				DrawBox(0, 0, 40, 40, 0xff0000, FALSE);
+
+				DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x000000, TRUE);
+
+
+				return on;
+			}
 
 		}
-
-		if (off == 20) {
-			on = 0;
-			DrawBox(0, 0, 40, 40, 0xff0000, FALSE);
-
-			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x000000, TRUE);
-
-
-			return on;
-		}
-
 	}
-	else {
-		FlashCount = 0;
-	}
+
+	if (FlashCount == 121)FlashCount = 0;
 
 	FlashCount += 1;
 	on += 1;
