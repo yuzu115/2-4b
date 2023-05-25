@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
+#include"math.h"
 
 int gAppleImg[APPLE_TYPE];
 int gRandApple;
@@ -11,6 +12,26 @@ int Count_R;
 int Count_B;
 int Count_Go;
 int Count_Po;
+
+int a3, b3;
+float c3;
+float numi[APPLE_MAX];
+float numi2[APPLE_MAX];
+int y;
+int Aflg = 0;
+int Aflg2 = 0;
+int InitA = 0;
+
+
+int apx[APPLE_MAX];
+int apy[APPLE_MAX];
+int apt[APPLE_MAX];
+int apr[APPLE_MAX];
+
+int apx2[APPLE_MAX];
+int apy2[APPLE_MAX];
+int apt2[APPLE_MAX];
+int apr2[APPLE_MAX];
 
 
 //ÉäÉìÉSÇÃïœêî
@@ -130,30 +151,81 @@ int Apple::CreateApple()
 			gApple[i] = gAppleState[RandApple()];	//ÉXÉeÅ[É^ÉXÇÃäiî[
 			gApple[i].img = gAppleImg[gApple[i].type];
 			gApple[i].x = GetRand(6) * 125 + 50;
-
-
-
-			for (int j = 0; j < APPLE_MAX; j++)
-			{
-
-				if (i == j)continue;				
-
-				if (gApple[i].x == gApple[j].x && gApple[i].type == gApple[j].type)
-				{
-					if (gApple[i].y < gApple[j].r * 2) {
-					
-						gApple[i].y -= 100;			
-						
-					}	
-				}
-							
-			}
-
 			gApple[i].flg = TRUE;			
 			
+
+			for (int j = 0; j < APPLE_MAX; j++) {
+
+				if (gApple[i].type == apt2[j])
+				{
+
+					a3 = apx2[j] - gApple[i].x;
+					b3 = apy2[j] - gApple[i].y;
+					c3 = sqrt(a3 * a3 + b3 * b3);
+
+					//îÌÇ¡ÇƒÇΩèÍçá
+					if (gApple[i].x == apx2[j] && c3 <= gApple[i].r + apr2[j] + 40)
+					{
+						Aflg = 1;
+						numi2[i] = 1;
+					}
+				}
+
+				if (gApple[i].type == apt[j]) {
+
+					a3 = apx[j] - gApple[i].x;
+					b3 = apy[j] - gApple[i].y;
+					c3 = sqrt(a3 * a3 + b3 * b3);
+
+					//îÌÇ¡ÇƒÇΩèÍçá
+					if (gApple[i].x == apx[j] && c3 <= gApple[i].r + apr[j] + 40) {
+						numi[i] = 1;
+						Aflg = 1;
+					}
+				}
+
+			}
+
+
+			if (Aflg == 1) {
+				Aflg = 0;
+				//numi
+				for (int i = 0; i < APPLE_MAX; i++) {
+					if (numi[i] != 0) {
+
+						gApple[i].flg = FALSE;
+
+					}
+					numi[i] = 0;
+
+
+					if (numi2[i] != 0) {
+
+						gApple[i].flg = FALSE;
+					}
+					numi2[i] = 0;
+				}
+			}
+
+
+			apx[i] = gApple[i].x;
+			apy[i] = gApple[i].y;
+			apt[i] = gApple[i].type;
+			apr[i] = gApple[i].r;
+
 			return TRUE;	//ê¨å˜
 
 		}
+	}
+
+	for (int i = 0; i < APPLE_MAX; i++) {
+		apx2[i] = gApple[i].x;
+		apy2[i] = gApple[i].y;
+		apt2[i] = gApple[i].type;
+		apx[i] = 0;
+		apy[i] = 0;
+		apt[i] = 0;
+
 	}
 	return FALSE;	//é∏îs
 }  
