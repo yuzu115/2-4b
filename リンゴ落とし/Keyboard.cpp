@@ -14,7 +14,6 @@ int gKeyImg[4];  // キーボード画像
 int movekeyX = 0;
 int movekeyY = 0;
 CURSOR_TYPE CURSOR_NOW = CURSOR_TYPE::NORMAL;  //現在のカーソル
-bool pushFlag = false;                         //Aが　押されている/押されてない フラグ    TRUE:押されている　FALSE:押されていない
 
 int frame = 0;                   //フレームをカウント
 
@@ -61,7 +60,6 @@ void KeyBoardInit()
 
 	input_Pos = -1;
 
-	pushFlag = FALSE;         //最初はAボタンは押されていない
 }
 //描画
 void KeyBoard_Draw()
@@ -212,7 +210,7 @@ bool CursorControl()
 //Bボタンが押された時の処理
 int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 {
-	//　Aボタンを押している間
+	//　Bボタンを押している間
 	if (input.Buttons[XINPUT_BUTTON_B] == 1 )
 	{
 		
@@ -224,20 +222,20 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 			// "A～Z","a～z","1～9"の上で押された
 			if (CURSOR_NOW == CURSOR_TYPE::NORMAL)
 			{
-				pushFlag = true;        //押されているよ
-
+				//文字配列に入力
+				InputName[input_Pos] = AllStr[movekeyY][movekeyX];
+				
 				++input_Pos;            //入力位置を一つ右に
 
 				//上限は10文字   （配列の0～9）
 				if (input_Pos > 9) input_Pos = 9;
 
-				//文字配列に入力
-				InputName[input_Pos] = AllStr[movekeyY][movekeyX];
+			
 
 			}
 			else if (CURSOR_NOW == CURSOR_TYPE::CANCEL)                  //「×」キーの上で押された　一文字削除
 			{
-				pushFlag = true;        //押されているよ
+				
 
 				if (input_Pos >= 0)
 				{
@@ -277,11 +275,7 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 			}
 		}
 	}
-	else
-	{
-		pushFlag = false;          //押されていないよ
-	}
-
+	
 	if (input.Buttons[XINPUT_BUTTON_B] == 0)
 	{
 		Button_flg = FALSE;
@@ -302,7 +296,7 @@ void DrawInputInfo()
 		DrawString(512, 148, "名前を入力してください", 0x616161);
 	}
 
-	// 入力された文字を表示
+	
 	for (int i = 0; InputName[i] != '\0'; i++)
 	{
 		SetFontSize(40);

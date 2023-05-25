@@ -29,7 +29,7 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg);
 bool CursorControl();
 
 //Bボタンが押された時の処理  入力が終わると 1 が返ってくる
-int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg);
+int KeyBoard_PushB(XINPUT_STATE input, char* name,int& Button_flg);
 
 //入力情報表示
 void DrawInputInfo();
