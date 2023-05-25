@@ -14,7 +14,6 @@ int RankingImg;			// ランキング画像
 *****************************************/
 void DrawRanking(XINPUT_STATE input, RankingData Ranking[], int& Button_flg, int& GameMode)
 {
-	LoadRankingImages();		// ランキング画像読込
 
 	ReadRanking(Ranking);		//ランキングデータの読込
 

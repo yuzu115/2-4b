@@ -37,6 +37,5 @@ public:
 	void PlayerRan(int rImg);
 	void PlayerWalk(int Img);
 	int PlayerFlashing(void);
-	int PlayerFlashingoff(int& cc);
 };
 

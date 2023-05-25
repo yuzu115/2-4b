@@ -22,6 +22,9 @@ int GameMode = 0;
 int Pause_flg=0;
 int UsuallyBGM;
 int BGMflg=1;
+int on2f = 20;
+int off2f = 20;
+int FlCount = 0;
 
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
@@ -46,10 +49,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	Player p;
 	Apple app;
 
-	//app.AppleSet();
-	//p.LoadPlayerImg();
-
-	//LoadNumImg();
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
 
@@ -79,15 +78,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
-				GameMain(GameMode, input, Button_flg, Pause_flg);
-				/*if (app.PoHit() == 1) {
-					p.PlayerFlashing();
-				}*/
-				//DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case MAIN:
 				GameMain(GameMode,input,Button_flg,Pause_flg);
-				p.PlayerFlashing();
+				if (app.PoHit() == 1)p.PlayerFlashing();
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
@@ -102,8 +97,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				DrawResult(Ranking,GameMode);		//リザルト画面
 				break;
 		}
-		DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
-		DrawFormatString(100, 100, 0x00ffff, "GameMode = %d",GameMode);
+
+
+		//DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
+		//DrawFormatString(100, 100, 0x00ffff, "GameMode = %d",GameMode);
 		
 
 		//今出てるFPSの表示
@@ -125,6 +122,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		//fps固定処理
 		wait_fanc();		
+
+	
+
+
 	}
 	DxLib_End();
 
@@ -140,4 +141,9 @@ int LoadImSE(void) {
 	app.AppleSet();
 	p.LoadPlayerImg();
 	LoadNumImg();
+	LoadResultImages();					// リザルト画像読込
+	LoadHelpImages();					// ヘルプ画像読込
+	LoadEndImages();				// エンド画像読込
+	KeyboardLoadImg();				// 画像読み込み関数を呼び出し
+	LoadRankingImages();		// ランキング画像読込
 }

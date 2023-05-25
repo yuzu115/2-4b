@@ -59,10 +59,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 	}
 
 
-	//DrawGraph(posx, 30, gNumberImg[tempScore % 10], TRUE);
 
-	DrawFormatString(1200, 120, 0xffffff, "RC:%d", RoopC);
-	DrawFormatString(130, 140, 0x000000, "FC:%d", FC);
 
 	//Time•\Ž¦
 	SetFontSize(52);
@@ -128,9 +125,6 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 	}
 
 
-	DrawFormatString(0, 120, 0x000000, "Pause_flg:%d", Pause_flg);
-	DrawFormatString(0, 140, 0x000000, "b_flg:%d", Button_flg);
-	DrawFormatString(300, 160, 0x000000, "FC:%d", FC);
 	//DrawUI(int& FC);
 	FC += 1;
 }

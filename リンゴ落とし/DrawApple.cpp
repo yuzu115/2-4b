@@ -114,13 +114,16 @@ void Apple::DrawApple(int& Pause_flg){
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
 			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
 			if (Pause_flg == 0) {
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 				gApple[i].y += gApple[i].speed*3;
 			}
 			else
 			{
 				gApple[i].y = gApple[i].y;
-				SetFontSize(20);
+				SetFontSize(60);
 				DrawFormatString(490, 350, 0x000000, "É|Å[ÉYíÜ", gApple[i].speed);
+
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 			}
 	
 
@@ -163,14 +166,6 @@ void Apple::DrawApple(int& Pause_flg){
 					gScore.p++;
 				}
 			}
-
-			
-			
-			DrawFormatString(0, 0, 0x000000, "Score:%d",Score);
-			DrawFormatString(0, 20, 0x000000, "Red:%d", gScore.r);
-			DrawFormatString(0, 40, 0x000000, "Blue:%d", gScore.b);
-			DrawFormatString(0, 60, 0x000000, "Gold:%d", gScore.g);
-			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
 
 		}	
 	}	
