@@ -37,6 +37,8 @@ public:
 	void AppleHit(APPLE_DATA* a);
 
 	int GetScore(void);					// スコアを返す関数
+	int PoHit(void);
+	void Poget(int Po);
 
 private:
 	//各リンゴのデータ

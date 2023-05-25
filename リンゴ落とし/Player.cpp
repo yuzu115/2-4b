@@ -9,7 +9,11 @@ float ax, ay, ar;
 
 float mx0, mx1, my0, my1;
 
-int on, off, FlashCount=0;//プレイヤー画像点滅用
+
+int on = 0;
+int off = 0;
+int FlashCount=0;//プレイヤー画像点滅用
+int Poflg=1;
 
 int LFlg = 0;
 int RFlg = 0;
@@ -314,6 +318,12 @@ if (Pause_flg==0) {
 //Playerの歩く動き
 void Player::PlayerWalk(int wImg) {
 
+	Apple app;
+	Player p;
+	if (app.PoHit() == 1) {
+		p.PlayerFlashing();
+	}
+
 	if (abs(Movex - OPx) > 50) {
 		//一瞬画像が表示されなくなる時間ができるので表示
 		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
@@ -339,37 +349,48 @@ void Player::PlayerWalk(int wImg) {
 
 	}
 
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+
 
 }
 
 //Playerの走る動き
 void Player::PlayerRan(int rImg)
 {
-	if (abs(MoveRanx - OPxRan) > 56) {
-		/*OPxが動かなくならないように
-		歩く動きからZで切り替えたとき、caseで判定できる数より、
-		MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
-		if文でリセットしている*/
-		OPxRan = MoveRanx;
+	Apple app;
+	Player p;
+	p.PlayerFlashing();
+
+	if (app.PoHit() == 0) {
+
+		if (abs(MoveRanx - OPxRan) > 56) {
+			/*OPxが動かなくならないように
+			歩く動きからZで切り替えたとき、caseで判定できる数より、
+			MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
+			if文でリセットしている*/
+			OPxRan = MoveRanx;
+		}
+		//走る動き
+		switch (abs(MoveRanx - OPxRan)) {
+		case 21:
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
+			Img = rImg;
+			break;
+		case 35:
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
+			Img = rImg + 1;
+			break;
+		case 56:
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
+			Img = rImg + 2;
+			OPxRan = gPlayer.x;
+			break;
+		default:
+			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[Img], TRUE);
+		}
 	}
-	//走る動き
-	switch (abs(MoveRanx - OPxRan)) {
-	case 21:
-		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
-		Img = rImg;
-		break;
-	case 35:
-		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
-		Img = rImg + 1;
-		break;
-	case 56:
-		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
-		Img = rImg + 2;
-		OPxRan = gPlayer.x;
-		break;
-	default:
-		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gRanImg[Img], TRUE);
-	}
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	
 
 	//DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg+1], TRUE);
 }
@@ -377,40 +398,75 @@ void Player::PlayerRan(int rImg)
 
 
 //画像を点滅できるようにする
-int Player::PlayerFlashing(int& Pflg) {
-	if (Pflg == 1) 
-	{
+int Player::PlayerFlashing() {
+	
+	Apple app;
 
-		if (FlashCount <= 120) {
+		if (FlashCount < 121) {
 
 			//120秒たつまで、20f感覚で点滅
-			if (on == 20) {
+			if (on <= 20) {
 				off = 0;
+				
+				app.Poget(0);
+			}else if (off <= 20) {
+				
+				on =0;
+				app.Poget(1);
 
-				DrawBox(0, 0, 40, 40, 0x000000, TRUE);
-				// プレイヤー仮表示(赤)
-				DrawBox(0, 0, 60, 60, 0xff0000, TRUE);
-
-				return off;
-
-			}
-
-			if (off == 20) {
-				on = 0;
-				DrawBox(0, 0, 40, 40, 0xff0000, FALSE);
-
-				DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x000000, TRUE);
-
-
-				return on;
 			}
 
 		}
-	}
 
-	if (FlashCount == 121)FlashCount = 0;
+
+	
+	//if (FlashCount >= 120)on = 0;
+	//if (FlashCount >= 120)off = 0;
+		if (FlashCount > 121)
+		{
+			app.Poget(0);
+			on = 0;
+			off = 0;
+			FlashCount = 0;
+		}
 
 	FlashCount += 1;
-	on += 1;
 	off += 1;
+	on += 1;
+	DrawFormatString(600, 500, 0x000000, "Flas%d", FlashCount);
+	DrawFormatString(600, 550, 0x000000, "on%d",on);
+	DrawFormatString(600, 600, 0x000000, "off%d",off);
+	return 0;
+}
+
+int Player::PlayerFlashingoff(int& cc) {
+
+Apple app;
+	if (cc < 121) {
+
+		//120秒たつまで、20f感覚で点滅
+		if (off <= 20) {
+
+			on += 1;
+			app.Poget(1);
+
+		}
+		else {
+			off = 0;
+		}
+
+	}
+
+
+	if (cc >=121)
+	{
+		//app.Poget(0);
+		off = 0;
+		//FlashCount = 0;
+	}
+
+
+	DrawFormatString(600, 500, 0x000000, "Flas%d", cc);
+	DrawFormatString(600, 580, 0x000000, "off%d", off);
+	return 0;
 }

@@ -159,7 +159,6 @@ void Apple::DrawApple(int& Pause_flg){
 				{
 					PlaySoundMem(ApoisonSE, DX_PLAYTYPE_BACK);
 					PoisonHitflg = 1;
-					p.PlayerFlashing(PoisonHitflg);
 
 					gScore.p++;
 				}
@@ -303,4 +302,15 @@ int Apple::RandApple()
 int Apple::GetScore()
 {
 	return Score;
+}
+
+int Apple::PoHit(void)
+{
+	return PoisonHitflg;
+}
+
+void Apple::Poget(int Po)
+{
+
+	PoisonHitflg = Po;
 }
