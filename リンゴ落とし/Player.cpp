@@ -172,10 +172,8 @@ int Player::HitPlayer(void)
     // ã‚Ì1`‚R‚Ì‚Ç‚ê‚©ˆê‚Â‚ª“–‚Ä‚Í‚Ü‚Á‚½‚ç“–‚½‚Á‚Ä‚¢‚é
 	if (flg == 1 || flg == 2 || flg == 3)
 	{
-		// “–‚½‚Á‚Ä‚¢‚½‚çƒŠƒ“ƒS‚ÌF‚ğ”’‚É
-		DrawString(0, 150, "HIt", 0xffffff);
-		flg = 4;
 		return TRUE;
 	}
+
 	return FALSE;
 }

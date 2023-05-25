@@ -4,7 +4,6 @@
 
 int gAppleImg[APPLE_TYPE];
 int gRandApple;
-
 int Score;
 int Count;
 
@@ -13,8 +12,10 @@ int Count_B;
 int Count_Go;
 int Count_Po;
 
+
 //リンゴの変数
 Apple::APPLE_DATA gApple[APPLE_MAX];
+Apple::APPLE_DATA gTest[APPLE_MAX];
 
 //ステータス格納変数
 Apple::APPLE_DATA gAppleState[APPLE_TYPE];
@@ -25,7 +26,7 @@ Apple::APPLE_DATA gAppleState[APPLE_TYPE];
 */
 Apple::Apple()
 {
-	
+
 	gAppleState[0] = gApple_Rd;
 	gAppleState[1] = gApple_Bl;
 	gAppleState[2] = gApple_Gl;
@@ -74,10 +75,13 @@ void Apple::DrawApple(void){
 
 			
 
-			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
-			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
-			gApple[i].y +=  gApple[i].speed ;
-	
+			DrawRotaGraph(gApple[i].x, gApple[i].y, 0.25, 0, gApple[i].img, TRUE, TRUE);
+			DrawCircle(gTest[i].x, gTest[i].y, gTest[i].r, 0x0000ff, TRUE);
+			DrawFormatString(gApple[i].x, gApple[i].y, 0xffffff, "%d", i);
+			DrawFormatString(gTest[i].x, gTest[i].y, 0xffffff, "%d", i);
+
+			gApple[i].y += gApple[i].speed;
+			gTest[i].y += gTest[i].speed;
 
 			p.GetApple(&gApple[i]);
 
@@ -86,16 +90,22 @@ void Apple::DrawApple(void){
 				gApple[i].flg = FALSE;
 			}
 
-			//当たったら消える処理にしたい
+			//当たったら消える処理
 			if (p.HitPlayer() == TRUE) {
 				gApple[i].flg = FALSE;
 
+
 				Score += gApple[i].score;
+				if (Score < 0) {
+					Score = 0;
+				}
 
 				if (gApple[i].type == 0)	Count_R++;
 				if (gApple[i].type == 1) 	Count_B++;
 				if (gApple[i].type == 2) 	Count_Go++;
-				if (gApple[i].type == 3)	Count_Po++;
+				if (gApple[i].type == 3) {
+					Count_Po++;
+				}
 
 			}
 			
@@ -104,6 +114,7 @@ void Apple::DrawApple(void){
 			DrawFormatString(0, 40, 0x000000, "Blue:%d", Count_B);
 			DrawFormatString(0, 60, 0x000000, "Gold:%d", Count_Go);
 			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
+
 
 		}	
 	}	
@@ -120,18 +131,22 @@ int Apple::CreateApple()
 			gApple[i].img = gAppleImg[gApple[i].type];
 			gApple[i].x = GetRand(6) * 125 + 50;
 
+
+
 			for (int j = 0; j < APPLE_MAX; j++)
 			{
-				if (i == j)continue;
-				
-				if (gApple[i].x == gApple[j].x && gApple[i].type == gApple[i].type)
+
+				if (i == j)continue;				
+
+				if (gApple[i].x == gApple[j].x && gApple[i].type == gApple[j].type)
 				{
 					if (gApple[i].y < gApple[j].r * 2) {
-						gApple[i].y -= 100;
-					}
 					
+						gApple[i].y -= 100;			
+						
+					}	
 				}
-
+							
 			}
 
 			gApple[i].flg = TRUE;			
