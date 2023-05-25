@@ -132,14 +132,13 @@ int ReadRanking(RankingData Ranking[])
 ******************************************/
 void InputName(RankingData Ranking[],XINPUT_STATE input,int& GameMode,int& Button_flg)
 {
-	
 
 	if (KeyBoard_PushB(input, Ranking[RANK_MAX - 1].name, Button_flg) == 1)
 	{
 		
 		GameMode = 3;                                // ゲームモードの変更
 	}
-	else    //入力完了していない時
+	else //入力完了していない時
 	{
 		KeyBoard_Draw();                             //キーボードの描画
 		KeyBoard_Update(input,Button_flg);                        //キーボードの更新・操作

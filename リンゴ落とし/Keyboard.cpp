@@ -106,6 +106,14 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 	//フレーム数カウント
 	frame++;
 
+	if (input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_B] == 0)
+	{
+		Button_flg = FALSE;
+	}
+	if (input.ThumbLX > -2000 && input.ThumbLX < 2000 && input.Buttons[XINPUT_BUTTON_B] == 0)
+	{
+		Button_flg = FALSE;
+	}
 
 	//→ 右 
 	if (input.ThumbLX > 2000 && Button_flg == FALSE)
@@ -170,17 +178,6 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 		CURSOR_NOW = CURSOR_TYPE::NORMAL;         //現在のキーはノーマル
 	}
 
-	if (input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
-	{
-		Button_flg = FALSE;
-	}
-	if (input.ThumbLX > -2000 && input.ThumbLX < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
-	{
-		Button_flg = FALSE;
-	}
-
-
-
 	//「×」ボタン   「a～z」段より下 かつ 「9」キーより右側
 	if (movekeyY == 4 && movekeyX >= 10)
 	{
@@ -198,7 +195,9 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 		CURSOR_NOW = CURSOR_TYPE::DONE;           //現在のキーはDONE「OK」
 	}
 
-	DrawFormatString(0, 0, 0x000000, "Bflg:%d", Button_flg);
+	DrawFormatString(0, 0, 0x000000, "Bflg:%d", input.Buttons[XINPUT_BUTTON_B]);
+	DrawFormatString(0, 50, 0x000000, "Key:%d", CURSOR_NOW);
+
 }
 
 //カーソルの移動・ボタンの長押しを調整
@@ -213,15 +212,17 @@ bool CursorControl()
 //Bボタンが押された時の処理
 int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 {
-	//　Bボタンを押している間
-	if (input.Buttons[XINPUT_BUTTON_B] == 1)
+	//　Aボタンを押している間
+	if (input.Buttons[XINPUT_BUTTON_B] == 1 )
 	{
+		
 		//長押しでの連続入力のタイミングを調整（PCのような）
 		if (CursorControl() == true)
 		{
-			
 			// "A～Z","a～z","1～9"の上で押された
-			if (CURSOR_NOW == CURSOR_TYPE::NORMAL && InputName[9] == 0)
+			//PlaySoundMem(ClickKeyboard, DX_PLAYTYPE_BACK);
+			// "A～Z","a～z","1～9"の上で押された
+			if (CURSOR_NOW == CURSOR_TYPE::NORMAL)
 			{
 				pushFlag = true;        //押されているよ
 
@@ -264,6 +265,8 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 						//ランキングに入力内容をセット
 						strcpy_s(name, 11, InputName);
 
+						/*DeleteFontToHandle(key_font);
+						StopSoundMem(KeyboardBGM);*/
 						return 1;   //終了
 					}
 					else
@@ -274,10 +277,14 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 			}
 		}
 	}
-
 	else
 	{
 		pushFlag = false;          //押されていないよ
+	}
+
+	if (input.Buttons[XINPUT_BUTTON_B] == 0)
+	{
+		Button_flg = FALSE;
 	}
 
 	return 0;
