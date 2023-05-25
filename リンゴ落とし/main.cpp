@@ -34,6 +34,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (DxLib_Init() == -1) return -1;     //DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);         //描画先画面を裏にする
 
+	Title title;
+
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
 
@@ -51,7 +53,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (GameMode) {
 			case TITLE:
-				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
+				title.DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
 			case INIT:
 				GameInit(GameMode);							// ゲーム初期化
