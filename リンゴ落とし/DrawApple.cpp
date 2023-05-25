@@ -1,7 +1,7 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
-#include"Resalt.h"
+#include"Result.h"
 
 int gAppleImg[APPLE_TYPE];
 int gRandApple;

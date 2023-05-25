@@ -46,9 +46,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//ループ前にFPS計測を初期化
 	Reset_fps();
 
-	//// プレイヤー初期化
-	//PlayerInit();
-
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
@@ -56,30 +53,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
-		//入力キー取得
-		g_OldKey = g_NowKey;
-		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);		// ゲームパッド&キーボード
-		g_KeyFlg = g_NowKey & ~g_OldKey;
-
-		InputControl::Update();
-
 		switch (GameMode) {
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
-			//case INIT:
-			//	GameInit(GameMode);							// ゲーム初期化
-			//	break;
 			case MAIN:
 				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 				app.DrawApple();
-				p.PlayerXControl(input,Button_flg);
-
-				//DrawApple();
-				//PlayerControl(GameMode);						// プレイヤー操作(joypad)
-				//PlayerXControl(input, Button_flg);						// プレイヤー操作(XInput)
-				//PlayerXIControl(input);						// プレイヤー操作(XInput)
-				//PlayerFlashing(Count, on, off);					// プレイヤー点滅
+				p.PlayerXControl(input);
 				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
@@ -101,7 +82,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		{
 			GameMode = 6;
 		}
-		//app.DrawApple();
 	
 		//今出てるFPSの表示
 		display_fps();
@@ -109,27 +89,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//fpsの計測
 		Keisoku_fps();
 
-		//プレイヤー操作
-		//p.PlayerControl(g_OldKey, GameMode);
-		
-		//PlayerFlashing(Count,on,off);
-
 		if (GameMode == INPUTNAME)
 		{
 			DrawKeyboard();
 		}
 
-		//if (Count > 120)Count = 0;
-		
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();
 
 		//fps固定処理
 		wait_fanc();
-
-			//Count++;
-			//off++;
-			//on ++;
 		
 	}
 	DxLib_End();

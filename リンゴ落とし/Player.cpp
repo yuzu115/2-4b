@@ -183,23 +183,23 @@ int Player::HitPlayer(void)
 /*************************************
  * プレイヤーの移動(XInput)
  *************************************/
-void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
+void Player::PlayerXControl(XINPUT_STATE input)
 {
 
 	// プレイヤーの左右移動
-	// スティックをはじいたとき、値が戻らないため-1700と1700を設定している
-	if (input.ThumbLX < -1700 || input.ThumbLX > 1700)
+	// スティックをはじいたとき、値が戻らないため-2000と2000を設定している
+	if (input.ThumbLX < -2000 || input.ThumbLX > 2000)
 	{
 		// 左移動
 		// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-		if (input.ThumbLX < -1700 && input.Buttons[XINPUT_BUTTON_A] == 1)
+		if (input.ThumbLX < -2000 && input.Buttons[XINPUT_BUTTON_A] == 1)
 		{
 			// プレイヤー仮表示(赤)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
 			gPlayer.x -= gPlayer.speed + 2;
 		}
 		// 歩く：左スティックを左に傾ける
-		else if (input.ThumbLX < -1700)
+		else if (input.ThumbLX < -2000)
 		{
 			// プレイヤー仮表示(水色)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0xff0000, TRUE);
@@ -208,7 +208,7 @@ void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
 
 		// 右移動
 		// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-		if (input.ThumbLX > 1700 && input.Buttons[XINPUT_BUTTON_A] == 1)
+		if (input.ThumbLX > 2000 && input.Buttons[XINPUT_BUTTON_A] == 1)
 		{
 			// プレイヤー仮表示(赤)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
@@ -216,7 +216,7 @@ void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
 
 		}
 		// 歩く：左スティックを右に傾ける
-		else if (input.ThumbLX > 1700)
+		else if (input.ThumbLX > 2000)
 		{
 			// プレイヤー仮表示(水色)
 			DrawBox(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, 0x00ff00, TRUE);
