@@ -156,6 +156,7 @@ void Apple::DrawApple(int& Pause_flg){
 				if (gApple[i].type == 3)
 				{
 					PlaySoundMem(ApoisonSE, DX_PLAYTYPE_BACK);
+					p.PlayerFlashing();
 					gScore.p++;
 				}
 			}
