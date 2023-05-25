@@ -138,6 +138,8 @@ void Apple::DrawApple(int& Pause_flg){
 				Score += gApple[i].score;
 
 
+				ChangeVolumeSoundMem(210, AppHitSE);
+				ChangeVolumeSoundMem(210, ApoisonSE);
 				if (gApple[i].type == 0)
 				{
 					PlaySoundMem(AppHitSE, DX_PLAYTYPE_BACK);
@@ -175,7 +177,7 @@ int Apple::CreateApple()
 		if (gApple[i].flg == FALSE) {
 			gApple[i] = gAppleState[RandApple()];	//ステータスの格納
 			gApple[i].img = gAppleImg[gApple[i].type];
-			gApple[i].x = GetRand(6) * 125 + 50;
+			gApple[i].x = GetRand(6) * 150 + 100;
 			gApple[i].flg = TRUE;
 
 

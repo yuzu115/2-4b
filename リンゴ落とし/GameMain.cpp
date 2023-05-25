@@ -48,6 +48,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 
 	}
 
+	ChangeVolumeSoundMem(200, MainBGM);
 	if (Pause_flg == 1) {
 		StopSoundMem(MainBGM);
 
