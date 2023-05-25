@@ -17,7 +17,7 @@
 *******************************************************/
 XINPUT_STATE input;
 int Button_flg = FALSE;
-int GameMode = 0;
+int GameMode = 5;
 
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
@@ -43,6 +43,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	LoadHelpImages();					// ヘルプ画像読込
 	LoadEndImages();				// エンド画像読込
 	LoadResultImages();					// リザルト画像読込
+	LoadInpNameImg();       // 名前入力画面画像読込
 
 	app.AppleSet();
 	p.LoadPlayerImg();
@@ -88,10 +89,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
 		DrawFormatString(100, 100, 0x00ffff, "GameMode = %d",GameMode);
 
-		if (input.Buttons[XINPUT_BUTTON_B] == 1)
+		/*if (input.Buttons[XINPUT_BUTTON_B] == 1)
 		{
 			GameMode = 6;
-		}
+		}*/
 	
 		//今出てるFPSの表示
 		display_fps();

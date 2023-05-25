@@ -108,8 +108,9 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 
 
 	//→ 右 
-	if (input.ThumbLY < 2000 && Button_flg == FALSE)
+	if (input.ThumbLX > 2000 && Button_flg == FALSE)
 	{
+		Button_flg = TRUE;
 		if (CursorControl() == true && CURSOR_NOW != CURSOR_TYPE::DONE)
 		{
 			movekeyX++;     //タイミング調整 + 移動
@@ -123,8 +124,9 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 	}
 
 	//← 左
-	if (input.ThumbLY > -2000 && Button_flg == FALSE)
+	if (input.ThumbLX < -2000 && Button_flg == FALSE)
 	{
+		Button_flg = TRUE;
 		if (CursorControl() == true)
 		{
 			movekeyX--;     //タイミング調整 + 移動
@@ -137,11 +139,13 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 	}
 
 	//↑ 上
-	if (input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
+	if (input.ThumbLY > 2000 && Button_flg == FALSE)
 	{
+		Button_flg = TRUE;
 
 		if (CursorControl() == true)
 		{
+			
 			movekeyY--;     //タイミング調整 + 移動
 			/*ChangeNextPlayVolumeSoundMem(180, CursorMoveKeyboard);
 			PlaySoundMem(CursorMoveKeyboard, DX_PLAYTYPE_BACK);*/
@@ -152,11 +156,12 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 	}
 
 	//↓ 下
-	if (input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
+	if (input.ThumbLY < -2000 && Button_flg == FALSE)
 	{
-
+		Button_flg = TRUE;
 		if (CursorControl() == true)
 		{
+			
 			movekeyY++;     //タイミング調整 + 移動
 			/*ChangeNextPlayVolumeSoundMem(180, CursorMoveKeyboard);
 			PlaySoundMem(CursorMoveKeyboard, DX_PLAYTYPE_BACK);*/
@@ -164,6 +169,17 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 
 		CURSOR_NOW = CURSOR_TYPE::NORMAL;         //現在のキーはノーマル
 	}
+
+	if (input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
+	{
+		Button_flg = FALSE;
+	}
+	if (input.ThumbLX > -2000 && input.ThumbLX < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
+	{
+		Button_flg = FALSE;
+	}
+
+
 
 	//「×」ボタン   「a～z」段より下 かつ 「9」キーより右側
 	if (movekeyY == 4 && movekeyX >= 10)
@@ -181,6 +197,8 @@ void KeyBoard_Update(XINPUT_STATE input, int& Button_flg)
 
 		CURSOR_NOW = CURSOR_TYPE::DONE;           //現在のキーはDONE「OK」
 	}
+
+	DrawFormatString(0, 0, 0x000000, "Bflg:%d", Button_flg);
 }
 
 //カーソルの移動・ボタンの長押しを調整
@@ -196,11 +214,12 @@ bool CursorControl()
 int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 {
 	//　Bボタンを押している間
-	if (input.Buttons[XINPUT_BUTTON_B] == 1 && Button_flg == FALSE)
+	if (input.Buttons[XINPUT_BUTTON_B] == 1)
 	{
 		//長押しでの連続入力のタイミングを調整（PCのような）
 		if (CursorControl() == true)
 		{
+			
 			// "A～Z","a～z","1～9"の上で押された
 			if (CURSOR_NOW == CURSOR_TYPE::NORMAL && InputName[9] == 0)
 			{
