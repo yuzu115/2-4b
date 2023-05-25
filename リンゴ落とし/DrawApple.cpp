@@ -25,6 +25,8 @@ int Aflg = 0;
 int Aflg2 = 0;
 int InitA = 0;
 
+int AppHitSE;
+int ApoisonSE;
 
 int apx[APPLE_MAX];
 int apy[APPLE_MAX];
@@ -83,6 +85,9 @@ int Apple::AppleSet(void)
 	if ((gAppleImg[2] = LoadGraph("images/Apple_Gold.png")) == -1)return -1;
 	if((gAppleImg[3] = LoadGraph("images/Apple_Poison.png")) == -1)return -1;
 
+	if ((AppHitSE = LoadSoundMem("AppleSound/AppleSE/powerup03.wav")) == -1)return -1;
+	if ((ApoisonSE = LoadSoundMem("AppleSound/AppleSE/powerdown07.wav")) == -1)return -1;
+
 	return 0;
 }
 	
@@ -107,7 +112,7 @@ void Apple::DrawApple(int& Pause_flg){
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
 			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
 			if (Pause_flg == 0) {
-				gApple[i].y += gApple[i].speed;
+				gApple[i].y += gApple[i].speed*3;
 			}
 			else
 			{
@@ -133,11 +138,26 @@ void Apple::DrawApple(int& Pause_flg){
 				Score += gApple[i].score;
 
 
-				if (gApple[i].type == 0)	gScore.r++;
-				if (gApple[i].type == 1) 	gScore.b++;
-				if (gApple[i].type == 2) 	gScore.g++;
-				if (gApple[i].type == 3)	gScore.p++;
-
+				if (gApple[i].type == 0)
+				{
+					PlaySoundMem(AppHitSE, DX_PLAYTYPE_BACK);
+					gScore.r++;
+				}
+				if (gApple[i].type == 1)
+				{
+					PlaySoundMem(AppHitSE, DX_PLAYTYPE_BACK);
+					gScore.b++;
+				}
+				if (gApple[i].type == 2)
+				{
+					PlaySoundMem(AppHitSE, DX_PLAYTYPE_BACK);
+					gScore.g++;
+				}
+				if (gApple[i].type == 3)
+				{
+					PlaySoundMem(ApoisonSE, DX_PLAYTYPE_BACK);
+					gScore.p++;
+				}
 			}
 
 			
