@@ -37,7 +37,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	Title title;
 	Help help;
 	End end;
-	Result result;
 
 	Player p;
 	Apple app;
@@ -47,7 +46,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	LoadRankingImages();				// ランキング画像読込
 	help.LoadHelpImages();				// ヘルプ画像読込
 	end.LoadEndImages();				// エンド画像読込
-	result.LoadResultImages();			// リザルト画像読込
+	LoadResultImages();			// リザルト画像読込
 
 	app.AppleSet();
 	p.LoadPlayerImg();
@@ -84,7 +83,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				end.DrawEnd(GameMode);			//エンド画面描画処理
 				break;
 			case RESULT:
-				result.DrawResult(Ranking,GameMode);		//リザルト画面
+				DrawResult(Ranking,GameMode);		//リザルト画面
 				break;
 		}
 		DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);

@@ -1,25 +1,20 @@
 #include "DxLib.h"
 #include "Result.h"
-
-Result::Result()
-{
-	ResultBackImg = 0;					// ”wŒi‰æ‘œ
-	ResultWaitTime = 0;					// ‘Ò‚¿ŠÔ
-	RC = 0;			// ÔƒŠƒ“ƒS‚ÌŠl“¾”
-	BC = 0;			// ÂƒŠƒ“ƒS‚ÌŠl“¾”
-	GC = 0;			// ‹àƒŠƒ“ƒS‚ÌŠl“¾”
-	PC = 0;			// “ÅƒŠƒ“ƒS‚ÌŠl“¾”
-}
-
-Result::~Result()
-{
-
-}
+#include "DrawApple.h"
 
 /****************************************
-* ƒŠƒ“ƒS‚ÌŠl“¾”‚ğæ“¾
+*@•Ï”‚ÌéŒ¾
 *****************************************/
-void Result::GetAppScore(Apple::AppScore* as)
+int ResultBackImg;					// ”wŒi‰æ‘œ
+
+int ResultWaitTime = 0;					// ‘Ò‚¿ŠÔ
+
+int RC;			// ÔƒŠƒ“ƒS‚ÌŠl“¾”
+int BC;			// ÂƒŠƒ“ƒS‚ÌŠl“¾”
+int GC;			// ‹àƒŠƒ“ƒS‚ÌŠl“¾”
+int PC;			// “ÅƒŠƒ“ƒS‚ÌŠl“¾”
+
+void GetAppScore(Apple::AppScore* as)
 {
 	RC = as->r;
 	BC = as->b;
@@ -30,9 +25,11 @@ void Result::GetAppScore(Apple::AppScore* as)
 /****************************************
 * ƒŠƒUƒ‹ƒg‰æ–Ê•`‰æ
 *****************************************/
-void Result::DrawResult(RankingData Ranking[], int& GameMode)
+void DrawResult(RankingData Ranking[], int& GameMode)
 {
 	Apple app;
+
+	LoadResultImages();					// ƒŠƒUƒ‹ƒg‰æ‘œ“Ç
 
 	//ƒ^ƒCƒ€‚Ì‰ÁZˆ—(180fˆÈãŒo‰ßŒã)•‰æ–Ê‘JˆÚ
 	if (++ResultWaitTime > 180) {
@@ -43,23 +40,25 @@ void Result::DrawResult(RankingData Ranking[], int& GameMode)
 		else {
 			GameMode = 3;				// RANKING
 		}
+
 	}
 
 	// ƒŠƒUƒ‹ƒg‰æ‘œ‚Ì•\¦
 	DrawGraph(0, 0, ResultBackImg, FALSE);
 
 	SetFontSize(50);
-	DrawFormatString(410, 180, 0x000000, "ÔƒŠƒ“ƒS : %3d ƒR\n",RC);
-	DrawFormatString(410, 240, 0x000000, "ÂƒŠƒ“ƒS : %3d ƒR\n",BC);
-	DrawFormatString(410, 300, 0x000000, "‹àƒŠƒ“ƒS : %3d ƒR\n",GC);
-	DrawFormatString(410, 360, 0x000000, "“ÅƒŠƒ“ƒS : %3d ƒR\n",PC);
-	DrawFormatString(410, 500, 0x000000, "ƒXƒRƒA   : %5d\n",app.GetScore());
+	DrawFormatString(410, 180, 0x000000, "ÔƒŠƒ“ƒS : %3d ƒR\n", RC);
+	DrawFormatString(410, 240, 0x000000, "ÂƒŠƒ“ƒS : %3d ƒR\n", BC);
+	DrawFormatString(410, 300, 0x000000, "‹àƒŠƒ“ƒS : %3d ƒR\n", GC);
+	DrawFormatString(410, 360, 0x000000, "“ÅƒŠƒ“ƒS : %3d ƒR\n", PC);
+	DrawFormatString(410, 500, 0x000000, "ƒXƒRƒA   : %5d\n", app.GetScore());
+
 }
 
 /****************************************
 * ƒŠƒUƒ‹ƒg‰æ‘œ“Ç
 *****************************************/
-int Result::LoadResultImages(void)
+int LoadResultImages(void)
 {
 	// ”wŒi‰æ–Ê‚Ì“Ç
 	if ((ResultBackImg = LoadGraph("images/result.png")) == -1) return -1;
