@@ -71,6 +71,7 @@ void Apple::DrawApple(void){
 
 	Player p;	
 	Apple ap;
+	Result result;
 
 	//¶¬ŠÖ”‚Ì“Ç‚Ýž‚Ý
 	Apple::CreateApple();
@@ -88,7 +89,7 @@ void Apple::DrawApple(void){
 	
 
 			p.GetApple(&gApple[i]);
-			GetAppScore(&gScore);
+			result.GetAppScore(&gScore);
 
 			//gApple‚ÌyÀ•W‚ª1000ˆÈ‰º‚É‚È‚Á‚½‚Æ‚«Á‹Ž
 			if (gApple[i].y > 1000) {

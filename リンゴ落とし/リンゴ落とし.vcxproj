@@ -30,6 +30,7 @@
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="Resultcpp.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
