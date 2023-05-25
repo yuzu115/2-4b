@@ -260,11 +260,6 @@ void Player::PlayerXControl(XINPUT_STATE input)
 			//プレイヤー止まってる画像表示
 			DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
 		}
-	}else {
-		//プレイヤー止まってる画像表示
-		DrawExtendGraph(gPlayer.x - 7, gPlayer.y - 10, gPlayer.x + gPlayer.w + 7, SCREEN_HEIGHT, gStopImg, TRUE);
-
-	}
 
 	// 画面をはみ出さないようにする
 	// 右

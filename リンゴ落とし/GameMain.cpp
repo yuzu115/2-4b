@@ -89,7 +89,7 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 	}
 	//PlayerInit();								// プレイヤー初期化
 	app.DrawApple(Pause_flg);
-	p.PlayerXControl(input, Button_flg, Pause_flg);					// プレイヤー操作
+	p.PlayerXControl(input);					// プレイヤー操作
 	//PlayerFlashing(Count, on, off);					// プレイヤー点滅
 
 
