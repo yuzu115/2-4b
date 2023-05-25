@@ -32,6 +32,7 @@ int ReadRanking(RankingData Ranking[]);				// ランキングデータの読込
 
 void SortRanking(RankingData Ranking[]);			// ランキング並べ替え
 int SaveRanking(RankingData Ranking[]);				// ランキングデータの保存
+void InputName(RankingData Ranking[], XINPUT_STATE input, int& GameMode, int& Button_flg);
 
 int LoadRankingImages(void);						// ランキング画像読込
 

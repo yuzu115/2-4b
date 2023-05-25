@@ -69,6 +69,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				app.DrawApple();
 				p.PlayerXControl(input);
 				break;
+			case INPUTNAME:
+				InputName(Ranking,input,GameMode, Button_flg);   //　名前入力画面描画処理
+				break;
 			case RANKING:
 				DrawRanking(input,Ranking, Button_flg,GameMode);		//ランキング描画処理
 				break;
@@ -95,11 +98,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		//fpsの計測
 		Keisoku_fps();
-
-		if (GameMode == INPUTNAME)
-		{
-			DrawKeyboard();
-		}
 
 		//裏画面の内容を表画面に反映する
 		ScreenFlip();

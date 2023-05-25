@@ -23,13 +23,13 @@ void KeyBoardInit();
 void KeyBoard_Draw();
 
 //更新
-void KeyBoard_Update(int nowkey);
+void KeyBoard_Update(XINPUT_STATE input, int& Button_flg);
 
 //カーソルの移動・ボタンの長押しを調整
 bool CursorControl();
 
 //Bボタンが押された時の処理  入力が終わると 1 が返ってくる
-int KeyBoard_PushB(int nowkey, int& gamemode);
+int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg);
 
 //入力情報表示
 void DrawInputInfo();
