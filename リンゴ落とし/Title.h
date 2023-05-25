@@ -13,7 +13,7 @@
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode);		// タイトル画面描画
 int LoadTitleImages(void);		// タイトル画像読込
 
-class TITLE
+class Title
 {
 private:
 	int TitleImg;			// タイトル画像
@@ -22,10 +22,10 @@ private:
 	int posY;				// カーソルのY座標
 
 public:
-	TITLE();									// コンストラクタ
-	~TITLE();									// デストラク
-	void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode);		// タイトル画面描画
-	//int LoadTitleImages(void);		// タイトル画像読込
+	Title();									// コンストラクタ
+	~Title();									// デストラク
+	void DrawTitle(XINPUT_STATE input, int& button_flg, int& gameMode);		// タイトル画面描画
+	int LoadTitleImages(void);		// タイトル画像読込
 };
 
 #endif // !TITLE_H__

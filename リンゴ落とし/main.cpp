@@ -40,9 +40,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//ループ前にFPS計測を初期化
 	Reset_fps();
 
-	//// プレイヤー初期化
-	//PlayerInit();
-
 	// BACKボタンでプログラム終了
 	while (ProcessMessage() == 0 && GameMode != CLOSE && !input.Buttons[XINPUT_BUTTON_BACK])
 	{
