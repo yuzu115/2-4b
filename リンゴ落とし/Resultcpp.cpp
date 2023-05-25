@@ -1,18 +1,5 @@
 #include "DxLib.h"
 #include "Result.h"
-//#include "DrawApple.h"
-
-/****************************************
-*@•Ï”‚ÌéŒ¾
-*****************************************/
-//int ResultBackImg;					// ”wŒi‰æ‘œ
-//
-//int ResultWaitTime = 0;					// ‘Ò‚¿ŽžŠÔ
-//
-//int RC;			// ÔƒŠƒ“ƒS‚ÌŠl“¾”
-//int BC;			// ÂƒŠƒ“ƒS‚ÌŠl“¾”
-//int GC;			// ‹àƒŠƒ“ƒS‚ÌŠl“¾”
-//int PC;			// “ÅƒŠƒ“ƒS‚ÌŠl“¾”
 
 Result::Result()
 {
@@ -29,6 +16,9 @@ Result::~Result()
 
 }
 
+/****************************************
+* ƒŠƒ“ƒS‚ÌŠl“¾”‚ðŽæ“¾
+*****************************************/
 void Result::GetAppScore(Apple::AppScore* as)
 {
 	RC = as->r;
