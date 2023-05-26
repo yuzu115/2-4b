@@ -17,14 +17,24 @@ int posY;				// カーソルのY座標
 *****************************************/
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
+
+	ChangeVolumeSoundMem(220, CursorMoveSE);
+	ChangeVolumeSoundMem(180, DecisionSE);
+
 	// 左スティックでメニューカーソル移動処理
 	if (input.ThumbLY < 128 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		if (++menuNo > 3) menuNo = 0;
+		if (++menuNo > 3) {
+			menuNo = 0;
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
+		}
 	}
 	if (input.ThumbLY > 128 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		if (--menuNo < 0) menuNo = 3;
+		if (--menuNo < 0) {
+			menuNo = 3;
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
+		}
 	}
 	if (input.ThumbLY == 128 && input.Buttons[XINPUT_BUTTON_A] == 0) {
 		Button_flg = FALSE;
@@ -70,7 +80,7 @@ int LoadTitle(void)
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/title.png")) == -1) return -1;
 	// カーソル（赤リンゴ）画像
-	if ((AppleCursorImg = LoadGraph("images/apple.png")) == -1) return -1;
+	if ((AppleCursorImg = LoadGraph("images/Apple_Red.png")) == -1) return -1;
 
 	//カーソル移動の音読込
 	if ((CursorMoveSE = LoadSoundMem("AppleSound/AppleSE/カーソル移動12.wav")) == -1)return-1;

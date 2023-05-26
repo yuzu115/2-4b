@@ -62,7 +62,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		GetJoypadXInputState(DX_INPUT_PAD1, &input);				// ゲームパッド(XInput)
 
-		ChangeVolumeSoundMem(200, UsuallyBGM);
+		ChangeVolumeSoundMem(170, UsuallyBGM);
 
 		if (GameMode == 2) {
 			if (BGMflg == 0) {
@@ -99,10 +99,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				break;
 		}
 
-
-		//DrawFormatString(0, 16, 0xff0000, "ThumbLX:%d ThumbLY:%d",input.ThumbLX, input.ThumbLY);
-		//DrawFormatString(100, 100, 0x00ffff, "GameMode = %d",GameMode);
-		
 
 		////今出てるFPSの表示
 		//display_fps();

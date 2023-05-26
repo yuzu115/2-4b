@@ -140,9 +140,9 @@ int LoadNumImg() {
 	if ((MainImg = LoadGraph("images/back.png")) == -1) return -1;
 
 	if (LoadDivGraph("images/Numbers.png", 10, 10, 1, 104, 152, gNumImg) == -1)return -1;
-	aR = LoadGraph("images/RedApple.png");
-	aG = LoadGraph("images/GreenApple.png");
-	aY = LoadGraph("images/GoldApple.png");
+	aR = LoadGraph("images/Apple_Red.png");
+	aG = LoadGraph("images/Apple_Blue.png");
+	aY = LoadGraph("images/Apple_Gold.png");
 
 	if ((MainBGM = LoadSoundMem("AppleSound/AppleBGM/今日も元気にオモテナシ.wav")) == -1)return -1;
 }
