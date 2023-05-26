@@ -9,11 +9,15 @@ float ax, ay, ar;
 
 float mx0, mx1, my0, my1;
 
+Apple app;
+Player p;
 
 int on = 20;
 int off = 20;
 int FlashCount=0;//プレイヤー画像点滅用
 int Poflg=0;
+
+int InitFlg;
 
 int LFlg = 0;
 int RFlg = 0;
@@ -59,6 +63,8 @@ void Player::PlayerInit(void) {
 	gPlayer.w = 120;
 	gPlayer.h = 140;
 	gPlayer.speed = PLAYER_SPEED;
+
+	Poflg = 0;
 }
 
 int Player::LoadPlayerImg(void)
@@ -109,7 +115,7 @@ int Player::HitPlayer(void)
 {
 	// リンゴとプレイヤーが当たっているか判定
 	int flg = 0;
-	Apple app;
+
 
 	// 1:円の中心が長方形から見て上・中・下の位置にある場合
 	if ((mx0 < ax && ax < mx1) && (my0 - ar < ay && ay < my1 + ar))
@@ -148,6 +154,10 @@ int Player::HitPlayer(void)
  *************************************/
 void Player::PlayerXControl(XINPUT_STATE input, int& Pause_flg)
 {
+	if (InitFlg == 1) {
+		InitFlg = 0;
+		PlayerInit();
+	}
 
 if (Pause_flg==0) {
 		// プレイヤーの左右移動
@@ -234,8 +244,6 @@ if (Pause_flg==0) {
 //Playerの歩く動き
 void Player::PlayerWalk(int wImg) {
 
-	Apple app;
-	Player p;
 	if (Poflg == 0) {
 
 		if (abs(Movex - OPx) > 50) {
@@ -270,13 +278,11 @@ void Player::PlayerWalk(int wImg) {
 //Playerの走る動き
 void Player::PlayerRan(int rImg)
 {
-	Apple app;
-	Player p;
 
 
 	if (Poflg == 0) {
 
-		if (abs(MoveRanx - OPxRan) > 56) {
+		if (abs(MoveRanx - OPxRan) > 57) {
 			/*OPxが動かなくならないように
 			歩く動きからZで切り替えたとき、caseで判定できる数より、
 			MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
@@ -306,11 +312,9 @@ void Player::PlayerRan(int rImg)
 }
 
 
-
 //画像を点滅できるようにする
 int Player::PlayerFlashing(void) {
 	Poflg = 1;
-	Apple app;
 	
 		if (FlashCount < 121) {
 
@@ -340,11 +344,11 @@ int Player::PlayerFlashing(void) {
 		}
 
 		FlashCount += 1;
-	//	//off += 1;
-	//DrawFormatString(600, 400, 0x000000, "Flas%d", FlashCount);
-	//DrawFormatString(600, 450, 0x000000, "Pos%d", Poflg);
-
-	//DrawFormatString(600, 550, 0x000000, "on%d", on);
-	//DrawFormatString(600, 600, 0x000000, "off%d", off);
 	return 0;
+}
+
+
+void Player::Init(int Iflg)
+{
+	InitFlg = Iflg;
 }

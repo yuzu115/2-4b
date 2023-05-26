@@ -1,6 +1,8 @@
 #include "DxLib.h"
 #include "Result.h"
 #include "DrawApple.h"
+#include "Player.h"
+#include"Keyboard.h"
 
 /****************************************
 *　変数の宣言
@@ -13,6 +15,9 @@ int RC;			// 赤リンゴの獲得数
 int BC;			// 青リンゴの獲得数
 int GC;			// 金リンゴの獲得数
 int PC;			// 毒リンゴの獲得数
+
+Apple appi;
+Player Playi;
 
 void GetAppScore(Apple::AppScore* as)
 {
@@ -27,17 +32,22 @@ void GetAppScore(Apple::AppScore* as)
 *****************************************/
 void DrawResult(RankingData Ranking[], int& GameMode)
 {
-	Apple app;
+
+	Playi.Init(1);
+	appi.AppleInit(1); 
+	KeyBoardInit();
 
 	//タイムの加算処理(180f以上経過後)＆画面遷移
 	if (++ResultWaitTime > 180) {
 		// スコアがランキングの最下位の値以上
-		if (Ranking[RANK_MAX - 1].score <= app.GetScore()) {
+		if (Ranking[RANK_MAX - 1].score <= appi.GetScore()) {
 			GameMode = 5;				// INPUTNAME
 		}
 		else {
 			GameMode = 3;				// RANKING
 		}
+		ResultWaitTime = 0;
+
 	}
 
 	// リザルト画像の表示
@@ -48,7 +58,7 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	DrawFormatString(410, 240, 0x000000, "青リンゴ : %3d コ\n",BC);
 	DrawFormatString(410, 300, 0x000000, "金リンゴ : %3d コ\n",GC);
 	DrawFormatString(410, 360, 0x000000, "毒リンゴ : %3d コ\n",PC);
-	DrawFormatString(410, 500, 0x000000, "スコア   : %5d\n",app.GetScore());
+	DrawFormatString(410, 500, 0x000000, "スコア   : %5d\n",appi.GetScore());
 }
 
 /****************************************

@@ -23,6 +23,8 @@ int InitA = 0;
 int AppHitSE;
 int ApoisonSE;
 
+int AInitFlg = 0;
+
 int PoisonHitflg=0;
 
 int apx[APPLE_MAX];
@@ -80,13 +82,19 @@ void Apple::AppleInit(void)
 	gAppleState[2] = gApple_Gl;
 	gAppleState[3] = gApple_Po;
 
-
+	Score = 0;
 	gRandApple = 0;
+
+	PoisonHitflg = 0;
 
 	gScore.r = 0;
 	gScore.b = 0;
 	gScore.g = 0;
 	gScore.p = 0;
+
+	for (int i = 0; i < APPLE_MAX; i++) {
+		gApple[i].y = 1000;
+	}
 
 }
 
@@ -112,6 +120,11 @@ int Apple::AppleSet(void)
 */
 void Apple::DrawApple(int& Pause_flg){
 
+	if (AInitFlg == 1) {
+		AInitFlg = 0;
+		AppleInit();
+	}
+
 	Player p;	
 	Apple ap;
 
@@ -129,7 +142,7 @@ void Apple::DrawApple(int& Pause_flg){
 			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
 			if (Pause_flg == 0) {
 				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-				gApple[i].y += gApple[i].speed*3;
+				gApple[i].y += gApple[i].speed;
 			}
 			else
 			{
@@ -156,6 +169,7 @@ void Apple::DrawApple(int& Pause_flg){
 
 				Score += gApple[i].score;
 
+				if (Score < 0)Score = 0;
 
 				ChangeVolumeSoundMem(210, AppHitSE);
 				ChangeVolumeSoundMem(210, ApoisonSE);
@@ -324,4 +338,10 @@ void Apple::Poget(int Po)
 {
 
 	PoisonHitflg = Po;
+}
+
+
+void Apple::AppleInit(int AIflg)
+{
+	AInitFlg = AIflg;
 }

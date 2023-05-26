@@ -18,6 +18,7 @@ public:
 		float x, y;      // À•W
 		float w, h;      // •A‚‚³
 		float speed;     // ˆÚ“®‘¬“x
+
 	}PLAYER;
 
 	PLAYER gPlayer;
@@ -36,5 +37,6 @@ public:
 	void PlayerRan(int rImg);
 	void PlayerWalk(int Img);
 	int PlayerFlashing(void);
+	void Init(int Iflg);
 };
 

@@ -21,12 +21,12 @@ void DrawEnd(int& GameMode)
 	if (++EndWaitTime < 250) PosY = 250 - EndWaitTime;
 
 	SetFontSize(50);
-	DrawFormatString(10, 150, 0x000000, "WaitTime%4d", EndWaitTime);
+	//DrawFormatString(10, 150, 0x000000, "WaitTime%4d", EndWaitTime);
 		
 	SetFontSize(40);
 	DrawFormatString(100, 310 + PosY, 0x000000, "‘fÞ—˜—p");
-	DrawFormatString(100, 370 + PosY, 0x000000, "@BGM@@@ @‚w‚w‚w‚w");
-	DrawFormatString(100, 410 + PosY, 0x000000, "@SE@@@@@‚w‚w‚w‚w‚w‚w‚w‚w");
+	DrawFormatString(100, 370 + PosY, 0x000000, "@‚¢‚ç‚·‚Æ‚â");
+	//DrawFormatString(100, 410 + PosY, 0x000000, "@SE@@@@@‚w‚w‚w‚w‚w‚w‚w‚w");
 	
 	//ƒ^ƒCƒ€‚Ì‰ÁŽZˆ—•300fŒo‰ßŒãI—¹(‰¼)
 	if (EndWaitTime >= 300)

@@ -20,7 +20,7 @@ int posY;				// カーソルのY座標
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
 
-	ChangeVolumeSoundMem(220, TCursorMoveSE);
+	ChangeVolumeSoundMem(250, TCursorMoveSE);
 	ChangeVolumeSoundMem(180, DecisionSE);
 
 	// 左スティックでメニューカーソル移動処理
@@ -48,7 +48,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 
 		switch (menuNo) {
 			case 0:
-				GameMode = 1;			// Init
+				GameMode = 2;			// Init
 				break;
 			case 1:
 				GameMode = 3;			// RANKING

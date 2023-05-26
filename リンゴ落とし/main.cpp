@@ -9,10 +9,8 @@
 #include"DrawApple.h"
 #include"FPS.h"
 #include"Player.h"
-#include"InputControl.h"
 #include"Keyboard.h"
 #include "GameMain.h"
-#include "GameInit.h"
 
 /******************************************************
 *ïœêîêÈåæ
@@ -78,6 +76,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			}
 			BGMflg = 0;
 		}
+
 
 		switch (GameMode) {
 			case TITLE:

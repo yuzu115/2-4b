@@ -40,6 +40,8 @@ public:
 	int GetScore(void);					// スコアを返す関数
 	int PoHit(void);
 	void Poget(int Po);
+	void AppleInit(int AIflg);
+	
 
 private:
 	//各リンゴのデータ

@@ -2,7 +2,8 @@
 #include "Player.h"
 #include "DrawApple.h"
 #include "Pause.h"
-#include "GameMain.h"
+#include"Keyboard.h"
+
 
 //変数宣言
 int RoopC = 60;
@@ -15,9 +16,12 @@ int gc;			// 金リンゴの獲得数
 int Mainbgmflg=1;
 int MainBGM;
 int MainImg;
+int TF;			//0 FALSE: 1 TRUE
 
-Player p;
-Apple app;
+Apple apgetscore;
+
+Apple AInit;
+Player PInit;
 
 void GetAppCount(Apple::AppScore* as)
 {
@@ -40,29 +44,32 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 			RoopC -= 1;
 		}
 
-		if (RoopC == 50) {
+		if (RoopC == 0) {
 			//60秒たったらリザルト画面へ移動
+
+			Mainbgmflg = 1;
 			StopSoundMem(MainBGM);
 			RoopC = 60;
-			GameMode = 6;
-			Mainbgmflg = 0;
+			GameMode = 6; 
+			TF = 1;
 		}
 
 	}
 
 	ChangeVolumeSoundMem(200, MainBGM);
-	if (Pause_flg == 1) {
-		StopSoundMem(MainBGM);
-
+	if (Pause_flg == 1 && Mainbgmflg==0) {
 		Mainbgmflg = 1;
+		StopSoundMem(MainBGM);
+		TF = 0;
 	}
-	else {
-		if (Mainbgmflg == 1) {
+	
+		if (Mainbgmflg == 1 && GameMode==2 && Pause_flg==0)
+		{
+			PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP,TF);
+			Mainbgmflg = 0;
 
-			PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP,FALSE);
 		}
-		Mainbgmflg = 0;
-	}
+	
 
 
 
@@ -78,8 +85,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 	//スコア仮表示
 	SetFontSize(52);
 	DrawString(1070, 240, "Score", 0x000000);
-	DrawFormatString(1110, 295, 0x000000, "%5d", app.GetScore());
-
+	DrawFormatString(1110, 295, 0x000000, "%5d", apgetscore.GetScore());
 
 	//リンゴ取った個数仮表示
 	SetFontSize(42);
@@ -97,7 +103,8 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 	DrawFormatString(1150, 675, 0x000000, "x%d", gc);
 }
 
-void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg) {
+void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg)
+{
 
 	DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
 	DrawUI(GameMode, FC, Pause_flg);
@@ -107,8 +114,8 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 		FC = 0;
 	}
 
-	app.DrawApple(Pause_flg);
-	p.PlayerXControl(input, Pause_flg);					// プレイヤー操作
+	AInit.DrawApple(Pause_flg);
+	PInit.PlayerXControl(input, Pause_flg);					// プレイヤー操作
 
 
 	//ポーズ処理
@@ -146,4 +153,11 @@ int LoadNumImg() {
 	aY = LoadGraph("images/Apple_Gold.png");
 
 	if ((MainBGM = LoadSoundMem("AppleSound/AppleBGM/今日も元気にオモテナシ.wav")) == -1)return -1;
+}
+
+void GameInit(int& GameMode)
+{
+	//キーボード初期化
+	KeyBoardInit();
+	GameMode = 2;
 }

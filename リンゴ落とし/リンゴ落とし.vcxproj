@@ -24,11 +24,8 @@
     <ClCompile Include="fps.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Keyboard.cpp" />
-    <ClCompile Include="GameInit.cpp" />
-    <ClCompile Include="inputControl.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Resultcpp.cpp" />
@@ -37,12 +34,9 @@
   <ItemGroup>
     <ClInclude Include="DrawApple.h" />
     <ClInclude Include="FPS.h" />
-    <ClInclude Include="GameInit.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="infomation.h" />
-    <ClInclude Include="InputControl.h" />
     <ClInclude Include="Keyboard.h" />
-    <ClInclude Include="PadInput.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
