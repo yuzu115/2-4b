@@ -40,10 +40,12 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 			RoopC -= 1;
 		}
 
-		if (RoopC == 0) {
+		if (RoopC == 50) {
 			//60秒たったらリザルト画面へ移動
 			StopSoundMem(MainBGM);
+			RoopC = 60;
 			GameMode = 6;
+			Mainbgmflg = 0;
 		}
 
 	}
@@ -104,10 +106,9 @@ void GameMain(int& GameMode, XINPUT_STATE input, int& Button_flg, int& Pause_flg
 
 		FC = 0;
 	}
-	//PlayerInit();								// プレイヤー初期化
+
 	app.DrawApple(Pause_flg);
-	p.PlayerXControl(input, Button_flg, Pause_flg);					// プレイヤー操作
-	//PlayerFlashing(Count, on, off);					// プレイヤー点滅
+	p.PlayerXControl(input, Pause_flg);					// プレイヤー操作
 
 
 	//ポーズ処理

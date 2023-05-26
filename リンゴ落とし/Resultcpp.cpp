@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "Result.h"
-//#include "DrawApple.h"
+#include "DrawApple.h"
 
 /****************************************
 *@•Ï”‚ÌéŒ¾

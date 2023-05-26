@@ -169,7 +169,6 @@
     <ClInclude Include="Help.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
-    <ClInclude Include="Resalt.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>

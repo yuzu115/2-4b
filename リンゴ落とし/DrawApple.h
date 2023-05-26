@@ -35,6 +35,7 @@ public:
 	void DrawApple(int& Pause_flg);
 	int RandApple(void);
 	void AppleHit(APPLE_DATA* a);
+	void AppleInit(void);
 
 	int GetScore(void);					// ÉXÉRÉAÇï‘Ç∑ä÷êî
 	int PoHit(void);

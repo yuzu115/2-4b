@@ -1,12 +1,14 @@
 #include "DxLib.h"
 #include "Title.h"
+#include "Player.h"
+#include "DrawApple.h"
 
 /****************************************
 *　変数の宣言
 *****************************************/
 int TitleImg;			// タイトル画像
 int AppleCursorImg;		// カーソル（赤リンゴ）画像
-int CursorMoveSE;	//カーソルが動く時の音
+int TCursorMoveSE;	//カーソルが動く時の音
 int DecisionSE;		//決定の音
 
 int menuNo = 0;			// 0：START　1：RANKING　2：HELP　3：END
@@ -18,24 +20,21 @@ int posY;				// カーソルのY座標
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
 
-	ChangeVolumeSoundMem(220, CursorMoveSE);
+	ChangeVolumeSoundMem(220, TCursorMoveSE);
 	ChangeVolumeSoundMem(180, DecisionSE);
 
 	// 左スティックでメニューカーソル移動処理
 	// スティックをはじいたとき、値が戻らないため-2000と2000を設定している
 	if (input.ThumbLY < -2000 && Button_flg == FALSE) {
+		PlaySoundMem(TCursorMoveSE, DX_PLAYTYPE_BACK);
 		Button_flg = TRUE;
-		if (++menuNo > 3) {
-			menuNo = 0;
-			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
-		}
+		if (++menuNo > 3)menuNo = 0;
 	}
 	if (input.ThumbLY > 2000 && Button_flg == FALSE) {
+
+		PlaySoundMem(TCursorMoveSE, DX_PLAYTYPE_BACK);
 		Button_flg = TRUE;
-		if (--menuNo < 0) {
-			menuNo = 3;
-			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
-		}
+		if (--menuNo < 0)menuNo = 3;
 	}
 	else if(input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
 	{
@@ -49,8 +48,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 
 		switch (menuNo) {
 			case 0:
-				GameMode = 2;			// MAIN
-				//GameMode = 6;			// RESULT
+				GameMode = 1;			// Init
 				break;
 			case 1:
 				GameMode = 3;			// RANKING
@@ -85,7 +83,7 @@ int LoadTitle(void)
 	if ((AppleCursorImg = LoadGraph("images/Apple_Red.png")) == -1) return -1;
 
 	//カーソル移動の音読込
-	if ((CursorMoveSE = LoadSoundMem("AppleSound/AppleSE/カーソル移動12.wav")) == -1)return-1;
+	if ((TCursorMoveSE = LoadSoundMem("AppleSound/AppleSE/カーソル移動12.wav")) == -1)return-1;
 	//決定音の読込
 	if ((DecisionSE = LoadSoundMem("AppleSound/AppleSE/カーソル移動10.wav")) == -1)return-1;
 

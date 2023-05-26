@@ -1,7 +1,7 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
-#include"Resalt.h"
+#include"Result.h"
 #include "GameMain.h"
 #include"math.h"
 
@@ -68,6 +68,25 @@ Apple::Apple()
 */
 Apple::~Apple()
 {
+
+}
+
+/*èâä˙âª*/
+void Apple::AppleInit(void)
+{
+
+	gAppleState[0] = gApple_Rd;
+	gAppleState[1] = gApple_Bl;
+	gAppleState[2] = gApple_Gl;
+	gAppleState[3] = gApple_Po;
+
+
+	gRandApple = 0;
+
+	gScore.r = 0;
+	gScore.b = 0;
+	gScore.g = 0;
+	gScore.p = 0;
 
 }
 

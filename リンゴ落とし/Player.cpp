@@ -44,6 +44,7 @@ Player::Player()
 	gPlayer.w = 120;
 	gPlayer.h = 140;
 	gPlayer.speed = PLAYER_SPEED;
+
 }
 
 Player::~Player()
@@ -51,6 +52,14 @@ Player::~Player()
 
 }
 
+void Player::PlayerInit(void) {
+	gPlayer.flg = TRUE;
+	gPlayer.x = PLAYER_POS_X;
+	gPlayer.y = PLAYER_POS_Y;
+	gPlayer.w = 120;
+	gPlayer.h = 140;
+	gPlayer.speed = PLAYER_SPEED;
+}
 
 int Player::LoadPlayerImg(void)
 {
@@ -137,17 +146,17 @@ int Player::HitPlayer(void)
 /*************************************
  * プレイヤーの移動(XInput)
  *************************************/
-void Player::PlayerXControl(XINPUT_STATE input, int& button_flg)
+void Player::PlayerXControl(XINPUT_STATE input, int& Pause_flg)
 {
 
 if (Pause_flg==0) {
 		// プレイヤーの左右移動
 		// スティックをはじいたとき、値が戻らないため-1700と1700を設定している
-		if (input.ThumbLX < -1700 || input.ThumbLX > 1700)
+		if (input.ThumbLX < -2000 || input.ThumbLX > 2000)
 		{
 			// 左移動
 			// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-			if (input.ThumbLX < -2000 || input.ThumbLX > 2000)
+			if (input.ThumbLX < -2000 && input.Buttons[XINPUT_BUTTON_A] == 1)
 			{
 				RL = 0;
 				PlayerRan(RL);

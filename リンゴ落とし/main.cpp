@@ -12,6 +12,7 @@
 #include"InputControl.h"
 #include"Keyboard.h"
 #include "GameMain.h"
+#include "GameInit.h"
 
 /******************************************************
 *変数宣言
@@ -45,24 +46,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//画像、効果音読込
 	LoadImSE();
 
+	ReadRanking(Ranking);		//ランキングデータの読込
 
 	Player p;
 	Apple app;
-
-	// 画像読込
-	LoadTitleImages();		// タイトル画像読込
-	LoadRankingImages();		// ランキング画像読込
-	LoadHelpImages();					// ヘルプ画像読込
-	LoadEndImages();				// エンド画像読込
-	LoadResultImages();					// リザルト画像読込
-	LoadInpNameImg();       // 名前入力画面画像読込
-	ReadRanking(Ranking);		//ランキングデータの読込
-	app.AppleSet();
-	p.LoadPlayerImg();
-
-	LoadKeyBoardSounds();  // 名前入力画面SE読込
-
-	KeyBoardInit();
 
 	//ScreenFlipを実行しても垂直同期信号を待たない
 		//SetWaitVSyncFlag(FALSE);
@@ -96,12 +83,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
+			case INIT:
+				GameInit(GameMode);
 			case MAIN:
 				GameMain(GameMode,input,Button_flg,Pause_flg);
 				if (app.PoHit() == 1)p.PlayerFlashing();
-				DrawBox(0, 0, 1280, 720, 0xd3d3d3, TRUE);
-				app.DrawApple();
-				p.PlayerXControl(input);
 				break;
 			case INPUTNAME:
 				InputName(Ranking,input,GameMode, Button_flg);   //　名前入力画面描画処理
@@ -129,10 +115,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 
-		if (GameMode == INPUTNAME)
-		{
-			DrawKeyboard();
-		}
+		//if (GameMode == INPUTNAME)
+		//{
+		//	DrawKeyboard();
+		//}
 
 		
 		//裏画面の内容を表画面に反映する
@@ -155,13 +141,17 @@ int LoadImSE(void) {
 	Player p;
 	Apple app;
 	if ((UsuallyBGM = LoadSoundMem("AppleSound/AppleBGM/スーパーでお買い物.wav")) == -1)return -1;
-	LoadTitle();
-	app.AppleSet();
-	p.LoadPlayerImg();
+	LoadTitle();			//タイトル画像読込
+	app.AppleSet();						//リンゴ読込
+	p.LoadPlayerImg();					//プレイヤー画像読込
 	LoadNumImg();
 	LoadResultImages();					// リザルト画像読込
 	LoadHelpImages();					// ヘルプ画像読込
 	LoadEndImages();				// エンド画像読込
-	KeyboardLoadImg();				// 画像読み込み関数を呼び出し
 	LoadRankingImages();		// ランキング画像読込
+
+	LoadInpNameImg();       // 名前入力画面画像読込
+	LoadKeyBoardSounds();  // 名前入力画面SE読込
+
+	return 0;
 }
