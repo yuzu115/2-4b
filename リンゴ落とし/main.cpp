@@ -20,10 +20,8 @@ int Button_flg = FALSE;
 int GameMode = 0;
 int Pause_flg=0;
 int UsuallyBGM;
-int BGMflg=1;
-int on2f = 20;
-int off2f = 20;
-int FlCount = 0;
+int BGMflg=1;//BGMを一度だけ流す
+
 
 //ランキングデータの変数宣言
 RankingData Ranking[RANK_MAX];
@@ -64,7 +62,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		ChangeVolumeSoundMem(170, UsuallyBGM);
 
-		if (GameMode == 2) {
+		if (GameMode == 1) {
 			if (BGMflg == 0) {
 				StopSoundMem(UsuallyBGM);
 			}
@@ -82,8 +80,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			case TITLE:
 				DrawTitle(input,Button_flg,GameMode);		//ゲームタイトル描画処理
 				break;
-			case INIT:
-				GameInit(GameMode);
 			case MAIN:
 				GameMain(GameMode,input,Button_flg,Pause_flg);
 				if (app.PoHit() == 1)p.PlayerFlashing();
@@ -106,18 +102,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		}
 
 
-		////今出てるFPSの表示
-		//display_fps();
-
 		//fpsの計測
 		Keisoku_fps();
 
-
-
-		//if (GameMode == INPUTNAME)
-		//{
-		//	DrawKeyboard();
-		//}
 
 		
 		//裏画面の内容を表画面に反映する

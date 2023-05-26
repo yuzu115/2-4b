@@ -41,10 +41,10 @@ void DrawResult(RankingData Ranking[], int& GameMode)
 	if (++ResultWaitTime > 180) {
 		// スコアがランキングの最下位の値以上
 		if (Ranking[RANK_MAX - 1].score <= appi.GetScore()) {
-			GameMode = 5;				// INPUTNAME
+			GameMode = 4;				// INPUTNAME
 		}
 		else {
-			GameMode = 3;				// RANKING
+			GameMode = 2;				// RANKING
 		}
 		ResultWaitTime = 0;
 

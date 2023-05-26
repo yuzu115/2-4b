@@ -31,7 +31,7 @@ void DrawEnd(int& GameMode)
 	//タイムの加算処理＆300f経過後終了(仮)
 	if (EndWaitTime >= 300)
 	{
-		GameMode = 10;				// CLOSE
+		GameMode = 7;				// CLOSE
 	}
 }
 

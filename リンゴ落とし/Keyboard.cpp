@@ -22,7 +22,7 @@ CURSOR_TYPE CURSOR_NOW = CURSOR_TYPE::NORMAL;  //現在のカーソル
 
 int frame = 0;                   //フレームをカウント
 
-char InputName[11];              //入力した文字が入る配列 0～9に文字(10文字ﾏﾃﾞ)　10番目には\0
+char InputName[10];              //入力した文字が入る配列 0～9に文字(10文字ﾏﾃﾞ)　10番目には\0
 int input_Pos;                   //入力中の配列の〇番目
 
 // キーボードと同じ並びの配列
@@ -65,11 +65,11 @@ void KeyBoardInit()
 	CURSOR_NOW = CURSOR_TYPE::NORMAL;
 
 	//入力文字列　初期化
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		InputName[i] = 0;
 	}
-	InputName[10] = '\0';     //配列の一番最後に"\0"(終端の目印)を入れておく
+	InputName[9] = '\0';     //配列の一番最後に"\0"(終端の目印)を入れておく
 
 	input_Pos = -1;
 
@@ -233,7 +233,7 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 				++input_Pos;  //入力位置を一つ右に
 
 				//上限は10文字   （配列の0～9）
-				if (input_Pos > 9) input_Pos = 9;
+				if (input_Pos > 8) input_Pos = 8;
 
 				//文字配列に入力
 				InputName[input_Pos] = AllStr[movekeyY][movekeyX];
@@ -265,7 +265,7 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name, int& Button_flg)
 					InputName[input_Pos + 1] = '\0';       //最後の文字の一つ右に'\0'
 
 					//ランキングに入力内容をセット
-					strcpy_s(name, 11, InputName);
+					strcpy_s(name, 10, InputName);
 					return 1;   //終了
 				}
 				else

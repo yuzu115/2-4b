@@ -4,34 +4,33 @@
 #include"DrawApple.h"
 
 
-int gPlayerImg[5]; // 背景画像
-float ax, ay, ar;
+float ax=0, ay=0, ar=0;
 
-float mx0, mx1, my0, my1;
+float mx0=0, mx1=0, my0=0, my1=0;
 
 Apple app;
 Player p;
 
-int on = 20;
-int off = 20;
+int on = 20;	//20fカウント用
+int off = 20;	//20fカウント用
 int FlashCount=0;//プレイヤー画像点滅用
 int Poflg=0;
 
-int InitFlg;
+int InitFlg=0;	//初期化フラグ
 
 int LFlg = 0;
 int RFlg = 0;
 
-int gStopImg;
-int gWalkImg[4];
-int gRanImg[6];
+int gStopImg=0;
+int gWalkImg[5]={0,0,0,0,0};
+int gRanImg[7] = { 0,0,0,0,0,0,0};
 int Movex = 0;	//動いた位置
 int OPx = 0;	//元の位置
-int MoveRanx = 0;
-int OPxRan = 0;
-//int Sc[3]={10,35,50};
+int MoveRunx = 0;
+int OPxRun = 0;
 
-int Img = 0;	//条件に達するまでの少しの間同じ画像を表示し続ける用
+int ImgRun = 0;	//条件に達するまでの少しの間同じ画像を表示し続ける用
+int ImgWalk = 0;	//条件に達するまでの少しの間同じ画像を表示し続ける用
 int wImg = 0;		//walkImgの画像どれ表示するかの表示
 
 int RL = 0;	//左か右か判別する変数
@@ -159,22 +158,23 @@ void Player::PlayerXControl(XINPUT_STATE input, int& Pause_flg)
 		PlayerInit();
 	}
 
-if (Pause_flg==0) {
+	if (Pause_flg == 0)
+	{
 		// プレイヤーの左右移動
-		// スティックをはじいたとき、値が戻らないため-1700と1700を設定している
-		if (input.ThumbLX < -2000 || input.ThumbLX > 2000)
+		// スティックをはじいたとき、値が戻らないため-20000と20000を設定している
+		if (input.ThumbLX < -20000 || input.ThumbLX > 20000)
 		{
 			// 左移動
 			// ダッシュ：Aボタンを押したまま左スティックを左に傾ける
-			if (input.ThumbLX < -2000 && input.Buttons[XINPUT_BUTTON_A] == 1)
+			if (input.ThumbLX < -20000 && input.Buttons[XINPUT_BUTTON_A] == 1)
 			{
 				RL = 0;
 				PlayerRan(RL);
 				gPlayer.x -= gPlayer.speed + 2;
-				MoveRanx = gPlayer.x;
+				MoveRunx = gPlayer.x;
 			}
 			// 歩く：左スティックを左に傾ける
-			else if (input.ThumbLX < -2000)
+			else if (input.ThumbLX < -20000)
 			{
 
 				RL = 0;
@@ -186,15 +186,15 @@ if (Pause_flg==0) {
 
 			// 右移動
 			// ダッシュ：Aボタンを押したまま左スティックを右に傾ける
-			if (input.ThumbLX > 2000 && input.Buttons[XINPUT_BUTTON_A] == 1)
+			if (input.ThumbLX > 20000 && input.Buttons[XINPUT_BUTTON_A] == 1)
 			{
 				RL = 3;
 				PlayerRan(RL);
 				gPlayer.x += gPlayer.speed + 2;
-				MoveRanx = gPlayer.x;
+				MoveRunx = gPlayer.x;
 			}
 			// 歩く：左スティックを右に傾ける
-			else if (input.ThumbLX > 2000)
+			else if (input.ThumbLX > 20000)
 			{
 				RL = 2;
 				PlayerWalk(RL);
@@ -210,25 +210,35 @@ if (Pause_flg==0) {
 		{
 			if (Poflg == 0) {
 				//プレイヤー止まってる画像表示
-				DrawExtendGraph(gPlayer.x-10, gPlayer.y, gPlayer.x + gPlayer.w+10, SCREEN_HEIGHT, gStopImg, TRUE);
+				DrawExtendGraph(gPlayer.x - 10, gPlayer.y, gPlayer.x + gPlayer.w + 10, SCREEN_HEIGHT, gStopImg, TRUE);
 
 			}
 		}
-	}else {
+	}
+	else
+	{
 		//プレイヤー止まってる画像表示
 		DrawExtendGraph(gPlayer.x-10, gPlayer.y, gPlayer.x + gPlayer.w+10, SCREEN_HEIGHT, gStopImg, TRUE);
-
-	}
+}
 
 	// 画面をはみ出さないようにする
 	// 右
 	if (gPlayer.x > 930)
 	{
+		ImgWalk=2;
+		ImgRun = 3;
+		Movex = gPlayer.x;
+		OPxRun = MoveRunx;
 		gPlayer.x = 930;
 	}
 	// 左
 	if (gPlayer.x < 0)
 	{
+
+		ImgWalk = 0;
+		ImgRun = 0;
+		Movex = gPlayer.x;
+		OPxRun = MoveRunx;
 		gPlayer.x = 0;
 	}
 
@@ -246,26 +256,26 @@ void Player::PlayerWalk(int wImg) {
 
 	if (Poflg == 0) {
 
-		if (abs(Movex - OPx) > 50) {
+		if (abs(Movex - OPx) >= 31) {
 			//一瞬画像が表示されなくなる時間ができるので表示
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[ImgWalk], TRUE);
 			//OPxが動かなくならないように
-			OPx = Movex - 10;
+			OPx = Movex;
 		}
 		else {
 			//歩く動き
 			switch (abs(Movex - OPx)) {
-			case 20:
+			case 10:
 				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w , SCREEN_HEIGHT, gWalkImg[wImg], TRUE);
-				Img = wImg;
+				ImgWalk = wImg;
 				break;
-			case 50:
+			case 30:
 				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[wImg + 1], TRUE);
-				Img = wImg + 1;
+				ImgWalk = wImg + 1;
 				OPx = gPlayer.x;
 				break;
 			default:
-				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[Img], TRUE);
+				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[ImgWalk], TRUE);
 
 			}
 
@@ -278,35 +288,38 @@ void Player::PlayerWalk(int wImg) {
 //Playerの走る動き
 void Player::PlayerRan(int rImg)
 {
-
-
 	if (Poflg == 0) {
 
-		if (abs(MoveRanx - OPxRan) > 57) {
+		if (abs(MoveRunx - OPxRun) >= 36) {
 			/*OPxが動かなくならないように
 			歩く動きからZで切り替えたとき、caseで判定できる数より、
 			MoveRanx-OPxRanが大きい場合、画像が動かなくなってしまうので
 			if文でリセットしている*/
-			OPxRan = MoveRanx;
+			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gWalkImg[ImgRun], TRUE);
+			OPxRun = MoveRunx;
 		}
 		//走る動き
-		switch (abs(MoveRanx - OPxRan)) {
-		case 21:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
-			Img = rImg;
-			break;
-		case 35:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
-			Img = rImg + 1;
-			break;
-		case 56:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
-			Img = rImg + 2;
-			OPxRan = gPlayer.x;
-			break;
-		default:
-			DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[Img], TRUE);
+			switch (abs(MoveRunx - OPxRun)) {
+			case 7:
+				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg], TRUE);
+				ImgRun = rImg;
+				break;
+			case 21:
+				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 1], TRUE);
+				ImgRun = rImg + 1;
+				break;
+			case 35:
+				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[rImg + 2], TRUE);
+				ImgRun = rImg + 2;
+				OPxRun = gPlayer.x;
+				break;
+			default:
+				DrawExtendGraph(gPlayer.x, gPlayer.y, gPlayer.x + gPlayer.w, SCREEN_HEIGHT, gRanImg[ImgRun], TRUE);
+			
 		}
+	}
+	else {
+		OPxRun = MoveRunx;
 	}
 
 }

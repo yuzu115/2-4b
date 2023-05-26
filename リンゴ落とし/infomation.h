@@ -22,18 +22,13 @@
 ******************************************/
 enum mode {
 	TITLE,
-	INIT,
 	MAIN,
 	RANKING,
 	HELP,
 	INPUTNAME,
 	RESULT,
-	PAUSE,
-	TIME,
 	END,
 	CLOSE,
-	UISCORE,
-
 };
 
 

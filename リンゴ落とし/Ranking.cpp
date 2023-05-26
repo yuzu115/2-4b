@@ -140,7 +140,7 @@ void InputName(RankingData Ranking[],XINPUT_STATE input,int& GameMode,int& Butto
 		Ranking[RANK_MAX - 1].score = app.GetScore();   // ランキングデータ10番目にスコアを登録
 		SortRanking(Ranking);
 		SaveRanking(Ranking);
-		GameMode = 3;                                // ゲームモードの変更
+		GameMode = 2;                                // ゲームモードの変更
 	}
 	else //入力完了していない時
 	{

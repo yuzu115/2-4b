@@ -48,16 +48,16 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 
 		switch (menuNo) {
 			case 0:
-				GameMode = 2;			// Init
+				GameMode = 1;			// Main
 				break;
 			case 1:
-				GameMode = 3;			// RANKING
+				GameMode = 2;			// RANKING
 				break;
 			case 2:
-				GameMode = 4;			// HELP
+				GameMode = 3;			// HELP
 				break;
 	 		case 3:
-				GameMode = 9;			// END
+				GameMode = 6;			// END
 				break;
 		}
 	}

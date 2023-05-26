@@ -50,7 +50,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 			Mainbgmflg = 1;
 			StopSoundMem(MainBGM);
 			RoopC = 60;
-			GameMode = 6; 
+			GameMode = 5; 
 			TF = 1;
 		}
 
@@ -63,7 +63,7 @@ void DrawUI(int& GameMode, int& FC, int& Pause_flg) {
 		TF = 0;
 	}
 	
-		if (Mainbgmflg == 1 && GameMode==2 && Pause_flg==0)
+		if (Mainbgmflg == 1 && GameMode==1 && Pause_flg==0)
 		{
 			PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP,TF);
 			Mainbgmflg = 0;
@@ -155,9 +155,3 @@ int LoadNumImg() {
 	if ((MainBGM = LoadSoundMem("AppleSound/AppleBGM/今日も元気にオモテナシ.wav")) == -1)return -1;
 }
 
-void GameInit(int& GameMode)
-{
-	//キーボード初期化
-	KeyBoardInit();
-	GameMode = 2;
-}

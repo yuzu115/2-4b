@@ -24,8 +24,7 @@ void DrawHelp(XINPUT_STATE input, int& Button_flg, int& GameMode)
 	// Bボタンでゲームスタート
 	if (input.Buttons[XINPUT_BUTTON_B] == 1 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		GameMode = 1;					// INIT
-		//GameMode = 9;					// END
+		GameMode = 1;					// main
 	}
 
 	// 画像の表示
