@@ -11,6 +11,6 @@
 *　プロトタイプ宣言
 ******************************************/
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode);		// タイトル画面描画
-int LoadTitleImages(void);		// タイトル画像読込
+int LoadTitle(void);		// タイトル画像、効果音読込
 
 #endif // !TITLE_H__

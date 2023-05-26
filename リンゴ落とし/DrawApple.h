@@ -32,11 +32,13 @@ public:
 	//リンゴの生成
 	int CreateApple(void);
 	int AppleSet(void);
-	void DrawApple(void);
+	void DrawApple(int& Pause_flg);
 	int RandApple(void);
 	void AppleHit(APPLE_DATA* a);
 
 	int GetScore(void);					// スコアを返す関数
+	int PoHit(void);
+	void Poget(int Po);
 
 private:
 	//各リンゴのデータ

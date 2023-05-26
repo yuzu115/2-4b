@@ -36,4 +36,9 @@ int KeyBoard_PushB(XINPUT_STATE input, char* name,int& Button_flg);
 //入力情報表示
 void DrawInputInfo();
 
+/******************************************
+ * 関数のプロトタイプ宣言
+ ******************************************/
+void DrawKeyboard(void);  // キーボード表示
+int KeyboardLoadImg(void);        // 画像読込
 #endif

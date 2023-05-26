@@ -6,6 +6,8 @@
 *****************************************/
 int TitleImg;			// タイトル画像
 int AppleCursorImg;		// カーソル（赤リンゴ）画像
+int CursorMoveSE;	//カーソルが動く時の音
+int DecisionSE;		//決定の音
 
 int menuNo = 0;			// 0：START　1：RANKING　2：HELP　3：END
 int posY;				// カーソルのY座標
@@ -15,15 +17,25 @@ int posY;				// カーソルのY座標
 *****************************************/
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 {
+
+	ChangeVolumeSoundMem(220, CursorMoveSE);
+	ChangeVolumeSoundMem(180, DecisionSE);
+
 	// 左スティックでメニューカーソル移動処理
 	// スティックをはじいたとき、値が戻らないため-2000と2000を設定している
 	if (input.ThumbLY < -2000 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		if (++menuNo > 3) menuNo = 0;
+		if (++menuNo > 3) {
+			menuNo = 0;
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
+		}
 	}
-	else if (input.ThumbLY > 2000 && Button_flg == FALSE) {
+	if (input.ThumbLY > 2000 && Button_flg == FALSE) {
 		Button_flg = TRUE;
-		if (--menuNo < 0) menuNo = 3;
+		if (--menuNo < 0) {
+			menuNo = 3;
+			PlaySoundMem(CursorMoveSE, DX_PLAYTYPE_BACK);
+		}
 	}
 	else if(input.ThumbLY > -2000 && input.ThumbLY < 2000 && input.Buttons[XINPUT_BUTTON_A] == 0)
 	{
@@ -32,6 +44,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 
 	// Aボタンでメニュー選択
 	if (input.Buttons[XINPUT_BUTTON_A] == 1 && Button_flg == FALSE) {
+		PlaySoundMem(DecisionSE, DX_PLAYTYPE_BACK);
 		Button_flg = TRUE;
 
 		switch (menuNo) {
@@ -62,14 +75,20 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 }
 
 /****************************************
-* タイトル画像読込
+* タイトル画像、効果音読込
 *****************************************/
-int LoadTitleImages(void)
+int LoadTitle(void)
 {
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/title.png")) == -1) return -1;
 	// カーソル（赤リンゴ）画像
-	if ((AppleCursorImg = LoadGraph("images/apple.png")) == -1) return -1;
+	if ((AppleCursorImg = LoadGraph("images/Apple_Red.png")) == -1) return -1;
+
+	//カーソル移動の音読込
+	if ((CursorMoveSE = LoadSoundMem("AppleSound/AppleSE/カーソル移動12.wav")) == -1)return-1;
+	//決定音の読込
+	if ((DecisionSE = LoadSoundMem("AppleSound/AppleSE/カーソル移動10.wav")) == -1)return-1;
 
 	return 0;
 }
+

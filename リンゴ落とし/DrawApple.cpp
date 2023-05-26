@@ -1,7 +1,9 @@
 #include"DxLib.h"
 #include"DrawApple.h"
 #include"Player.h"
-#include"Result.h"
+#include"Resalt.h"
+#include "GameMain.h"
+#include"math.h"
 
 int gAppleImg[APPLE_TYPE];
 int gRandApple;
@@ -9,10 +11,29 @@ int gRandApple;
 int Score;
 int Count;
 
-int Count_R;
-int Count_B;
-int Count_Go;
-int Count_Po;
+int a3, b3;
+float c3;
+float numi[APPLE_MAX];
+float numi2[APPLE_MAX];
+int y;
+int Aflg = 0;
+int Aflg2 = 0;
+int InitA = 0;
+
+int AppHitSE;
+int ApoisonSE;
+
+int PoisonHitflg=0;
+
+int apx[APPLE_MAX];
+int apy[APPLE_MAX];
+int apt[APPLE_MAX];
+int apr[APPLE_MAX];
+
+int apx2[APPLE_MAX];
+int apy2[APPLE_MAX];
+int apt2[APPLE_MAX];
+int apr2[APPLE_MAX];
 
 
 //ÉäÉìÉSÇÃïœêî
@@ -61,13 +82,16 @@ int Apple::AppleSet(void)
 	if ((gAppleImg[2] = LoadGraph("images/Apple_Gold.png")) == -1)return -1;
 	if((gAppleImg[3] = LoadGraph("images/Apple_Poison.png")) == -1)return -1;
 
+	if ((AppHitSE = LoadSoundMem("AppleSound/AppleSE/powerup03.wav")) == -1)return -1;
+	if ((ApoisonSE = LoadSoundMem("AppleSound/AppleSE/powerdown07.wav")) == -1)return -1;
+
 	return 0;
 }
 	
 /**
 * ÉäÉìÉSÇÃï`âÊ
 */
-void Apple::DrawApple(void){
+void Apple::DrawApple(int& Pause_flg){
 
 	Player p;	
 	Apple ap;
@@ -84,11 +108,23 @@ void Apple::DrawApple(void){
 
 			DrawRotaGraph(gApple[i].x, gApple[i].y,0.25 ,0, gApple[i].img,TRUE, TRUE);
 			//DrawCircle(gApple[i].x, gApple[i].y, gApple[i].r, 0xffffff, TRUE);
-			gApple[i].y +=  gApple[i].speed ;
+			if (Pause_flg == 0) {
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+				gApple[i].y += gApple[i].speed*3;
+			}
+			else
+			{
+				gApple[i].y = gApple[i].y;
+				SetFontSize(60);
+				DrawFormatString(490, 350, 0x000000, "É|Å[ÉYíÜ", gApple[i].speed);
+
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+			}
 	
 
 			p.GetApple(&gApple[i]);
 			GetAppScore(&gScore);
+			GetAppCount(&gScore);
 
 			//gAppleÇÃyç¿ïWÇ™1000à»â∫Ç…Ç»Ç¡ÇΩÇ∆Ç´è¡ãé
 			if (gApple[i].y > 1000) {
@@ -102,20 +138,31 @@ void Apple::DrawApple(void){
 				Score += gApple[i].score;
 
 
-				if (gApple[i].type == 0)	gScore.r++;
-				if (gApple[i].type == 1) 	gScore.b++;
-				if (gApple[i].type == 2) 	gScore.g++;
-				if (gApple[i].type == 3)	gScore.p++;
+				ChangeVolumeSoundMem(210, AppHitSE);
+				ChangeVolumeSoundMem(210, ApoisonSE);
+				if (gApple[i].type == 0)
+				{
+					PlaySoundMem(AppHitSE, DX_PLAYTYPE_BACK);
+					gScore.r++;
+				}
+				if (gApple[i].type == 1)
+				{
+					PlaySoundMem(AppHitSE, DX_PLAYTYPE_BACK);
+					gScore.b++;
+				}
+				if (gApple[i].type == 2)
+				{
+					PlaySoundMem(AppHitSE, DX_PLAYTYPE_BACK);
+					gScore.g++;
+				}
+				if (gApple[i].type == 3)
+				{
+					PlaySoundMem(ApoisonSE, DX_PLAYTYPE_BACK);
+					PoisonHitflg = 1;
 
+					gScore.p++;
+				}
 			}
-
-			
-			
-			DrawFormatString(0, 0, 0x000000, "Score:%d",Score);
-			DrawFormatString(0, 20, 0x000000, "Red:%d", gScore.r);
-			DrawFormatString(0, 40, 0x000000, "Blue:%d", gScore.b);
-			DrawFormatString(0, 60, 0x000000, "Gold:%d", gScore.g);
-			DrawFormatString(0, 80, 0x000000, "Count:%d", Count);
 
 		}	
 	}	
@@ -130,28 +177,85 @@ int Apple::CreateApple()
 		if (gApple[i].flg == FALSE) {
 			gApple[i] = gAppleState[RandApple()];	//ÉXÉeÅ[É^ÉXÇÃäiî[
 			gApple[i].img = gAppleImg[gApple[i].type];
-			gApple[i].x = GetRand(6) * 125 + 50;
+			gApple[i].x = GetRand(6) * 150 + 100;
+			gApple[i].flg = TRUE;
 
-			for (int j = 0; j < APPLE_MAX; j++)
-			{
-				if (i == j)continue;
-				
-				if (gApple[i].x == gApple[j].x && gApple[i].type == gApple[i].type)
+
+			for (int j = 0; j < APPLE_MAX; j++) {
+
+				if (gApple[i].type == apt2[j]) 
 				{
-					if (gApple[i].y < gApple[j].r * 2) {
-						gApple[i].y -= 100;
+
+					a3 = apx2[j] - gApple[i].x;
+					b3 = apy2[j] - gApple[i].y;
+					c3 = sqrt(a3 * a3 + b3 * b3);
+
+					//îÌÇ¡ÇƒÇΩèÍçá
+					if (gApple[i].x == apx2[j] && c3 <= gApple[i].r + apr2[j] + 40)
+					{
+						Aflg = 1;
+						numi2[i] = 1;
 					}
-					
+				}
+
+				if (gApple[i].type == apt[j]) {
+
+					a3 = apx[j] - gApple[i].x;
+					b3 = apy[j] - gApple[i].y;
+					c3 = sqrt(a3 * a3 + b3 * b3);
+
+					//îÌÇ¡ÇƒÇΩèÍçá
+					if (gApple[i].x == apx[j] && c3 <= gApple[i].r + apr[j] + 40) {
+						numi[i] = 1;
+						Aflg = 1;
+					}
 				}
 
 			}
 
-			gApple[i].flg = TRUE;			
+
+			if (Aflg == 1) {
+				Aflg = 0;
+				//numi
+				for (int i = 0; i < APPLE_MAX; i++) {
+					if (numi[i] != 0) {
+
+						gApple[i].flg = FALSE;
+
+					}
+					numi[i] = 0;
+
+
+					if (numi2[i] != 0) {
+
+						gApple[i].flg = FALSE;
+					}
+					numi2[i] = 0;
+				}
+			}
 			
+
+				apx[i] = gApple[i].x;
+				apy[i] = gApple[i].y;
+				apt[i] = gApple[i].type;
+				apr[i] = gApple[i].r;
+
 			return TRUE;	//ê¨å˜
 
 		}
 	}
+
+		for (int i = 0; i < APPLE_MAX; i++) {
+			apx2[i] = gApple[i].x;
+			apy2[i] = gApple[i].y;
+			apt2[i] = gApple[i].type;
+			apx[i] = 0;
+			apy[i] = 0;
+			apt[i] = 0;
+
+		}
+
+
 	return FALSE;	//é∏îs
 }  
 
@@ -190,4 +294,15 @@ int Apple::RandApple()
 int Apple::GetScore()
 {
 	return Score;
+}
+
+int Apple::PoHit(void)
+{
+	return PoisonHitflg;
+}
+
+void Apple::Poget(int Po)
+{
+
+	PoisonHitflg = Po;
 }
