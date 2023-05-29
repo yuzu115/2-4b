@@ -136,7 +136,7 @@ float Player::Pythagorean(float px, float py, float ax, float ay)
 
 }
 
-void Player::GetApple(Apple::APPLE_DATE* a)
+void Player::GetApple(Apple::APPLE_DATA* a)
 {
 	ax = a->x;
 	ay = a->y;
@@ -149,10 +149,8 @@ int Player::HitPlayer(void)
 	// リンゴとプレイヤーが当たっているか判定
 	int flg = 0;
 
-	DrawBox(mx0, my0, mx1,my1, 0x000000, TRUE);
-
-
-	DrawCircle(ax, ay, ar, 0xffffff, TRUE);
+	//DrawBox(mx0, my0, mx1,my1, 0x000000, TRUE);
+	//DrawCircle(ax, ay, ar, 0xffffff, TRUE);
 
 	// 1:円の中心が長方形から見て上・中・下の位置にある場合
 	if ((mx0 < ax && ax < mx1) && (my0 - ar < ay && ay < my1 + ar))
@@ -179,8 +177,5 @@ int Player::HitPlayer(void)
 		flg = 4;
 		return TRUE;
 	}
-	if (flg == 4)
-	{
-		DrawCircle(ax, ay, ar, 0xffffff, TRUE);
-	}
+	return FALSE;
 }

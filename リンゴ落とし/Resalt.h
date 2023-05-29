@@ -1,5 +1,5 @@
 #pragma once
-
+#include"DrawApple.h"
 #ifndef RESALT_H_
 #define RESALT_H_
 
@@ -7,6 +7,7 @@
 *関数のプロトタイプ宣言 *
 ************************/
 void Resalt(int oldkey,int&gamemode);
+void GetAppScore(Apple::AppScore* as);
 
 #endif // !RESALT_H_
 
