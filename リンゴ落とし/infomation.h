@@ -48,5 +48,5 @@ int g_KeyFlg;                  //入力キー情報
 int g_Score;      //スコア
 
 
-//int Count=0;
+int Count=0;
 int on, off = 0;

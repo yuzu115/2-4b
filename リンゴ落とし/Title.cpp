@@ -36,7 +36,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 
 		switch (menuNo) {
 		case 0:
-			GameMode = 2;			// MAIN
+			GameMode = 1;			// INIT
 			//GameMode = 6;			// RESULT
 			break;
 		case 1:
@@ -46,7 +46,7 @@ void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode)
 			GameMode = 4;			// HELP
 			break;
 	 	case 3:
-			GameMode = 9;			// END
+			GameMode = 7;			// END
 			break;
 		}
 	}
@@ -69,7 +69,6 @@ int LoadTitleImages(void)
 	// タイトル画像の読込
 	if ((TitleImg = LoadGraph("images/title.png")) == -1) return -1;
 	// カーソル（赤リンゴ）画像
-	if ((AppleCursorImg = LoadGraph("images/apple.png")) == -1) return -1;
+	if ((AppleCursorImg = LoadGraph("images/redapple.png")) == -1) return -1;
 
-	return 0;
 }

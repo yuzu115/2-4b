@@ -1,7 +1,5 @@
 #pragma once
-
-#ifndef TITLE_H__
-#define TITLE_H__
+#include"DxLib.h"
 
 //タイトル画面のみで使う変数・関数の宣言をここに書きます
 
@@ -13,4 +11,4 @@
 void DrawTitle(XINPUT_STATE input, int& Button_flg, int& GameMode);		// タイトル画面描画
 int LoadTitleImages(void);		// タイトル画像読込
 
-#endif // !TITLE_H__
+void DrawTitle(void);

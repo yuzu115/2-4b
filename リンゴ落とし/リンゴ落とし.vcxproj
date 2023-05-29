@@ -22,17 +22,18 @@
     <ClCompile Include="DrawApple.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="fps.cpp" />
-    <ClCompile Include="InputControl.cpp" />
-    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="GameInit.cpp" />
     <ClCompile Include="inputControl.cpp" />
     <ClCompile Include="Help.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Resultcpp.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawApple.h" />
