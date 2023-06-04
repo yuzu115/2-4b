@@ -63,6 +63,7 @@ void Player::PlayerInit(void) {
 	gPlayer.w = 120;
 	gPlayer.h = 140;
 	gPlayer.speed = PLAYER_SPEED;
+	Img = 0;
 
 	Poflg = 0;
 }
@@ -172,11 +173,9 @@ if (Pause_flg==0) {
 				PlayerRan(RL);
 				gPlayer.x -= gPlayer.speed + 2;
 				MoveRanx = gPlayer.x;
-			}
-			// 歩く：左スティックを左に傾ける
-			else if (input.ThumbLX < -2000)
+			}else if (input.ThumbLX < -2000)
 			{
-
+				// 歩く：左スティックを左に傾ける
 				RL = 0;
 				PlayerWalk(RL);
 				gPlayer.x -= gPlayer.speed;
@@ -192,10 +191,8 @@ if (Pause_flg==0) {
 				PlayerRan(RL);
 				gPlayer.x += gPlayer.speed + 2;
 				MoveRanx = gPlayer.x;
-			}
-			// 歩く：左スティックを右に傾ける
-			else if (input.ThumbLX > 2000)
-			{
+			}else if (input.ThumbLX > 2000)
+			{// 歩く：左スティックを右に傾ける
 				RL = 2;
 				PlayerWalk(RL);
 				gPlayer.x += gPlayer.speed;
@@ -204,21 +201,20 @@ if (Pause_flg==0) {
 			}
 
 
-		}
-		// プレイヤーの静止
-		else
-		{
+		}else
+		{// プレイヤーの静止
 			if (Poflg == 0) {
 				//プレイヤー止まってる画像表示
 				DrawExtendGraph(gPlayer.x-10, gPlayer.y, gPlayer.x + gPlayer.w+10, SCREEN_HEIGHT, gStopImg, TRUE);
 
 			}
 		}
-	}else {
+}else 
+{
 		//プレイヤー止まってる画像表示
 		DrawExtendGraph(gPlayer.x-10, gPlayer.y, gPlayer.x + gPlayer.w+10, SCREEN_HEIGHT, gStopImg, TRUE);
 
-	}
+}
 
 	// 画面をはみ出さないようにする
 	// 右
@@ -270,8 +266,8 @@ void Player::PlayerWalk(int wImg) {
 			}
 
 		}
-	}
 
+	}
 
 }
 
