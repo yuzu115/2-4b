@@ -2,7 +2,7 @@
 #include"DrawApple.h"
 #include"Player.h"
 #include"Result.h"
-#include "GameMain.h"
+#include"GameMain.h"
 #include"math.h"
 
 int gAppleImg[APPLE_TYPE];
